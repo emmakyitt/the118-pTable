@@ -1,0 +1,6 @@
+#pTable {
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 30rem;
+  display: flex;
+}

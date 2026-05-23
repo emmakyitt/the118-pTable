@@ -39,14 +39,7 @@ export class VisualModel implements IVisualModel {
    * 子类必须覆盖此方法以提供具体矩阵逻辑
    * @throws 当基类未被子类实现时调用
    */
-  public getMatrix3d(): Matrix3D {
+  public getMatrix3d(): Matrix3D[] {
     throw new Error('子类必须实现 getMatrix3d 方法');
-  }
-  
-  /**
-   * 创建模型返回矩阵
-   */
-  public create(): Matrix3D {
-    return this.getMatrix3d();
   }
 };
