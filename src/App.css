@@ -1,0 +1,16 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  font-size: 62.5% !important;
+  font-family: Verdana !important;
+  user-select: none;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
