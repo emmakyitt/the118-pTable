@@ -1,7 +1,7 @@
 import type { 
   MoStatus,
   Matrix3D,
-  IVisualModel, 
+  IVisualModelFactory, 
   IVisualModelCtor } from '@/typings';
 
 /**
@@ -10,27 +10,22 @@ import type {
  * 提供统一的创建接口和静态注册表，支持通过状态枚举动态路由到对应子类。
  * 直接实例化本类时，会自动根据 moStatus 选择已注册的子类构造函数并返回其实例。
  */
-export class VisualModel implements IVisualModel {
+export default class VisualModelFactory implements IVisualModelFactory {
 
   /** 静态注册表：存储所有子类构造函数的映射 (key 为模型标识) */
   static registry: Record<string, IVisualModelCtor> = {};
 
    /**
    * @param moStatus - 布局模式状态
-   * 当使用 new VisualModel(status) 调用时，会从注册表中寻找对应的子类
+   * 当使用 new VisualModelFactory(status) 调用时，会从注册表中寻找对应的子类
    * 并返回子类实例（多态）
    */
   constructor (public moStatus: MoStatus) {
 
     // 仅在直接实例化基类（而非子类通过 super 调用）时进行路由
-    if (new.target === VisualModel) {
-      const Ctor = VisualModel.registry[moStatus];
-      if (!Ctor) {
-        throw new Error(`未找到模型：${moStatus}`);
-      }
-
-      // 返回子类实例
-      return new Ctor(moStatus);
+    if (new.target === VisualModelFactory) {
+      try { return new VisualModelFactory.registry[moStatus](moStatus) } // 返回子类实例
+      catch (e: any) { throw new Error(`Visual model not found：${moStatus}`) } 
     }
   }
 
