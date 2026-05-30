@@ -64,6 +64,17 @@ export default class MathTools {
     return degrees * MathTools.RAD_PER_DEG;
   }
 
+  /**
+   * 根据给定的角度（度数）计算余弦值。
+   * @param degrees 角度值（度数）
+   * @returns 余弦值
+   * @example
+   * MathTools.cosineByAngle(75); // ≈0.25881
+   */
+  static cosineByAngle(degrees: number): number {
+    return Math.cos(MathTools.angleToRad(degrees));
+  }
+
    /**
    * 通过余弦定理计算三角形第三边的长度。
    * 已知两边长度及其夹角（角度制），返回该夹角对边的长度。
