@@ -58,7 +58,7 @@ export default class HeModel extends VisualModelFactory {
 
 
   // ==================== 公共接口 ====================
-  
+
    /**
    * 获取当前模型下所有元素的 3D 变换矩阵（螺旋布局）
    *
@@ -112,7 +112,7 @@ export default class HeModel extends VisualModelFactory {
       yAxisOffset[1] = firstElementY + i * stepY; // 当前元素的 Y 轴位置 + (索引 * 垂直步长)
       rotateArray[1] = i % perTurn * angleStep;   // 当前元素绕 Y 轴的旋转角度（每圈 perTurn 个元素均匀分布）
 
-      // 通过工具函数生成变换矩阵（先平移，再旋转）
+      // 通过工具函数生成变换矩阵（平移，旋转，缩放）--> 执行顺序 先缩放, 后旋转, 再平移 (注意: 变换从右向左应用)
       matrices[i] = MatrixTools.transform(matrixsArgs);
     }
 
