@@ -8,8 +8,8 @@ export enum  MoStatus {
   He = 'HeModel',
   /** 网格模型 */
   Gr = 'GrModel',
-  /** 锥形模型 */
-  Co = 'CoModel',
+  /** 随机模型 */
+  Ra = 'RaModel',
 }
 
 /**
