@@ -1,9 +1,13 @@
-import type { Matrix3D } from "@/typings";
-import ElementUnit from "@/components/ElementUnit";
+import type { Matrix3D } from '@/typings';
+import type { ReactElement } from 'react';
+import ElementUnit from '@/components/ElementUnit';
 import './index.css';
 
+interface PeriodicTableProps {
+  elementPosition: Matrix3D[];
+}
 
-export default function PeriodicTable ({ elementPosition }:{ elementPosition: Matrix3D[] }) {
+export default function PeriodicTable ({ elementPosition }: PeriodicTableProps): ReactElement {
   return (
     <div id="pTable">
       {
