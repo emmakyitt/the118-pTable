@@ -1,15 +1,19 @@
-import type { Matrix3D } from "@/typings";
-import ElementUnit from "@/components/ElementUnit";
+import type { Matrix3D } from '@/typings';
+import type { ReactElement } from 'react';
+import ElementUnit from '@/components/ElementUnit';
 import './index.css';
 
+interface PeriodicTableProps {
+  elementPosition: Matrix3D[];
+}
 
-export default function PeriodicTable ({ matrix3dGroup }:{ matrix3dGroup: Matrix3D[] }) {
+export default function PeriodicTable ({ elementPosition }: PeriodicTableProps): ReactElement {
   return (
     <div id="pTable">
       {
-        matrix3dGroup.map((matrix3d: Matrix3D, idx: number) => {
-          return <ElementUnit key={ crypto.randomUUID() } matrix3d={ matrix3d } idx={ idx } />
-        })
+        elementPosition.map((matrix3d: Matrix3D, idx: number) => 
+          <ElementUnit key={ idx } matrix3d={ matrix3d } idx={ idx } />
+        )
       }
     </div>
   );

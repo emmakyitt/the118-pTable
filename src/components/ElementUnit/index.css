@@ -1,9 +1,22 @@
-#pTable div {
+.element-unit {
   width: 50px;
-  height: 50px;
-  display: flex;
-  background-color: skyblue;
-  transform-origin: left top;
+  height: 50px; 
+  background-color: rgba(233, 241, 246, 0.8);
+  transition: 1s ease-out;
   position: absolute;
-  opacity: .8;
+  left: -25px;
+  top: -25px;
+}
+.element-id {
+  margin: 5px;
+  font-size: 10px;
+  color: #758a99;
+}
+.symbol {
+  font-size: 16px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: #161823;
+  left: 50%;
+  top: 50%;
 }

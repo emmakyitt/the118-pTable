@@ -1,6 +1,4 @@
 body {
-  width: 100vw;
-  height: 100vh;
   font-size: 62.5% !important;
   font-family: Verdana !important;
   user-select: none;
@@ -8,9 +6,12 @@ body {
   padding: 0;
   margin: 0;
 }
-#root {
+.wrapper {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  perspective: 300px;
+  background: #fOfcff;
 }
