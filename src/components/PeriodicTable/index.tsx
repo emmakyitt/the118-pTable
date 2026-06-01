@@ -3,13 +3,13 @@ import ElementUnit from "@/components/ElementUnit";
 import './index.css';
 
 
-export default function PeriodicTable ({ matrix3dGroup }:{ matrix3dGroup: Matrix3D[] }) {
+export default function PeriodicTable ({ elementPosition }:{ elementPosition: Matrix3D[] }) {
   return (
     <div id="pTable">
       {
-        matrix3dGroup.map((matrix3d: Matrix3D, idx: number) => {
-          return <ElementUnit key={ crypto.randomUUID() } matrix3d={ matrix3d } idx={ idx } />
-        })
+        elementPosition.map((matrix3d: Matrix3D, idx: number) => 
+          <ElementUnit key={ idx } matrix3d={ matrix3d } idx={ idx } />
+        )
       }
     </div>
   );
