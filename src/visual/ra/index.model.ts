@@ -1,7 +1,7 @@
 import VisualModelFactory from '@/visual/VisualModelFactory';
 import registerToVisualModelFactory from '@/visual/register';
+import type { Matrix, Matrix3D } from '@/typings';
 import { MoStatus } from '@/typings';
-import type { Matrix3D } from '@/typings';
 import MatrixTools from '@/utils/MatrixTools';
 
 /**
@@ -78,19 +78,24 @@ export default class RaModel extends VisualModelFactory {
     // 获取随机整数方法
     const randomInt: Function = RaModel.randomInt;
 
+    // 平移矩阵
+    const offsetMatrix: Matrix = [0, 0, 0, 0];
+
+    // 矩阵变换参数 [平移]
+    const matrixsArgs: Matrix[] = [offsetMatrix];
+
     // 元素总个数
     const elementCount: number = RaModel.ELEMENT_COUNT;
 
     // 为每个元素生成独立随机的三维坐标，并转换为 Matrix3D 存储
     for (let i:number = 0; i < elementCount; i++) {
 
-      // 随机坐标范围：X、Y 以视口尺寸的 1/3 为限，Z 在 [-200, 200] 之间
-      matrices[i] = MatrixTools.transform([[
-        randomInt(-viewportW / 3, viewportW / 3),
-        randomInt(-viewportH / 3, viewportH / 3),
-        randomInt(-200, 200),
-        0,
-      ]]);
+        // 随机坐标范围：X、Y 以视口尺寸的 1/3 为限，Z 在 [-200, 200] 之间
+        offsetMatrix[0] = randomInt(-viewportW / 3, viewportW / 3);
+        offsetMatrix[1] = randomInt(-viewportH / 3, viewportH / 3);
+        offsetMatrix[2] = randomInt(-200, 200);
+
+      matrices[i] = MatrixTools.transform(matrixsArgs);
     }
 
     return matrices;

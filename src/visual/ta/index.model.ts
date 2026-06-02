@@ -1,6 +1,7 @@
 import VisualModelFactory from '@/visual/VisualModelFactory';
 import registerToVisualModelFactory from '@/visual/register';
-import { MoStatus, type Matrix3D } from '@/typings';
+import type { Matrix, Matrix3D } from '@/typings';
+import { MoStatus } from '@/typings';
 import MatrixTools from '@/utils/MatrixTools';
 import charTemplate from '@/assets/charTemplate';
 
@@ -23,6 +24,9 @@ export default class TaModel extends VisualModelFactory {
   /** 明确声明的模型标识，与 MoStatus 枚举保持一致 */
   static readonly MODEL_STATUS = MoStatus.Ta;
 
+  /** 元素总个数（化学元素周期表全部已知元素） */
+  private static readonly ELEMENT_COUNT: number = 118;
+
   /** 单个元素的基准尺寸（像素） */
   private static readonly ELEMENT_SIZE: number = 50;
 
@@ -41,9 +45,6 @@ export default class TaModel extends VisualModelFactory {
   /** 无特殊偏移时使用 避免每次循环创建新对象 */
   private static readonly ZERO_OFFSET: { dx: number; dy: number } = Object.freeze({ dx: 0, dy: 0 });
 
-  /** 变换矩阵缓存，首次计算后存储，避免重复生成 */
-  private static cachedMatrices: Matrix3D[] | null = null;
-
   /** 整个周期表的表格总尺寸（宽 × 高） */
   private static readonly TABLE_SIZE: { w: number; h: number } = {
     w: (TaModel.ELEMENT_SIZE + TaModel.GUTTER) * TaModel.COL_MAX,
@@ -58,6 +59,14 @@ export default class TaModel extends VisualModelFactory {
     x: -TaModel.TABLE_SIZE.w / 2 + TaModel.ELEMENT_SIZE / 2,
     y: -TaModel.TABLE_SIZE.h / 2 + TaModel.ELEMENT_SIZE / 2,
   };
+
+  // ==================== 缓存区域 ====================
+  
+  /** 变换矩阵缓存，首次计算后存储，避免重复生成 */
+  private static cachedMatrices: Matrix3D[] | null = null;
+
+
+  // ==================== 静态计算方法 ====================
 
   /**
   * 根据元素所在的行列计算其在网格中的特殊偏移量。
@@ -105,6 +114,8 @@ export default class TaModel extends VisualModelFactory {
   }
 
 
+  // ==================== 公共接口 ====================
+  
   /**
    * 获取当前模型下所有元素的 3D 变换矩阵（平移）。
    *
@@ -124,11 +135,11 @@ export default class TaModel extends VisualModelFactory {
 
     // 命中缓存直接返回
     if (TaModel.cachedMatrices) {
-      return [...TaModel.cachedMatrices];
+      return TaModel.cachedMatrices;
     }
 
-    // 存放通过遍历计算得到的元素变换矩阵
-    const matrices: Matrix3D[] = [];
+    // 预分配数组长度，避免在循环中使用 push 导致多次扩容
+    const matrices: Matrix3D[] = new Array<Matrix3D>(TaModel.ELEMENT_COUNT);
 
     // 第一个元素位置
     const firstElementX: number = TaModel.FIRST_ELEMENT_POSITION.x;
@@ -140,12 +151,24 @@ export default class TaModel extends VisualModelFactory {
     // 每步跨度（单位 / 像素）
     const step: number = TaModel.ELEMENT_SIZE + TaModel.GUTTER;
 
+    // 获取特殊偏移量方法
+    const specialOffset: Function = TaModel.getSpecialOffset;
+
+    // 布局字符模板
+    const cTemplate: number[][] = charTemplate; // 局部缓存引用
+
+    // 平移矩阵
+    const offsetMatrix: Matrix = [0, 0, 0, 0];
+
+    // 矩阵变换参数 [平移]
+    const matrixsArgs: Matrix[] = [offsetMatrix];
+
     // 最大行 / 列
     const rowMax: number = TaModel.ROW_MAX;
     const colMax: number = TaModel.COL_MAX;
 
-    // 布局字符模板
-    const cTemplate: number[][] = charTemplate; // 局部缓存引用
+    // 记录循环次数
+    let idx: number = 0;
 
     // 遍历模板生成矩阵
     for (let i=0; i<rowMax; i++) {
@@ -159,28 +182,24 @@ export default class TaModel extends VisualModelFactory {
         if(cTemplate[i][j]) {
 
           // 获取特殊偏移量（用于La镧系/Ac锕系等调整）
-          const { dx, dy } = TaModel.getSpecialOffset(i, j, step, lanActGap);
+          const { dx, dy } = specialOffset(i, j, step, lanActGap);
+
+          // 第一个元素左上角坐标 + (当前循环数 * 每步跨度) + 特殊偏移量(dx / dy)
+          offsetMatrix[0] = firstElementX  + j * step + dx; // 元素 X轴坐标
+          offsetMatrix[1] = offsetY + dy, // 元素 Y轴坐标;
 
           // 通过矩阵工具函数生成变换矩阵
-          matrices.push(
+          matrices[idx++] = MatrixTools.transform(matrixsArgs)
 
-            // 第一个元素左上角坐标 + (当前循环数 * 每步跨度) + 特殊偏移量(dx / dy)
-            MatrixTools.transform([[
-              firstElementX  + j * step + dx, // 元素 X轴坐标
-              offsetY + dy, // 元素 Y轴坐标
-              0,
-              0
-            ]])
-          );
         }
       }
     }
 
     /**
-     * 注意：返回的数组为浅拷贝，可以安全遍历，
+     * 注意：返回的数组为数组引用，可以安全遍历，
      * 但请勿修改数组内矩阵对象的内容，否则会污染缓存。
      */
     TaModel.cachedMatrices = matrices;
-    return [...matrices];
+    return matrices;
   }
 }
