@@ -159,9 +159,12 @@ export default class TaModel extends VisualModelFactory {
 
     // 平移矩阵
     const offsetMatrix: Matrix = [0, 0, 0, 0];
+    
+    // 缩放矩阵
+    const scalesMatrix: Matrix = [.5, .5, 1, 2];
 
-    // 矩阵变换参数 [平移]
-    const matrixsArgs: Matrix[] = [offsetMatrix];
+    // 矩阵变换参数 [缩放，平移]
+    const matrixsArgs: Matrix[] = [scalesMatrix, offsetMatrix];
 
     // 最大行 / 列
     const rowMax: number = TaModel.ROW_MAX;

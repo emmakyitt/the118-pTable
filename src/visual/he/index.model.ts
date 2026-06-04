@@ -103,9 +103,10 @@ export default class HeModel extends VisualModelFactory {
     // 缓存静态属性到局部变量，减少属性访问开销
     const yAxisOffset: Matrix = [0, 0, offsetZ, 0];
     const xyAxisScale: Matrix = HeModel.XY_AXIS_SCALE;
+    const scalesMatrix: Matrix = [.5, .5, 1, 2];
 
-    // 矩阵变换参数 [平移，旋转，缩放]
-    const matrixsArgs: Matrix[] = [yAxisOffset, rotateArray, xyAxisScale];
+    // 矩阵变换参数 [缩放, 平移，旋转，缩放]
+    const matrixsArgs: Matrix[] = [scalesMatrix, yAxisOffset, rotateArray, xyAxisScale];
 
     for (let i = 0; i<elementCount; i++) {
 

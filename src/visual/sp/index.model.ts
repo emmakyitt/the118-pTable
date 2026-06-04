@@ -128,9 +128,10 @@ export default class SpModel extends VisualModelFactory {
     // 缓存静态属性到局部变量，减少属性访问开销
     const zAxisOffset: Matrix = SpModel.Z_AXIS_OFFSET 
     const xyAxisScale: Matrix = SpModel.XY_AXIS_SCALE 
+    const scalesMatrix: Matrix = [.5, .5, 1, 2];
 
-    // 矩阵变换参数 [平移，旋转，缩放]
-    const matrixsArgs: Matrix[] = [zAxisOffset, rotateArray, xyAxisScale];
+    // 矩阵变换参数 [缩放, 平移，旋转，缩放]
+    const matrixsArgs: Matrix[] = [scalesMatrix, zAxisOffset, rotateArray, xyAxisScale];
 
     // 获取球面分布所需的纬度角度和每个纬度圈上的元素个数。
     const { elementsAngle, elementsDistr } = SpModel.getSphereArrays();

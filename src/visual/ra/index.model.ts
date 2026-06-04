@@ -80,9 +80,10 @@ export default class RaModel extends VisualModelFactory {
 
     // 平移矩阵
     const offsetMatrix: Matrix = [0, 0, 0, 0];
+    const scalesMatrix: Matrix = [.5, .5, 1, 2];
 
-    // 矩阵变换参数 [平移]
-    const matrixsArgs: Matrix[] = [offsetMatrix];
+    // 矩阵变换参数 [缩放，平移]
+    const matrixsArgs: Matrix[] = [scalesMatrix, offsetMatrix];
 
     // 元素总个数
     const elementCount: number = RaModel.ELEMENT_COUNT;
