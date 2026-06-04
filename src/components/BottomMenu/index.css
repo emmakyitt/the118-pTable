@@ -1,34 +1,51 @@
 .bottom-menu {
   width: 100vw;
-  height: 65px;
+  height: 6rem;
   display: grid;
   place-items: center; /* 水平 + 垂直居中 */
-  background-color: rgba(233, 241, 246, 1);
+  background-color: rgba(233, 241, 246, 0.5);
   position: fixed;
   bottom: 0;
   left: 0;
 }
 .copyright {
-  color: #758a99;
   position: absolute;
-  left: 5px;
-  top: 28px;
+  left: 0;
+  top: 0;
+}
+.copyright-source {
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 1.2rem;
+  display: inline-block;
+  vertical-align: baseline;
+  text-decoration: none;
+  background-image: url(/src/assets/icons/github.svg);
+  background-position: .5rem 0rem;
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  padding-left: 3rem;
+  margin: 3rem 0;
+  color: #758a99;
+}
+.copyright-source:active {
+  transform: scale(0.98);
 }
 .menu-icons {
-  width: 38px;
-  height: 38px;
+  width: 3.5rem;
+  height: 3.5rem;
   display: inline-block;
   transition: 0.2s ease-out;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 20px;
+  border-radius: 2rem;
+  margin: 0 1.5rem;
   cursor: pointer;
-  margin: 0 15px;
 }
 
 .menu-icons:hover {
   transform: rotateX(35deg) scale(1.25);
-  box-shadow: 1px 1px 2px black;
+  box-shadow: .1rem .1rem .2rem black;
 }
 
 .menu-icons:active {

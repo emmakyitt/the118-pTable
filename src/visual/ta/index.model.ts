@@ -37,7 +37,7 @@ export default class TaModel extends VisualModelFactory {
   private static readonly COL_MAX: number = 18;
 
   /** 元素间的空隙 */
-  private static readonly GUTTER: number = 2;
+  private static readonly GUTTER: number = 5;
 
   /** 镧系/锕系与上方主表之间的额外间距 */
   private static readonly LAN_ACT_GAP: number = 10;
@@ -159,9 +159,12 @@ export default class TaModel extends VisualModelFactory {
 
     // 平移矩阵
     const offsetMatrix: Matrix = [0, 0, 0, 0];
+    
+    // 缩放矩阵
+    const scalesMatrix: Matrix = [.5, .5, 1, 2];
 
-    // 矩阵变换参数 [平移]
-    const matrixsArgs: Matrix[] = [offsetMatrix];
+    // 矩阵变换参数 [缩放，平移]
+    const matrixsArgs: Matrix[] = [scalesMatrix, offsetMatrix];
 
     // 最大行 / 列
     const rowMax: number = TaModel.ROW_MAX;

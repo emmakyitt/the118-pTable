@@ -106,10 +106,11 @@ export default class GrModel extends VisualModelFactory {
 
     // 复用临时数组，避免在循环内重复创建新数组对象
     const offsetMatrix: Matrix = [0, 0, 0, 0];           // [x轴平移, y轴平移, z轴平移, 平移标识]
+    const scalesMatrix: Matrix = [.5, .5, 1, 2];
     const rotateMatrix: Matrix = GrModel.ROTATE_MATRIX;  // [x轴旋转, y轴旋转, z轴旋转, 旋转标识]
 
-    // 矩阵变换参数 [平移，旋转]
-    const matrixsArgs: Matrix[] = [offsetMatrix, rotateMatrix];
+    // 矩阵变换参数 [缩放，平移，旋转]
+    const matrixsArgs: Matrix[] = [scalesMatrix, offsetMatrix, rotateMatrix];
 
     // 元素总个数
     const elementCount: number = GrModel.ELEMENT_COUNT;

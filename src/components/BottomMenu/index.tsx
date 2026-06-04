@@ -10,7 +10,11 @@ export default function BottomMenu ({ setMoStatus }: BottomMenuProps): ReactElem
 
   return (
     <div className="bottom-menu">
-      <div className="copyright" children='© 2026 Emmaky. ALL RIGHTS RESERVED.' />
+      <div className="copyright">
+        <a className="copyright-source" href='https://github.com/emmakyitt/the118-pTable' target="_self" rel="copyright">
+          © 2026 Emmakyitt. ALL RIGHTS RESERVED.
+        </a>
+      </div>
       <div className="icon-wrapper">
         <i className="gr-icon menu-icons" onClick={ () => setMoStatus(MoStatus.Gr) }></i>
         <i className="sp-icon menu-icons" onClick={ () => setMoStatus(MoStatus.Sp) }></i>
