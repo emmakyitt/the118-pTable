@@ -37,7 +37,7 @@ export default class TaModel extends VisualModelFactory {
   private static readonly COL_MAX: number = 18;
 
   /** 元素间的空隙 */
-  private static readonly GUTTER: number = 2;
+  private static readonly GUTTER: number = 5;
 
   /** 镧系/锕系与上方主表之间的额外间距 */
   private static readonly LAN_ACT_GAP: number = 10;
