@@ -9,11 +9,27 @@
   left: 0;
 }
 .copyright {
-  color: #758a99;
-  font-size: 1rem;
   position: absolute;
-  left: .5rem;
-  top: 2.5rem;
+  left: 0;
+  top: 0;
+}
+.copyright-source {
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 1.2rem;
+  display: inline-block;
+  vertical-align: baseline;
+  text-decoration: none;
+  background-image: url(/src/assets/icons/github.svg);
+  background-position: .5rem 0rem;
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  padding-left: 3rem;
+  margin: 3rem 0;
+  color: #758a99;
+}
+.copyright-source:active {
+  transform: scale(0.98);
 }
 .menu-icons {
   width: 3.5rem;
