@@ -22,7 +22,7 @@
 ---
 
 ## ⚙️ 技术架构
-
+```
 用户交互 (BottomMenu)
 ▼ 
 App.tsx ── setMoStatus ──▶ useEffect
@@ -34,6 +34,8 @@ App.tsx ── setMoStatus ──▶ useEffect
 │ └── .getMatrix3d() → Matrix3D[]
 ▼ 
 { matrix3d[] } ──▶ ElementUnit[] ──▶ style={{ transform: matrix3d(...) }}
+```
+
 
 ### 抽象工厂与装饰器注册
 - **`VisualModelFactory`** 既是抽象基类也是工厂入口。通过 `new VisualModelFactory(status)` 时，内部根据 `registry` 动态返回对应子类实例（多态构造）。
@@ -54,27 +56,30 @@ App.tsx ── setMoStatus ──▶ useEffect
 | **螺旋** | 等距上升 + 均匀角增量绕 Y 轴旋转              |
 | **网格** | 多层 5×8 面板沿 Z 轴堆叠                 |
 | **随机** | 视口约束下的三维均匀随机散点分布                   |
+
 所有变换最终由 `MatrixTools.transform([平移, 旋转, 缩放])` 一次生成矩阵，遵循 **先缩放 → 旋转 → 平移** 的组合顺序（右乘原则）。
 
 ---
 ## 📁 核心目录
 
+```
 src/
-├── assets/   # 数据与图标
-│ ├── elements.ts         # 118 元素基础数据
-│ └── charTemplate.ts    # 表格字符模板
-├── components/         # UI 组件
-│ ├── PeriodicTable/  # 周期表容器
-│ ├── ElementUnit/    # 单元素卡片
-│ └── BottomMenu/     # 视图切换栏
-├── visual/ # 视图模型（策略）
-│ ├── VisualModelFactory   # 抽象工厂 + 注册表
-│ ├── register.  # 类装饰器
-│ ├── ta / sp / he / gr / ra   # 五种子类实现
-├── utils/   # 数学库
-│ ├── MathTools     # 几何计算
-│ └── MatrixTools.  # 矩阵运算与组合
-└── typings/   # 全局类型与枚举
+├── assets/                   # 数据与图标
+│ ├── elements.ts             # 118 元素基础数据
+│ └── charTemplate.ts         # 表格字符模板
+├── components/               # UI 组件
+│ ├── PeriodicTable/          # 周期表容器
+│ ├── ElementUnit/            # 单元素卡片
+│ └── BottomMenu/             # 视图切换栏
+├── visual/                   # 视图模型（策略）
+│ ├── VisualModelFactory      # 抽象工厂 + 注册表
+│ ├── register.               # 类装饰器
+│ ├── ta / sp / he / gr / ra  # 五种子类实现
+├── utils/                    # 数学库
+│ ├── MathTools               # 几何计算
+│ └── MatrixTools.            # 矩阵运算与组合
+└── typings/                  # 全局类型与枚举
+```
 
 ---
 
@@ -103,7 +108,7 @@ npm run dev
 
 ## 🕰️ 当前版本 (v0.1.0)
 
-### 0.1.0 (2026-06-01) 
+### 0.1.0 (2026-06-04) 
 
 - ✅ 五种 3D 布局的完整矩阵生成
 - ✅ 视图切换过渡动画
@@ -140,6 +145,6 @@ npm run dev
 
 ## 📄 许可证
 
-本项目仅用于**学习与交流**，保留所有权利。未经授权，禁止商用。
+本项目采用**自定义许可证**，仅供学习交流，**严禁任何商业用途**。
 
-© 2026 Emmaky. ALL RIGHTS RESERVED.
+详见 [LICENSE](LICENSE) 文件。如需商业授权，请联系：emmakyitt@gmail.com
