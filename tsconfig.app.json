@@ -6,10 +6,9 @@
     "module": "esnext",
     "types": ["vite/client"],
     "skipLibCheck": true,
-    "baseUrl": ".",
     "paths": {
       // 映射 @/ 开头的路径到 src/
-      "@/*": ["src/*"],
+      "@/*": ["./src/*"],
     },
 
     // 允许装饰器语法
