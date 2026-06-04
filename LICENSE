@@ -1,21 +1,36 @@
-MIT License
+# 自定义许可证 - 仅供学习交流，禁止商用
 
-Copyright (c) 2026 Emmaky
+版权所有 (c) 2026 emmakyitt
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+## 授予权限
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+在遵守以下条件的前提下，允许任何个人免费获取、查看、使用本软件及其相关文档文件（以下简称"本软件"）：
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+1. **仅限于学习、研究及非商业用途**。任何形式的商业使用，包括但不限于：
+   - 将本软件集成到商业产品或服务中
+   - 销售、出租或以其他形式有偿提供本软件
+   - 将本软件用于公司内部的商业项目开发
+   - 提供基于本软件的商业SaaS服务
+   
+   均需要事先获得版权所有者的明确书面授权。
+
+2. **保留所有版权声明**。本软件的所有副本或实质性部分必须保留上述版权声明及本许可声明。
+
+## 禁止行为
+
+未经版权所有者的明确书面许可，严禁：
+- 将本软件用于商业目的
+- 修改后以商业形式分发
+- 移除或更改本软件中的任何版权或许可声明
+
+## 免责声明
+
+本软件按"原样"提供，不附带任何明示或暗示的保证，包括但不限于适销性、特定用途适用性和不侵权的保证。在任何情况下，作者或版权持有人均不对因使用本软件而产生的任何索赔、损害或其他责任负责，无论该责任是基于合同、侵权或其他原因。
+
+## 商业授权
+
+如需获取商业使用授权，请联系：emmakyitt@gmail.com
+
+---
+
+**重要提示**：本许可证不属于OSI批准的开源许可证。使用本软件即表示您同意上述所有条款。
