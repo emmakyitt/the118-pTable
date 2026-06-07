@@ -1,4 +1,4 @@
-.element-unit {
+.elementCard {
   width: 10rem;
   height: 10rem; 
   display: grid;
@@ -10,7 +10,7 @@
   left: -5rem;
   top: -5rem;
 }
-.element-id {
+.elementId {
   font-size: 2rem;
   position: absolute;
   color: #475569;

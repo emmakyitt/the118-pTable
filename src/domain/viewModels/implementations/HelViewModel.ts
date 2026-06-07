@@ -1,24 +1,24 @@
-import VisualModelFactory from '@/visual/VisualModelFactory';
-import registerToVisualModelFactory from '@/visual/register';
-import { MoStatus } from '@/typings';
-import type { Matrix, Matrix3D } from '@/typings';
-import MatrixTools from '@/utils/MatrixTools';
+import type { Matrix, Matrix3D } from '@/domain/models/typings';
+import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
+import registerTo from '@/domain/viewModels/register';
+import { LayoutStyle } from '@/domain/models/typings';
+import MatrixTools from '@/infrastructure/utils/MatrixTools';
 
 /**
- * 布局模型（HeModel）：生成化学元素周期表（螺旋形态）的点阵布局。
+ * 布局模型（HelViewModel）：生成化学元素周期表（螺旋形态）的点阵布局。
  * 
  * 该模型生成螺旋布局，使所有元素沿 Y 轴螺旋上升排列：
  * - 在 Y 轴方向等间距分布
  * - 同时绕 Y 轴旋转，每圈包含固定数量的元素
  * 
- * 通过装饰器 @registerToVisualModelFactory 自动注册到 VisualModelFactory.registry，
- * 注册标识与 MoStatus.He 枚举值一致
+ * 通过装饰器 @registerTo 将 HelViewModel 注册到 ViewModelFactory.registry 中，
+ * 注册标识与 LayoutStyle.HEL 枚举值一致
  */
-@registerToVisualModelFactory()
-export default class HeModel extends VisualModelFactory {
+@registerTo(ViewModelFactory)
+export default class HelViewModel extends ViewModelFactory {
 
-  /** 明确声明的注册标识，与 MoStatus 枚举保持一致 */
-  static readonly MODEL_STATUS = MoStatus.He;
+  /** 明确声明的注册标识，与 LAYOUT_STYLE 枚举保持一致 */
+  static readonly LAYOUT_STYLE = LayoutStyle.HEL;
 
   /** 元素总个数 */
   private static readonly ELEMENT_COUNT: number = 118;
@@ -33,16 +33,16 @@ export default class HeModel extends VisualModelFactory {
   private static readonly EL_STRIDE_LENGTH: number = 5;
 
   /** 相邻元素绕 Y 轴的角度增量（度） */
-  private static readonly ANGLE_STEP = 360 / HeModel.ELEMENT_PER_TURN;
+  private static readonly ANGLE_STEP = 360 / HelViewModel.ELEMENT_PER_TURN;
 
   /** 整个螺旋的总高度 */
-  private static readonly HELIX_SIZE_H: number = HeModel.ELEMENT_COUNT * HeModel.EL_STRIDE_LENGTH;
+  private static readonly HELIX_SIZE_H: number = HelViewModel.ELEMENT_COUNT * HelViewModel.EL_STRIDE_LENGTH;
 
   /**
    * 第一个元素 Y 轴基准坐标。
    * 以螺旋中心为原点，使整体在 Y 轴方向上居中。
    */
-  private static readonly FIRST_ELEMENT_POSITION_Y: number = -HeModel.HELIX_SIZE_H / 2 - HeModel.EL_STRIDE_LENGTH;
+  private static readonly FIRST_ELEMENT_POSITION_Y: number = -HelViewModel.HELIX_SIZE_H / 2 - HelViewModel.EL_STRIDE_LENGTH;
 
   /** 元素XY轴缩放量 */
   private static readonly XY_AXIS_SCALE: Matrix = Object.freeze([.8, .8, 1, 2]) as Matrix;
@@ -69,40 +69,40 @@ export default class HeModel extends VisualModelFactory {
    *
    * @returns 变换矩阵数组，每个矩阵对应一个可视元素
    */
-  getMatrix3d(): Matrix3D[] {
+  public getMatrix3d(): Matrix3D[] {
 
     // 命中缓存则直接返回引用，不再生成额外数组副本
-    if (HeModel.cachedMatrices) {
-      return HeModel.cachedMatrices;
+    if (HelViewModel.cachedMatrices) {
+      return HelViewModel.cachedMatrices;
     }
 
     // 预分配数组长度，避免在循环中使用 push 导致多次扩容
-    const matrices: Matrix3D[] = new Array<Matrix3D>(HeModel.ELEMENT_COUNT);
+    const matrices: Matrix3D[] = new Array<Matrix3D>(HelViewModel.ELEMENT_COUNT);
 
     // 每步跨度（单位 / 像素）
-    const stepY: number = HeModel.EL_STRIDE_LENGTH;
+    const stepY: number = HelViewModel.EL_STRIDE_LENGTH;
 
     // 螺旋中心到 Y 轴的距离
-    const offsetZ: number = HeModel.ELEMENT_OFFSET_Z;
+    const offsetZ: number = HelViewModel.ELEMENT_OFFSET_Z;
 
     // 每圈元素个数
-    const perTurn: number = HeModel.ELEMENT_PER_TURN;
+    const perTurn: number = HelViewModel.ELEMENT_PER_TURN;
 
     // 相邻元素绕 Y 轴的角度增量
-    const angleStep: number = HeModel.ANGLE_STEP;
+    const angleStep: number = HelViewModel.ANGLE_STEP;
 
     // 第一个元素位置
-    const firstElementY: number = HeModel.FIRST_ELEMENT_POSITION_Y;
+    const firstElementY: number = HelViewModel.FIRST_ELEMENT_POSITION_Y;
 
     /** 元素总个数 */
-    const elementCount: number = HeModel.ELEMENT_COUNT;
+    const elementCount: number = HelViewModel.ELEMENT_COUNT;
 
     // 复用临时数组，避免在循环内重复创建新数组对象
     const rotateArray: Matrix = [0, 0, 0, 1];
 
     // 缓存静态属性到局部变量，减少属性访问开销
     const yAxisOffset: Matrix = [0, 0, offsetZ, 0];
-    const xyAxisScale: Matrix = HeModel.XY_AXIS_SCALE;
+    const xyAxisScale: Matrix = HelViewModel.XY_AXIS_SCALE;
     const scalesMatrix: Matrix = [.5, .5, 1, 2];
 
     // 矩阵变换参数 [缩放, 平移，旋转，缩放]
@@ -121,7 +121,7 @@ export default class HeModel extends VisualModelFactory {
      * 注意：返回数组的内部引用
      * 请勿修改数组内矩阵对象的内容，否则会污染缓存。
      */
-    HeModel.cachedMatrices = matrices;
+    HelViewModel.cachedMatrices = matrices;
     return matrices;
   }
 }

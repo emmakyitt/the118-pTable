@@ -1,474 +1,474 @@
-export default [
-    {
-        "ElementID": 1,
-        "Symbol": "H"
-    },
-    {
-        "ElementID": 2,
-        "Symbol": "He"
-    },
-    {
-        "ElementID": 3,
-        "Symbol": "Li"
-    },
-    {
-        "ElementID": 4,
-        "Symbol": "Be"
-    },
-    {
-        "ElementID": 5,
-        "Symbol": "B"
-    },
-    {
-        "ElementID": 6,
-        "Symbol": "C"
-    },
-    {
-        "ElementID": 7,
-        "Symbol": "N"
-    },
-    {
-        "ElementID": 8,
-        "Symbol": "O"
-    },
-    {
-        "ElementID": 9,
-        "Symbol": "F"
-    },
-    {
-        "ElementID": 10,
-        "Symbol": "Ne"
-    },
-    {
-        "ElementID": 11,
-        "Symbol": "Na"
-    },
-    {
-        "ElementID": 12,
-        "Symbol": "Mg"
-    },
-    {
-        "ElementID": 13,
-        "Symbol": "Al"
-    },
-    {
-        "ElementID": 14,
-        "Symbol": "Si"
-    },
-    {
-        "ElementID": 15,
-        "Symbol": "P"
-    },
-    {
-        "ElementID": 16,
-        "Symbol": "S"
-    },
-    {
-        "ElementID": 17,
-        "Symbol": "Cl"
-    },
-    {
-        "ElementID": 18,
-        "Symbol": "Ar"
-    },
-    {
-        "ElementID": 19,
-        "Symbol": "K"
-    },
-    {
-        "ElementID": 20,
-        "Symbol": "Ca"
-    },
-    {
-        "ElementID": 21,
-        "Symbol": "Sc"
-    },
-    {
-        "ElementID": 22,
-        "Symbol": "Ti"
-    },
-    {
-        "ElementID": 23,
-        "Symbol": "V"
-    },
-    {
-        "ElementID": 24,
-        "Symbol": "Cr"
-    },
-    {
-        "ElementID": 25,
-        "Symbol": "Mn"
-    },
-    {
-        "ElementID": 26,
-        "Symbol": "Fe"
-    },
-    {
-        "ElementID": 27,
-        "Symbol": "Co"
-    },
-    {
-        "ElementID": 28,
-        "Symbol": "Ni"
-    },
-    {
-        "ElementID": 29,
-        "Symbol": "Cu"
-    },
-    {
-        "ElementID": 30,
-        "Symbol": "Zn"
-    },
-    {
-        "ElementID": 31,
-        "Symbol": "Ga"
-    },
-    {
-        "ElementID": 32,
-        "Symbol": "Ge"
-    },
-    {
-        "ElementID": 33,
-        "Symbol": "As"
-    },
-    {
-        "ElementID": 34,
-        "Symbol": "Se"
-    },
-    {
-        "ElementID": 35,
-        "Symbol": "Br"
-    },
-    {
-        "ElementID": 36,
-        "Symbol": "Kr"
-    },
-    {
-        "ElementID": 37,
-        "Symbol": "Rb"
-    },
-    {
-        "ElementID": 38,
-        "Symbol": "Sr"
-    },
-    {
-        "ElementID": 39,
-        "Symbol": "Y"
-    },
-    {
-        "ElementID": 40,
-        "Symbol": "Zr"
-    },
-    {
-        "ElementID": 41,
-        "Symbol": "Nb"
-    },
-    {
-        "ElementID": 42,
-        "Symbol": "Mo"
-    },
-    {
-        "ElementID": 43,
-        "Symbol": "Tc"
-    },
-    {
-        "ElementID": 44,
-        "Symbol": "Ru"
-    },
-    {
-        "ElementID": 45,
-        "Symbol": "Rh"
-    },
-    {
-        "ElementID": 46,
-        "Symbol": "Pd"
-    },
-    {
-        "ElementID": 47,
-        "Symbol": "Ag"
-    },
-    {
-        "ElementID": 48,
-        "Symbol": "Cd"
-    },
-    {
-        "ElementID": 49,
-        "Symbol": "In"
-    },
-    {
-        "ElementID": 50,
-        "Symbol": "Sn"
-    },
-    {
-        "ElementID": 51,
-        "Symbol": "Sb"
-    },
-    {
-        "ElementID": 52,
-        "Symbol": "Te"
-    },
-    {
-        "ElementID": 53,
-        "Symbol": "I"
-    },
-    {
-        "ElementID": 54,
-        "Symbol": "Xe"
-    },
-    {
-        "ElementID": 55,
-        "Symbol": "Cs"
-    },
-    {
-        "ElementID": 56,
-        "Symbol": "Ba"
-    },
-    {
-        "ElementID": 57,
-        "Symbol": "La"
-    },
-    {
-        "ElementID": 58,
-        "Symbol": "Ce"
-    },
-    {
-        "ElementID": 59,
-        "Symbol": "Pr"
-    },
-    {
-        "ElementID": 60,
-        "Symbol": "Nd"
-    },
-    {
-        "ElementID": 61,
-        "Symbol": "Pm"
-    },
-    {
-        "ElementID": 62,
-        "Symbol": "Sm"
-    },
-    {
-        "ElementID": 63,
-        "Symbol": "Eu"
-    },
-    {
-        "ElementID": 64,
-        "Symbol": "Gd"
-    },
-    {
-        "ElementID": 65,
-        "Symbol": "Tb"
-    },
-    {
-        "ElementID": 66,
-        "Symbol": "Dy"
-    },
-    {
-        "ElementID": 67,
-        "Symbol": "Ho"
-    },
-    {
-        "ElementID": 68,
-        "Symbol": "Er"
-    },
-    {
-        "ElementID": 69,
-        "Symbol": "Tm"
-    },
-    {
-        "ElementID": 70,
-        "Symbol": "Yb"
-    },
-    {
-        "ElementID": 71,
-        "Symbol": "Lu"
-    },
-    {
-        "ElementID": 72,
-        "Symbol": "Hf"
-    },
-    {
-        "ElementID": 73,
-        "Symbol": "Ta"
-    },
-    {
-        "ElementID": 74,
-        "Symbol": "W"
-    },
-    {
-        "ElementID": 75,
-        "Symbol": "Re"
-    },
-    {
-        "ElementID": 76,
-        "Symbol": "Os"
-    },
-    {
-        "ElementID": 77,
-        "Symbol": "Ir"
-    },
-    {
-        "ElementID": 78,
-        "Symbol": "Pt"
-    },
-    {
-        "ElementID": 79,
-        "Symbol": "Au"
-    },
-    {
-        "ElementID": 80,
-        "Symbol": "Hg"
-    },
-    {
-        "ElementID": 81,
-        "Symbol": "Tl"
-    },
-    {
-        "ElementID": 82,
-        "Symbol": "Pb"
-    },
-    {
-        "ElementID": 83,
-        "Symbol": "Bi"
-    },
-    {
-        "ElementID": 84,
-        "Symbol": "Po"
-    },
-    {
-        "ElementID": 85,
-        "Symbol": "At"
-    },
-    {
-        "ElementID": 86,
-        "Symbol": "Rn"
-    },
-    {
-        "ElementID": 87,
-        "Symbol": "Fr"
-    },
-    {
-        "ElementID": 88,
-        "Symbol": "Ra"
-    },
-    {
-        "ElementID": 89,
-        "Symbol": "Ac"
-    },
-    {
-        "ElementID": 90,
-        "Symbol": "Th"
-    },
-    {
-        "ElementID": 91,
-        "Symbol": "Pa"
-    },
-    {
-        "ElementID": 92,
-        "Symbol": "U"
-    },
-    {
-        "ElementID": 93,
-        "Symbol": "Np"
-    },
-    {
-        "ElementID": 94,
-        "Symbol": "Pu"
-    },
-    {
-        "ElementID": 95,
-        "Symbol": "Am"
-    },
-    {
-        "ElementID": 96,
-        "Symbol": "Cm"
-    },
-    {
-        "ElementID": 97,
-        "Symbol": "Bk"
-    },
-    {
-        "ElementID": 98,
-        "Symbol": "Cf"
-    },
-    {
-        "ElementID": 99,
-        "Symbol": "Es"
-    },
-    {
-        "ElementID": 100,
-        "Symbol": "Fm"
-    },
-    {
-        "ElementID": 101,
-        "Symbol": "Md"
-    },
-    {
-        "ElementID": 102,
-        "Symbol": "No"
-    },
-    {
-        "ElementID": 103,
-        "Symbol": "Lr"
-    },
-    {
-        "ElementID": 104,
-        "Symbol": "Rf"
-    },
-    {
-        "ElementID": 105,
-        "Symbol": "Db"
-    },
-    {
-        "ElementID": 106,
-        "Symbol": "Sg"
-    },
-    {
-        "ElementID": 107,
-        "Symbol": "Bh"
-    },
-    {
-        "ElementID": 108,
-        "Symbol": "Hs"
-    },
-    {
-        "ElementID": 109,
-        "Symbol": "Mt"
-    },
-    {
-        "ElementID": 110,
-        "Symbol": "Ds"
-    },
-    {
-        "ElementID": 111,
-        "Symbol": "Rg"
-    },
-    {
-        "ElementID": 112,
-        "Symbol": "Cn"
-    },
-    {
-        "ElementID": 113,
-        "Symbol": "Nh"
-    },
-    {
-        "ElementID": 114,
-        "Symbol": "Fl"
-    },
-    {
-        "ElementID": 115,
-        "Symbol": "Mc"
-    },
-    {
-        "ElementID": 116,
-        "Symbol": "Lv"
-    },
-    {
-        "ElementID": 117,
-        "Symbol": "Ts"
-    },
-    {
-        "ElementID": 118,
-        "Symbol": "Og"
-    }
+[
+  {
+      "ElementID": 1,
+      "Symbol": "H"
+  },
+  {
+      "ElementID": 2,
+      "Symbol": "He"
+  },
+  {
+      "ElementID": 3,
+      "Symbol": "Li"
+  },
+  {
+      "ElementID": 4,
+      "Symbol": "Be"
+  },
+  {
+      "ElementID": 5,
+      "Symbol": "B"
+  },
+  {
+      "ElementID": 6,
+      "Symbol": "C"
+  },
+  {
+      "ElementID": 7,
+      "Symbol": "N"
+  },
+  {
+      "ElementID": 8,
+      "Symbol": "O"
+  },
+  {
+      "ElementID": 9,
+      "Symbol": "F"
+  },
+  {
+      "ElementID": 10,
+      "Symbol": "Ne"
+  },
+  {
+      "ElementID": 11,
+      "Symbol": "Na"
+  },
+  {
+      "ElementID": 12,
+      "Symbol": "Mg"
+  },
+  {
+      "ElementID": 13,
+      "Symbol": "Al"
+  },
+  {
+      "ElementID": 14,
+      "Symbol": "Si"
+  },
+  {
+      "ElementID": 15,
+      "Symbol": "P"
+  },
+  {
+      "ElementID": 16,
+      "Symbol": "S"
+  },
+  {
+      "ElementID": 17,
+      "Symbol": "Cl"
+  },
+  {
+      "ElementID": 18,
+      "Symbol": "Ar"
+  },
+  {
+      "ElementID": 19,
+      "Symbol": "K"
+  },
+  {
+      "ElementID": 20,
+      "Symbol": "Ca"
+  },
+  {
+      "ElementID": 21,
+      "Symbol": "Sc"
+  },
+  {
+      "ElementID": 22,
+      "Symbol": "Ti"
+  },
+  {
+      "ElementID": 23,
+      "Symbol": "V"
+  },
+  {
+      "ElementID": 24,
+      "Symbol": "Cr"
+  },
+  {
+      "ElementID": 25,
+      "Symbol": "Mn"
+  },
+  {
+      "ElementID": 26,
+      "Symbol": "Fe"
+  },
+  {
+      "ElementID": 27,
+      "Symbol": "Co"
+  },
+  {
+      "ElementID": 28,
+      "Symbol": "Ni"
+  },
+  {
+      "ElementID": 29,
+      "Symbol": "Cu"
+  },
+  {
+      "ElementID": 30,
+      "Symbol": "Zn"
+  },
+  {
+      "ElementID": 31,
+      "Symbol": "Ga"
+  },
+  {
+      "ElementID": 32,
+      "Symbol": "Ge"
+  },
+  {
+      "ElementID": 33,
+      "Symbol": "As"
+  },
+  {
+      "ElementID": 34,
+      "Symbol": "Se"
+  },
+  {
+      "ElementID": 35,
+      "Symbol": "Br"
+  },
+  {
+      "ElementID": 36,
+      "Symbol": "Kr"
+  },
+  {
+      "ElementID": 37,
+      "Symbol": "Rb"
+  },
+  {
+      "ElementID": 38,
+      "Symbol": "Sr"
+  },
+  {
+      "ElementID": 39,
+      "Symbol": "Y"
+  },
+  {
+      "ElementID": 40,
+      "Symbol": "Zr"
+  },
+  {
+      "ElementID": 41,
+      "Symbol": "Nb"
+  },
+  {
+      "ElementID": 42,
+      "Symbol": "Mo"
+  },
+  {
+      "ElementID": 43,
+      "Symbol": "Tc"
+  },
+  {
+      "ElementID": 44,
+      "Symbol": "Ru"
+  },
+  {
+      "ElementID": 45,
+      "Symbol": "Rh"
+  },
+  {
+      "ElementID": 46,
+      "Symbol": "Pd"
+  },
+  {
+      "ElementID": 47,
+      "Symbol": "Ag"
+  },
+  {
+      "ElementID": 48,
+      "Symbol": "Cd"
+  },
+  {
+      "ElementID": 49,
+      "Symbol": "In"
+  },
+  {
+      "ElementID": 50,
+      "Symbol": "Sn"
+  },
+  {
+      "ElementID": 51,
+      "Symbol": "Sb"
+  },
+  {
+      "ElementID": 52,
+      "Symbol": "Te"
+  },
+  {
+      "ElementID": 53,
+      "Symbol": "I"
+  },
+  {
+      "ElementID": 54,
+      "Symbol": "Xe"
+  },
+  {
+      "ElementID": 55,
+      "Symbol": "Cs"
+  },
+  {
+      "ElementID": 56,
+      "Symbol": "Ba"
+  },
+  {
+      "ElementID": 57,
+      "Symbol": "La"
+  },
+  {
+      "ElementID": 58,
+      "Symbol": "Ce"
+  },
+  {
+      "ElementID": 59,
+      "Symbol": "Pr"
+  },
+  {
+      "ElementID": 60,
+      "Symbol": "Nd"
+  },
+  {
+      "ElementID": 61,
+      "Symbol": "Pm"
+  },
+  {
+      "ElementID": 62,
+      "Symbol": "Sm"
+  },
+  {
+      "ElementID": 63,
+      "Symbol": "Eu"
+  },
+  {
+      "ElementID": 64,
+      "Symbol": "Gd"
+  },
+  {
+      "ElementID": 65,
+      "Symbol": "Tb"
+  },
+  {
+      "ElementID": 66,
+      "Symbol": "Dy"
+  },
+  {
+      "ElementID": 67,
+      "Symbol": "Ho"
+  },
+  {
+      "ElementID": 68,
+      "Symbol": "Er"
+  },
+  {
+      "ElementID": 69,
+      "Symbol": "Tm"
+  },
+  {
+      "ElementID": 70,
+      "Symbol": "Yb"
+  },
+  {
+      "ElementID": 71,
+      "Symbol": "Lu"
+  },
+  {
+      "ElementID": 72,
+      "Symbol": "Hf"
+  },
+  {
+      "ElementID": 73,
+      "Symbol": "Ta"
+  },
+  {
+      "ElementID": 74,
+      "Symbol": "W"
+  },
+  {
+      "ElementID": 75,
+      "Symbol": "Re"
+  },
+  {
+      "ElementID": 76,
+      "Symbol": "Os"
+  },
+  {
+      "ElementID": 77,
+      "Symbol": "Ir"
+  },
+  {
+      "ElementID": 78,
+      "Symbol": "Pt"
+  },
+  {
+      "ElementID": 79,
+      "Symbol": "Au"
+  },
+  {
+      "ElementID": 80,
+      "Symbol": "Hg"
+  },
+  {
+      "ElementID": 81,
+      "Symbol": "Tl"
+  },
+  {
+      "ElementID": 82,
+      "Symbol": "Pb"
+  },
+  {
+      "ElementID": 83,
+      "Symbol": "Bi"
+  },
+  {
+      "ElementID": 84,
+      "Symbol": "Po"
+  },
+  {
+      "ElementID": 85,
+      "Symbol": "At"
+  },
+  {
+      "ElementID": 86,
+      "Symbol": "Rn"
+  },
+  {
+      "ElementID": 87,
+      "Symbol": "Fr"
+  },
+  {
+      "ElementID": 88,
+      "Symbol": "Ra"
+  },
+  {
+      "ElementID": 89,
+      "Symbol": "Ac"
+  },
+  {
+      "ElementID": 90,
+      "Symbol": "Th"
+  },
+  {
+      "ElementID": 91,
+      "Symbol": "Pa"
+  },
+  {
+      "ElementID": 92,
+      "Symbol": "U"
+  },
+  {
+      "ElementID": 93,
+      "Symbol": "Np"
+  },
+  {
+      "ElementID": 94,
+      "Symbol": "Pu"
+  },
+  {
+      "ElementID": 95,
+      "Symbol": "Am"
+  },
+  {
+      "ElementID": 96,
+      "Symbol": "Cm"
+  },
+  {
+      "ElementID": 97,
+      "Symbol": "Bk"
+  },
+  {
+      "ElementID": 98,
+      "Symbol": "Cf"
+  },
+  {
+      "ElementID": 99,
+      "Symbol": "Es"
+  },
+  {
+      "ElementID": 100,
+      "Symbol": "Fm"
+  },
+  {
+      "ElementID": 101,
+      "Symbol": "Md"
+  },
+  {
+      "ElementID": 102,
+      "Symbol": "No"
+  },
+  {
+      "ElementID": 103,
+      "Symbol": "Lr"
+  },
+  {
+      "ElementID": 104,
+      "Symbol": "Rf"
+  },
+  {
+      "ElementID": 105,
+      "Symbol": "Db"
+  },
+  {
+      "ElementID": 106,
+      "Symbol": "Sg"
+  },
+  {
+      "ElementID": 107,
+      "Symbol": "Bh"
+  },
+  {
+      "ElementID": 108,
+      "Symbol": "Hs"
+  },
+  {
+      "ElementID": 109,
+      "Symbol": "Mt"
+  },
+  {
+      "ElementID": 110,
+      "Symbol": "Ds"
+  },
+  {
+      "ElementID": 111,
+      "Symbol": "Rg"
+  },
+  {
+      "ElementID": 112,
+      "Symbol": "Cn"
+  },
+  {
+      "ElementID": 113,
+      "Symbol": "Nh"
+  },
+  {
+      "ElementID": 114,
+      "Symbol": "Fl"
+  },
+  {
+      "ElementID": 115,
+      "Symbol": "Mc"
+  },
+  {
+      "ElementID": 116,
+      "Symbol": "Lv"
+  },
+  {
+      "ElementID": 117,
+      "Symbol": "Ts"
+  },
+  {
+      "ElementID": 118,
+      "Symbol": "Og"
+  }
 ]

@@ -1,4 +1,4 @@
-.bottom-menu {
+.footerMenu {
   width: 100vw;
   height: 6rem;
   display: grid;
@@ -13,7 +13,7 @@
   left: 0;
   top: 0;
 }
-.copyright-source {
+.copyrightSource {
   height: 2rem;
   line-height: 2rem;
   font-size: 1.2rem;
@@ -28,10 +28,10 @@
   margin: 3rem 0;
   color: #758a99;
 }
-.copyright-source:active {
+.copyrightSource:active {
   transform: scale(0.98);
 }
-.menu-icons {
+.menuIcons {
   width: 3.5rem;
   height: 3.5rem;
   display: inline-block;
@@ -43,27 +43,27 @@
   cursor: pointer;
 }
 
-.menu-icons:hover {
+.menuIcons:hover {
   transform: rotateX(35deg) scale(1.25);
   box-shadow: .1rem .1rem .2rem black;
 }
 
-.menu-icons:active {
+.menuIcons:active {
   transform: rotateX(0deg) scale(1);
 }
 
-.gr-icon {
-  background-image: url(/src/assets/icons/navMenu/gr-icon.svg);
+.griIcon {
+  background-image: url(/src/assets/icons/navMenu/gri-icon.svg);
 }
-.sp-icon {
-  background-image: url(/src/assets/icons/navMenu/sp-icon.svg);
+.sphIcon {
+  background-image: url(/src/assets/icons/navMenu/sph-icon.svg);
 }
-.ta-icon {
-  background-image: url(/src/assets/icons/navMenu/ta-icon.svg);
+.tabIcon {
+  background-image: url(/src/assets/icons/navMenu/tab-icon.svg);
 }
-.he-icon {
-  background-image: url(/src/assets/icons/navMenu/he-icon.svg);
+.helIcon {
+  background-image: url(/src/assets/icons/navMenu/hel-icon.svg);
 }
-.co-icon {
-  background-image: url(/src/assets/icons/navMenu/ra-icon.svg);
+.ranIcon {
+  background-image: url(/src/assets/icons/navMenu/ran-icon.svg);
 }

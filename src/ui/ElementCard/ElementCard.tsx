@@ -1,17 +1,17 @@
-import type { Matrix3D } from '@/typings';
+import type { Matrix3D } from '@/domain/models/typings';
 import type { ReactElement } from 'react';
-import elements from '@/assets/elements';
-import './index.css';
+import elements from '@/assets/data/elements.json';
+import style from './ElementCard.module.css';
 
-interface ElementUnitProps {
+interface ElementCardProps {
   matrix3d:Matrix3D, idx: number;
 }
+export default function ElementCard ({ matrix3d, idx }: ElementCardProps): ReactElement {
 
-export default function ElementUnit ({ matrix3d, idx }: ElementUnitProps): ReactElement {
   return (
-    <div className="element-unit" style={{ transform: `matrix3d(${String(matrix3d)})` }}>
-      <span className="element-id">{ elements[idx].ElementID }</span>
-      <span className="symbol">{ elements[idx].Symbol }</span>
+    <div className={ style.elementCard } style={{ transform: `matrix3d(${String(matrix3d)})` }}>
+      <span className={ style.elementId }>{ elements[idx].ElementID }</span>
+      <span className={ style.symbol}>{ elements[idx].Symbol }</span>
     </div>
   );
 }

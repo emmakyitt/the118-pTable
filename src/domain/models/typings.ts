@@ -1,15 +1,15 @@
-/** 布局模式：对应不同视觉模型的标识 */
-export enum  MoStatus {
+/** 布局模式：对应不同视图模型的标识 */
+export enum  LayoutStyle {
   /** 表格模型 */
-  Ta = 'TaModel',
+  TAB = 'TabViewModel',
   /** 球体模型 */
-  Sp = 'SpModel',
+  SPH = 'SphViewModel',
   /** 螺旋模型 */
-  He = 'HeModel',
+  HEL = 'HelViewModel',
   /** 网格模型 */
-  Gr = 'GrModel',
+  GRI = 'GriViewModel',
   /** 随机模型 */
-  Ra = 'RaModel',
+  RAN = 'RanViewModel',
 }
 
 /**
@@ -23,17 +23,17 @@ export type Matrix = [number, number, number, number];
  */
 export type Matrix3D = [Matrix, Matrix, Matrix, Matrix];
 
-/** 布局模型接口：所有视觉模型需实现此接口 */
-export interface IVisualModelFactory {
+/** 布局模型接口：所有视图模型需实现此接口 */
+export interface IViewModelFactory {
 
-  /** 当前模型对应的布局状态 */
-  moStatus: MoStatus;
+  /** 额外属性 */
+  [x: string]: any;
 
   /** 获取当前模型的 4x4 矩阵 */
   getMatrix3d() : Matrix3D[];
 }
 
 /** 子类构造函数签名：确保注册表中存放的是可实例化的子类 */
-export interface IVisualModelCtor {
-  new (moStatus: MoStatus): IVisualModelFactory;
+export interface IViewModelCtor {
+  new (layoutStyle: LayoutStyle): IViewModelFactory;
 }      

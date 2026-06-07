@@ -1,25 +1,25 @@
-import VisualModelFactory from '@/visual/VisualModelFactory';
-import registerToVisualModelFactory from '@/visual/register';
-import { MoStatus } from '@/typings';
-import MatrixTools from '@/utils/MatrixTools';
-import MathTools from '@/utils/MathTools';
-import type { Matrix, Matrix3D } from '@/typings';
+import type { Matrix, Matrix3D } from '@/domain/models/typings';
+import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
+import registerTo from '@/domain/viewModels/register';
+import { LayoutStyle } from '@/domain/models/typings';
+import MatrixTools from '@/infrastructure/utils/MatrixTools';
+import MathTools from '@/infrastructure/utils/MathTools';
 
 /**
- * 布局模型（SpModel）：生成化学元素周期表（球体形态）的点阵布局。
+ * 布局模型（SphViewModel）：生成化学元素周期表（球体形态）的点阵布局。
  * 
  * 设计思路：
  * - 纬线方向采用不均匀分布，使元素在球面上疏密有致（极区稀疏、赤道密集）。
  * - 经线方向在每个纬度圈内均匀分布。
 
- * 通过装饰器 @registerToVisualModelFactory 自动注册到 VisualModelFactory.registry，
- * 注册标识与 MoStatus.Sp 枚举值一致 
+ * 通过装饰器 @registerTo 将 SphViewModel 注册到 ViewModelFactory.registry 中，
+ * 注册标识与 LayoutStyle.SPH 枚举值一致 
  */
-@registerToVisualModelFactory()
-export default class SpModel extends VisualModelFactory {
+@registerTo(ViewModelFactory)
+export default class SphViewModel extends ViewModelFactory {
 
-  /** 明确声明的注册标识，与 MoStatus 枚举保持一致 */
-  static readonly MODEL_STATUS = MoStatus.Sp;
+  /** 明确声明的注册标识，与 LAYOUT_STYLE 枚举保持一致 */
+  static readonly LAYOUT_STYLE = LayoutStyle.SPH;
 
   /** 元素总个数 */
   private static readonly ELEMENT_COUNT: number = 118;
@@ -71,12 +71,12 @@ export default class SpModel extends VisualModelFactory {
   } {
 
     // 命中缓存则直接返回
-    if (SpModel.cachedSphereArrays) {
-      return SpModel.cachedSphereArrays;
+    if (SphViewModel.cachedSphereArrays) {
+      return SphViewModel.cachedSphereArrays;
     }
 
     const d = 180 / 7;
-    const t = SpModel.ELEMENT_COUNT / 2 - 1;           // 北半球除极点外的元素总数
+    const t = SphViewModel.ELEMENT_COUNT / 2 - 1;           // 北半球除极点外的元素总数
     const latN = [90, 90 - d, 90 - 2 * d, 90 - 3 * d]; // 北半球四个纬度（从北极点到赤道附近）
 
     // 除极点外各纬度的余弦值
@@ -92,7 +92,7 @@ export default class SpModel extends VisualModelFactory {
       elementsDistr: [...counter, ...counter.reverse()],
     };
 
-     SpModel.cachedSphereArrays = sphereArrays;
+     SphViewModel.cachedSphereArrays = sphereArrays;
     return sphereArrays;
   }
 
@@ -112,29 +112,29 @@ export default class SpModel extends VisualModelFactory {
    *
    * @returns 变换矩阵数组，每个矩阵对应一个可视元素
    */
-  getMatrix3d(): Matrix3D[] {
+  public getMatrix3d(): Matrix3D[] {
 
     // 命中缓存则直接返回引用，不再生成额外数组副本
-    if (SpModel.cachedMatrices) {
-      return SpModel.cachedMatrices;
+    if (SphViewModel.cachedMatrices) {
+      return SphViewModel.cachedMatrices;
     }
 
     // 预分配数组长度，避免在循环中使用 push 导致多次扩容
-    const matrices: Matrix3D[] = new Array<Matrix3D>(SpModel.ELEMENT_COUNT);
+    const matrices: Matrix3D[] = new Array<Matrix3D>(SphViewModel.ELEMENT_COUNT);
 
     // 复用临时数组，避免在循环内重复创建新数组对象
     const rotateArray: Matrix = [0, 0, 0, 1];
 
     // 缓存静态属性到局部变量，减少属性访问开销
-    const zAxisOffset: Matrix = SpModel.Z_AXIS_OFFSET 
-    const xyAxisScale: Matrix = SpModel.XY_AXIS_SCALE 
+    const zAxisOffset: Matrix = SphViewModel.Z_AXIS_OFFSET 
+    const xyAxisScale: Matrix = SphViewModel.XY_AXIS_SCALE 
     const scalesMatrix: Matrix = [.5, .5, 1, 2];
 
     // 矩阵变换参数 [缩放, 平移，旋转，缩放]
     const matrixsArgs: Matrix[] = [scalesMatrix, zAxisOffset, rotateArray, xyAxisScale];
 
     // 获取球面分布所需的纬度角度和每个纬度圈上的元素个数。
-    const { elementsAngle, elementsDistr } = SpModel.getSphereArrays();
+    const { elementsAngle, elementsDistr } = SphViewModel.getSphereArrays();
 
     let idx: number = 0;
     for (let i=0; i<elementsDistr.length; i++) {
@@ -163,7 +163,7 @@ export default class SpModel extends VisualModelFactory {
      * 注意：返回数组的内部引用
      * 请勿修改数组内矩阵对象的内容，否则会污染缓存。
      */
-    SpModel.cachedMatrices = matrices;
+    SphViewModel.cachedMatrices = matrices;
     return matrices;
   }
 }

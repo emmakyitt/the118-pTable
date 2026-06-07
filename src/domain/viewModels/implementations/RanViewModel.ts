@@ -1,23 +1,23 @@
-import VisualModelFactory from '@/visual/VisualModelFactory';
-import registerToVisualModelFactory from '@/visual/register';
-import type { Matrix, Matrix3D } from '@/typings';
-import { MoStatus } from '@/typings';
-import MatrixTools from '@/utils/MatrixTools';
+import type { Matrix, Matrix3D } from '@/domain/models/typings';
+import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
+import registerTo from '@/domain/viewModels/register';
+import { LayoutStyle } from '@/domain/models/typings';
+import MatrixTools from '@/infrastructure/utils/MatrixTools';
 
 /**
- * 布局模型（RaModel）：生成化学元素周期表（随机形态）的点阵布局。
+ * 布局模型（RanViewModel）：生成化学元素周期表（随机形态）的点阵布局。
  *
  * 该类生成的 3D 点阵中，每个元素的位置在 X、Y、Z 轴上均独立随机分布，
  * 不遵循任何周期性或对称规律，适用于“随机云雾”或“散点”形态的可视化场景。
  *  
- * 通过装饰器 @registerToVisualModelFactory 自动注册到 VisualModelFactory.registry，
- * 注册标识与 MoStatus.Ra 枚举值一致
+ * 通过装饰器 @registerTo 将 RanViewModel 注册到 ViewModelFactory.registry 中，
+ * 注册标识与 LayoutStyle.RAN 枚举值一致
  */
-@registerToVisualModelFactory()
-export default class RaModel extends VisualModelFactory {
+@registerTo(ViewModelFactory)
+export default class RanViewModel extends ViewModelFactory {
 
-  /** 明确声明的注册标识，与 MoStatus 枚举保持一致 */
-  static readonly MODEL_STATUS = MoStatus.Ra;
+  /** 明确声明的注册标识，与 LayoutStyle 枚举保持一致 */
+  static readonly LAYOUT_STYLE = LayoutStyle.RAN;
 
   /** 元素总个数（化学元素周期表全部已知元素） */
   private static readonly ELEMENT_COUNT: number = 118;
@@ -66,17 +66,17 @@ export default class RaModel extends VisualModelFactory {
    *
    * @returns 变换矩阵数组，每个矩阵对应一个可视元素
    */
-  getMatrix3d(): Matrix3D[] {
+  public getMatrix3d(): Matrix3D[] {
 
     // 预分配数组长度，避免在循环中使用 push 导致多次扩容
-    const matrices: Matrix3D[] = new Array<Matrix3D>(RaModel.ELEMENT_COUNT);
+    const matrices: Matrix3D[] = new Array<Matrix3D>(RanViewModel.ELEMENT_COUNT);
 
     // 浏览器窗口宽 / 高度
-    const viewportW: number = RaModel.getViewportSize().w;
-    const viewportH: number = RaModel.getViewportSize().h;
+    const viewportW: number = RanViewModel.getViewportSize().w;
+    const viewportH: number = RanViewModel.getViewportSize().h;
 
     // 获取随机整数方法
-    const randomInt: Function = RaModel.randomInt;
+    const randomInt: Function = RanViewModel.randomInt;
 
     // 平移矩阵
     const offsetMatrix: Matrix = [0, 0, 0, 0];
@@ -86,7 +86,7 @@ export default class RaModel extends VisualModelFactory {
     const matrixsArgs: Matrix[] = [scalesMatrix, offsetMatrix];
 
     // 元素总个数
-    const elementCount: number = RaModel.ELEMENT_COUNT;
+    const elementCount: number = RanViewModel.ELEMENT_COUNT;
 
     // 为每个元素生成独立随机的三维坐标，并转换为 Matrix3D 存储
     for (let i:number = 0; i < elementCount; i++) {

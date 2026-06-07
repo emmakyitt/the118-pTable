@@ -1,26 +1,26 @@
 import type { Dispatch, SetStateAction, ReactElement } from 'react';
-import { MoStatus } from '@/typings';
-import './index.css';
+import { LayoutStyle } from '@/domain/models/typings';
+import style from './FooterMenu.module.css';
 
-interface BottomMenuProps {
-  setMoStatus: Dispatch<SetStateAction<MoStatus>>;
+interface FooterMenuProps {
+  setLayoutStyle: Dispatch<SetStateAction<LayoutStyle>>;
 }
 
-export default function BottomMenu ({ setMoStatus }: BottomMenuProps): ReactElement {
+export default function FooterMenu ({ setLayoutStyle }: FooterMenuProps): ReactElement {
 
   return (
-    <div className="bottom-menu">
-      <div className="copyright">
-        <a className="copyright-source" href='https://github.com/emmakyitt/the118-pTable' target="_self" rel="copyright">
+    <div className={ style.footerMenu }>
+      <div className={ style.copyright }>
+        <a className={ style.copyrightSource} href='https://github.com/emmakyitt/the118-pTable' target="_self" rel="copyright">
           © 2026 Emmakyitt. ALL RIGHTS RESERVED.
         </a>
       </div>
       <div className="icon-wrapper">
-        <i className="gr-icon menu-icons" onClick={ () => setMoStatus(MoStatus.Gr) }></i>
-        <i className="sp-icon menu-icons" onClick={ () => setMoStatus(MoStatus.Sp) }></i>
-        <i className="ta-icon menu-icons" onClick={ () => setMoStatus(MoStatus.Ta) }></i>
-        <i className="he-icon menu-icons" onClick={ () => setMoStatus(MoStatus.He) }></i>
-        <i className="co-icon menu-icons" onClick={ () => setMoStatus(MoStatus.Ra) }></i>
+        <i className={ `${style.menuIcons} ${style.griIcon}` } onClick={ () => setLayoutStyle(LayoutStyle.GRI) }></i>
+        <i className={ `${style.menuIcons} ${style.sphIcon}` } onClick={ () => setLayoutStyle(LayoutStyle.SPH) }></i>
+        <i className={ `${style.menuIcons} ${style.tabIcon}` } onClick={ () => setLayoutStyle(LayoutStyle.TAB) }></i>
+        <i className={ `${style.menuIcons} ${style.helIcon}` } onClick={ () => setLayoutStyle(LayoutStyle.HEL) }></i>
+        <i className={ `${style.menuIcons} ${style.ranIcon}` } onClick={ () => setLayoutStyle(LayoutStyle.RAN) }></i>
       </div>
     </div>
   );

@@ -1,15 +1,15 @@
-import VisualModelFactory from '@/visual/VisualModelFactory';
-import registerToVisualModelFactory from '@/visual/register';
-import type { Matrix, Matrix3D } from '@/typings';
-import { MoStatus } from '@/typings';
-import MatrixTools from '@/utils/MatrixTools';
-import charTemplate from '@/assets/charTemplate';
+import type { Matrix, Matrix3D } from '@/domain/models/typings';
+import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
+import registerTo from '@/domain/viewModels/register';
+import { LayoutStyle } from '@/domain/models/typings';
+import MatrixTools from '@/infrastructure/utils/MatrixTools';
+import charTemplate from '@/assets/data/charTemplate';
 
 /**
- * 布局模型（TaModel）：生成化学元素周期表（表格形态）的点阵布局。
+ * 布局模型（SphViewModel）：生成化学元素周期表（表格形态）的点阵布局。
  * 
- * 通过装饰器 @registerToVisualModelFactory 自动注册到 VisualModelFactory.registry，
- * 注册标识与 MoStatus.Ta 枚举值一致
+ * 通过装饰器 @registerTo 将 SphViewModel 注册到 ViewModelFactory.registry 中，
+ * 注册标识与 LayoutStyle.TAB 枚举值一致
  * 
  * 优化点：
  * - 所有布局常量（尺寸、间距、行列数）均为静态只读属性，初始化后不再变化。
@@ -18,11 +18,11 @@ import charTemplate from '@/assets/charTemplate';
  * - 变换矩阵结果采用静态缓存，首次计算后直接复用。
  * - 循环内部缓存数组引用和坐标基准值，减少属性访问链。
  */
-@registerToVisualModelFactory()
-export default class TaModel extends VisualModelFactory {
+@registerTo(ViewModelFactory)
+export default class SphViewModel extends ViewModelFactory {
 
-  /** 明确声明的模型标识，与 MoStatus 枚举保持一致 */
-  static readonly MODEL_STATUS = MoStatus.Ta;
+  /** 明确声明的模型标识，与 LayoutStyle 枚举保持一致 */
+  static readonly LAYOUT_STYLE = LayoutStyle.TAB;
 
   /** 元素总个数（化学元素周期表全部已知元素） */
   private static readonly ELEMENT_COUNT: number = 118;
@@ -47,8 +47,8 @@ export default class TaModel extends VisualModelFactory {
 
   /** 整个周期表的表格总尺寸（宽 × 高） */
   private static readonly TABLE_SIZE: { w: number; h: number } = {
-    w: (TaModel.ELEMENT_SIZE + TaModel.GUTTER) * TaModel.COL_MAX,
-    h: (TaModel.ELEMENT_SIZE + TaModel.GUTTER) * TaModel.ROW_MAX,
+    w: (SphViewModel.ELEMENT_SIZE + SphViewModel.GUTTER) * SphViewModel.COL_MAX,
+    h: (SphViewModel.ELEMENT_SIZE + SphViewModel.GUTTER) * SphViewModel.ROW_MAX,
   };
 
   /**
@@ -56,8 +56,8 @@ export default class TaModel extends VisualModelFactory {
    * 以表格中心为原点，将网格整体居中。
    */
   private static readonly FIRST_ELEMENT_POSITION: { x: number; y: number } = {
-    x: -TaModel.TABLE_SIZE.w / 2 + TaModel.ELEMENT_SIZE / 2,
-    y: -TaModel.TABLE_SIZE.h / 2 + TaModel.ELEMENT_SIZE / 2,
+    x: -SphViewModel.TABLE_SIZE.w / 2 + SphViewModel.ELEMENT_SIZE / 2,
+    y: -SphViewModel.TABLE_SIZE.h / 2 + SphViewModel.ELEMENT_SIZE / 2,
   };
 
   // ==================== 缓存区域 ====================
@@ -110,7 +110,7 @@ export default class TaModel extends VisualModelFactory {
     if (i === 8 && j > 2) { return { dx: 0, dy: -step * 2 } }
 
     // 无特殊偏移
-    return TaModel.ZERO_OFFSET;
+    return SphViewModel.ZERO_OFFSET;
   }
 
 
@@ -131,28 +131,28 @@ export default class TaModel extends VisualModelFactory {
    *
    * @returns 变换矩阵数组，每个矩阵对应一个可视元素
    */
-  getMatrix3d(): Matrix3D[] {
+  public getMatrix3d(): Matrix3D[] {
 
     // 命中缓存直接返回
-    if (TaModel.cachedMatrices) {
-      return TaModel.cachedMatrices;
+    if (SphViewModel.cachedMatrices) {
+      return SphViewModel.cachedMatrices;
     }
 
     // 预分配数组长度，避免在循环中使用 push 导致多次扩容
-    const matrices: Matrix3D[] = new Array<Matrix3D>(TaModel.ELEMENT_COUNT);
+    const matrices: Matrix3D[] = new Array<Matrix3D>(SphViewModel.ELEMENT_COUNT);
 
     // 第一个元素位置
-    const firstElementX: number = TaModel.FIRST_ELEMENT_POSITION.x;
-    const firstElementY: number = TaModel.FIRST_ELEMENT_POSITION.y;
+    const firstElementX: number = SphViewModel.FIRST_ELEMENT_POSITION.x;
+    const firstElementY: number = SphViewModel.FIRST_ELEMENT_POSITION.y;
 
     // 后两行垂直间隙 (提升局部常量 避免内部循环重复访问静态属性)
-    const lanActGap: number = TaModel.LAN_ACT_GAP;
+    const lanActGap: number = SphViewModel.LAN_ACT_GAP;
 
     // 每步跨度（单位 / 像素）
-    const step: number = TaModel.ELEMENT_SIZE + TaModel.GUTTER;
+    const step: number = SphViewModel.ELEMENT_SIZE + SphViewModel.GUTTER;
 
     // 获取特殊偏移量方法
-    const specialOffset: Function = TaModel.getSpecialOffset;
+    const specialOffset: Function = SphViewModel.getSpecialOffset;
 
     // 布局字符模板
     const cTemplate: number[][] = charTemplate; // 局部缓存引用
@@ -167,8 +167,8 @@ export default class TaModel extends VisualModelFactory {
     const matrixsArgs: Matrix[] = [scalesMatrix, offsetMatrix];
 
     // 最大行 / 列
-    const rowMax: number = TaModel.ROW_MAX;
-    const colMax: number = TaModel.COL_MAX;
+    const rowMax: number = SphViewModel.ROW_MAX;
+    const colMax: number = SphViewModel.COL_MAX;
 
     // 记录循环次数
     let idx: number = 0;
@@ -202,7 +202,7 @@ export default class TaModel extends VisualModelFactory {
      * 注意：返回的数组为数组引用，可以安全遍历，
      * 但请勿修改数组内矩阵对象的内容，否则会污染缓存。
      */
-    TaModel.cachedMatrices = matrices;
+    SphViewModel.cachedMatrices = matrices;
     return matrices;
   }
 }

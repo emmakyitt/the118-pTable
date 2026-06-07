@@ -1,5 +1,5 @@
-import MathTools from '@/utils/MathTools';
-import type { Matrix, Matrix3D } from '@/typings';
+import MathTools from '@/infrastructure/utils/MathTools';
+import type { Matrix, Matrix3D } from '@/domain/models/typings';
 
 /**
  * 矩阵工具类（纯静态方法，禁止实例化）。

@@ -1,23 +1,23 @@
-import VisualModelFactory from '@/visual/VisualModelFactory';
-import registerToVisualModelFactory from '@/visual/register';
-import { MoStatus } from '@/typings';
-import type { Matrix, Matrix3D } from '@/typings';
-import MatrixTools from '@/utils/MatrixTools';
+import type { Matrix, Matrix3D } from '@/domain/models/typings';
+import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
+import registerTo from '@/domain/viewModels/register';
+import { LayoutStyle } from '@/domain/models/typings';
+import MatrixTools from '@/infrastructure/utils/MatrixTools';
 
 /**
- * 布局模型（GrModel）：生成化学元素周期表（网格形态）的点阵布局。
+ * 布局模型（GriViewModel）：生成化学元素周期表（网格形态）的点阵布局。
  *
  * 模型会将 118 个元素排列在多个“面板”（Panel）中，每个面板是一个
  * ROW_MAX × COL_MAX 的网格。所有面板沿 Z 轴方向堆叠 
  * 
- * 通过装饰器 @registerToVisualModelFactory 自动注册到 VisualModelFactory.registry，
- * 注册标识与 MoStatus.Gr 枚举值一致
+ * 通过装饰器 @registerTo 将 GriViewModel 注册到 ViewModelFactory.registry 中，
+ * 注册标识与 LayoutStyle.GRI 枚举值一致
  */
-@registerToVisualModelFactory()
-export default class GrModel extends VisualModelFactory {
+@registerTo(ViewModelFactory)
+export default class GriViewModel extends ViewModelFactory {
 
-  /** 明确声明的注册标识，与 MoStatus 枚举保持一致 */
-  static readonly MODEL_STATUS = MoStatus.Gr;
+  /** 明确声明的注册标识，与 LayoutStyle 枚举保持一致 */
+  static readonly LAYOUT_STYLE = LayoutStyle.GRI;
 
   /** 元素总个数（化学元素周期表全部已知元素） */
   private static readonly ELEMENT_COUNT: number = 118;
@@ -35,15 +35,15 @@ export default class GrModel extends VisualModelFactory {
   private static readonly GUTTER: number = 50;
 
   /** 单个面板能容纳的元素数量 */
-  private static readonly PANEL_SIZE: number = GrModel.ROW_MAX * GrModel.COL_MAX;
+  private static readonly PANEL_SIZE: number = GriViewModel.ROW_MAX * GriViewModel.COL_MAX;
 
   /** 元素XY轴缩放量 */
   private static readonly ROTATE_MATRIX: Matrix = Object.freeze([0, -25, 0, 1]) as Matrix;
 
   /** 整个网格的总尺寸（宽 × 高） */
   private static readonly GRID_SIZE: { w: number; h: number } = {
-    w: (GrModel.ELEMENT_SIZE + GrModel.GUTTER) * GrModel.COL_MAX,
-    h: (GrModel.ELEMENT_SIZE + GrModel.GUTTER) * GrModel.ROW_MAX,
+    w: (GriViewModel.ELEMENT_SIZE + GriViewModel.GUTTER) * GriViewModel.COL_MAX,
+    h: (GriViewModel.ELEMENT_SIZE + GriViewModel.GUTTER) * GriViewModel.ROW_MAX,
   };
 
   /**
@@ -51,8 +51,8 @@ export default class GrModel extends VisualModelFactory {
    * 以网格中心为原点，整体居中偏移。
    */
   private static readonly FIRST_ELEMENT_POSITION: { x: number; y: number } = {
-    x: -GrModel.GRID_SIZE.w / 2,
-    y: -GrModel.GRID_SIZE.h / 2,
+    x: -GriViewModel.GRID_SIZE.w / 2,
+    y: -GriViewModel.GRID_SIZE.h / 2,
   };
 
   // ==================== 缓存区域 ====================
@@ -77,46 +77,46 @@ export default class GrModel extends VisualModelFactory {
    *
    * @returns 变换矩阵数组，每个矩阵对应一个可视元素
    */
-  getMatrix3d(): Matrix3D[] {
+  public getMatrix3d(): Matrix3D[] {
 
     // 命中缓存则直接返回，避免重复计算
-    if (GrModel.cachedMatrices) {
-      return GrModel.cachedMatrices;
+    if (GriViewModel.cachedMatrices) {
+      return GriViewModel.cachedMatrices;
     }
 
     // 预分配数组长度，避免在循环中使用 push 导致多次扩容
-    const matrices: Matrix3D[] = new Array<Matrix3D>(GrModel.ELEMENT_COUNT);
+    const matrices: Matrix3D[] = new Array<Matrix3D>(GriViewModel.ELEMENT_COUNT);
 
     // 元素间的间隔
-    const gutter: number = GrModel.GUTTER;
+    const gutter: number = GriViewModel.GUTTER;
 
     // 最大行 / 列
-    const rowMax: number = GrModel.ROW_MAX;
-    const colMax: number = GrModel.COL_MAX;
+    const rowMax: number = GriViewModel.ROW_MAX;
+    const colMax: number = GriViewModel.COL_MAX;
 
     // 元素基准尺寸
-    const elSize: number = GrModel.ELEMENT_SIZE;
+    const elSize: number = GriViewModel.ELEMENT_SIZE;
 
     // 每步移动距离
     const stepLength: number = elSize + gutter;
 
     // 第一元素位置
-    const firstPositionX: number = GrModel.FIRST_ELEMENT_POSITION.x;
-    const firstPositionY: number = GrModel.FIRST_ELEMENT_POSITION.y;
+    const firstPositionX: number = GriViewModel.FIRST_ELEMENT_POSITION.x;
+    const firstPositionY: number = GriViewModel.FIRST_ELEMENT_POSITION.y;
 
     // 复用临时数组，避免在循环内重复创建新数组对象
     const offsetMatrix: Matrix = [0, 0, 0, 0];           // [x轴平移, y轴平移, z轴平移, 平移标识]
     const scalesMatrix: Matrix = [.5, .5, 1, 2];
-    const rotateMatrix: Matrix = GrModel.ROTATE_MATRIX;  // [x轴旋转, y轴旋转, z轴旋转, 旋转标识]
+    const rotateMatrix: Matrix = GriViewModel.ROTATE_MATRIX;  // [x轴旋转, y轴旋转, z轴旋转, 旋转标识]
 
     // 矩阵变换参数 [缩放，平移，旋转]
     const matrixsArgs: Matrix[] = [scalesMatrix, offsetMatrix, rotateMatrix];
 
     // 元素总个数
-    const elementCount: number = GrModel.ELEMENT_COUNT;
+    const elementCount: number = GriViewModel.ELEMENT_COUNT;
 
     // 每层面板容纳的元素数量
-    const panelSize: number = GrModel.PANEL_SIZE;
+    const panelSize: number = GriViewModel.PANEL_SIZE;
 
     for (let i=0; i<elementCount; i++) {
 
@@ -141,7 +141,7 @@ export default class GrModel extends VisualModelFactory {
      * 注意：返回数组的内部引用
      * 请勿修改数组内矩阵对象的内容，否则会污染缓存。
      */
-    GrModel.cachedMatrices = matrices;
+    GriViewModel.cachedMatrices = matrices;
     return matrices;
   }
 }

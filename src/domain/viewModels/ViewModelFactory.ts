@@ -1,31 +1,31 @@
 import type { 
-  MoStatus,
+  LayoutStyle,
   Matrix3D,
-  IVisualModelFactory, 
-  IVisualModelCtor } from '@/typings';
+  IViewModelFactory,
+  IViewModelCtor } from '@/domain/models/typings';
 
 /**
- * 视觉模型抽象基类
+ * 视图模型抽象基类
  * 
- * 提供统一的创建接口和静态注册表，支持通过状态枚举动态路由到对应子类。
- * 直接实例化本类时，会自动根据 moStatus 选择已注册的子类构造函数并返回其实例。
- */
-export default class VisualModelFactory implements IVisualModelFactory {
+ * 提供统一的获取变换矩阵接口，直接实例化本类时，会自动根据 layoutStyle 状态枚举
+ * 动态路由到对应子类, 并返回子类实例。
+ */ 
+export default class ViewModelFactory implements IViewModelFactory {
 
   /** 静态注册表：存储所有子类构造函数的映射 (key 为模型标识) */
-  static registry: Record<string, IVisualModelCtor> = {};
+  static registry: Record<string, IViewModelCtor> = {};
 
    /**
-   * @param moStatus - 布局模式状态
-   * 当使用 new VisualModelFactory(status) 调用时，会从注册表中寻找对应的子类
+   * @param layoutStyle - 布局模式状态
+   * 当使用 new ViewModelFactory(LayoutStyle) 调用时，会从注册表中寻找对应的子类
    * 并返回子类实例（多态）
    */
-  constructor (public moStatus: MoStatus) {
+  constructor (layoutStyle: LayoutStyle) {
 
     // 仅在直接实例化基类（而非子类通过 super 调用）时进行路由
-    if (new.target === VisualModelFactory) {
-      try { return new VisualModelFactory.registry[moStatus](moStatus) } // 返回子类实例
-      catch (e: any) { throw new Error(`Visual model not found：${moStatus}`) } 
+    if (new.target === ViewModelFactory) {
+      try { return new ViewModelFactory.registry[layoutStyle](layoutStyle) } // 返回子类实例
+      catch (e: any) { throw new Error(`Visual model not found：${layoutStyle}`) } 
     }
   }
 

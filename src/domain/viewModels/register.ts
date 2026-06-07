@@ -1,25 +1,25 @@
-import type { MoStatus, IVisualModelCtor } from '@/typings';
-import VisualModelFactory from '@/visual/VisualModelFactory';
+import type { LayoutStyle, IViewModelCtor } from '@/domain/models/typings';
+// import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
 
 /**
- * 类装饰器：将目标类自动注册到 VisualModelFactory.registry 中
- * 
- * 注册时会优先读取目标类的静态属性 `MODEL_STATUS`，
- * 若未定义则降级使用类名（name）作为注册 key。
+ * 类装饰器：将目标类自动注册到 ViewModelFactory.registry 中
+ * 注册时会读取目标类的静态属性 `LAYOUT_STYLE`，
  * 
  * 使用方式：
- * @registerToVisualModelFactory()
- * class SomeModel extends VisualModelFactory { ... }
+ * @registerTo(ViewModelFactory)
+ * class SomeViewModel extends ViewModelFactory { ... }
  * 
  * @returns ClassDecorator
  */
-export default function registerToVisualModelFactory(): ClassDecorator {
+export default function registerTo(
+  baseClass: { registry: Record<string, IViewModelCtor> }
+): ClassDecorator {
   return function (target: any) {
 
-    // 推断模型的注册 key：优先取明确声明的 MODEL_STATUS，否则使用类名
-    const key: MoStatus = (target as any).MODEL_STATUS ?? target.name;
+    // 通过子类中LAYOUT_STYLE 来推断模型类的注册
+    const key: LayoutStyle = target!.LAYOUT_STYLE;
 
     // 将子类构造函数存入父类静态注册表中 
-    VisualModelFactory.registry[key] = target as IVisualModelCtor;
+    baseClass.registry[key] = target as IViewModelCtor;
   }
 };

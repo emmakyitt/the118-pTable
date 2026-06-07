@@ -1,18 +1,18 @@
-import type { Matrix3D } from '@/typings';
+import type { Matrix3D } from '@/domain/models/typings';
 import type { ReactElement } from 'react';
-import ElementUnit from '@/components/ElementUnit';
-import './index.css';
+import ElementCard from '@/ui/ElementCard/ElementCard';
+import style from './ElementStage.module.css';
 
-interface PeriodicTableProps {
+interface ElementStageProps {
   elementPosition: Matrix3D[];
 }
 
-export default function PeriodicTable ({ elementPosition }: PeriodicTableProps): ReactElement {
+export default function ElementStage ({ elementPosition }: ElementStageProps): ReactElement {
   return (
-    <div id="pTable">
+    <div className={style.pTable}>
       {
         elementPosition.map((matrix3d: Matrix3D, idx: number) => 
-          <ElementUnit key={ idx } matrix3d={ matrix3d } idx={ idx } />
+          <ElementCard key={ idx } matrix3d={ matrix3d } idx={ idx } />
         )
       }
     </div>
