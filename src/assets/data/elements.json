@@ -1,474 +1,120 @@
 [
-  {
-      "ElementID": 1,
-      "Symbol": "H"
-  },
-  {
-      "ElementID": 2,
-      "Symbol": "He"
-  },
-  {
-      "ElementID": 3,
-      "Symbol": "Li"
-  },
-  {
-      "ElementID": 4,
-      "Symbol": "Be"
-  },
-  {
-      "ElementID": 5,
-      "Symbol": "B"
-  },
-  {
-      "ElementID": 6,
-      "Symbol": "C"
-  },
-  {
-      "ElementID": 7,
-      "Symbol": "N"
-  },
-  {
-      "ElementID": 8,
-      "Symbol": "O"
-  },
-  {
-      "ElementID": 9,
-      "Symbol": "F"
-  },
-  {
-      "ElementID": 10,
-      "Symbol": "Ne"
-  },
-  {
-      "ElementID": 11,
-      "Symbol": "Na"
-  },
-  {
-      "ElementID": 12,
-      "Symbol": "Mg"
-  },
-  {
-      "ElementID": 13,
-      "Symbol": "Al"
-  },
-  {
-      "ElementID": 14,
-      "Symbol": "Si"
-  },
-  {
-      "ElementID": 15,
-      "Symbol": "P"
-  },
-  {
-      "ElementID": 16,
-      "Symbol": "S"
-  },
-  {
-      "ElementID": 17,
-      "Symbol": "Cl"
-  },
-  {
-      "ElementID": 18,
-      "Symbol": "Ar"
-  },
-  {
-      "ElementID": 19,
-      "Symbol": "K"
-  },
-  {
-      "ElementID": 20,
-      "Symbol": "Ca"
-  },
-  {
-      "ElementID": 21,
-      "Symbol": "Sc"
-  },
-  {
-      "ElementID": 22,
-      "Symbol": "Ti"
-  },
-  {
-      "ElementID": 23,
-      "Symbol": "V"
-  },
-  {
-      "ElementID": 24,
-      "Symbol": "Cr"
-  },
-  {
-      "ElementID": 25,
-      "Symbol": "Mn"
-  },
-  {
-      "ElementID": 26,
-      "Symbol": "Fe"
-  },
-  {
-      "ElementID": 27,
-      "Symbol": "Co"
-  },
-  {
-      "ElementID": 28,
-      "Symbol": "Ni"
-  },
-  {
-      "ElementID": 29,
-      "Symbol": "Cu"
-  },
-  {
-      "ElementID": 30,
-      "Symbol": "Zn"
-  },
-  {
-      "ElementID": 31,
-      "Symbol": "Ga"
-  },
-  {
-      "ElementID": 32,
-      "Symbol": "Ge"
-  },
-  {
-      "ElementID": 33,
-      "Symbol": "As"
-  },
-  {
-      "ElementID": 34,
-      "Symbol": "Se"
-  },
-  {
-      "ElementID": 35,
-      "Symbol": "Br"
-  },
-  {
-      "ElementID": 36,
-      "Symbol": "Kr"
-  },
-  {
-      "ElementID": 37,
-      "Symbol": "Rb"
-  },
-  {
-      "ElementID": 38,
-      "Symbol": "Sr"
-  },
-  {
-      "ElementID": 39,
-      "Symbol": "Y"
-  },
-  {
-      "ElementID": 40,
-      "Symbol": "Zr"
-  },
-  {
-      "ElementID": 41,
-      "Symbol": "Nb"
-  },
-  {
-      "ElementID": 42,
-      "Symbol": "Mo"
-  },
-  {
-      "ElementID": 43,
-      "Symbol": "Tc"
-  },
-  {
-      "ElementID": 44,
-      "Symbol": "Ru"
-  },
-  {
-      "ElementID": 45,
-      "Symbol": "Rh"
-  },
-  {
-      "ElementID": 46,
-      "Symbol": "Pd"
-  },
-  {
-      "ElementID": 47,
-      "Symbol": "Ag"
-  },
-  {
-      "ElementID": 48,
-      "Symbol": "Cd"
-  },
-  {
-      "ElementID": 49,
-      "Symbol": "In"
-  },
-  {
-      "ElementID": 50,
-      "Symbol": "Sn"
-  },
-  {
-      "ElementID": 51,
-      "Symbol": "Sb"
-  },
-  {
-      "ElementID": 52,
-      "Symbol": "Te"
-  },
-  {
-      "ElementID": 53,
-      "Symbol": "I"
-  },
-  {
-      "ElementID": 54,
-      "Symbol": "Xe"
-  },
-  {
-      "ElementID": 55,
-      "Symbol": "Cs"
-  },
-  {
-      "ElementID": 56,
-      "Symbol": "Ba"
-  },
-  {
-      "ElementID": 57,
-      "Symbol": "La"
-  },
-  {
-      "ElementID": 58,
-      "Symbol": "Ce"
-  },
-  {
-      "ElementID": 59,
-      "Symbol": "Pr"
-  },
-  {
-      "ElementID": 60,
-      "Symbol": "Nd"
-  },
-  {
-      "ElementID": 61,
-      "Symbol": "Pm"
-  },
-  {
-      "ElementID": 62,
-      "Symbol": "Sm"
-  },
-  {
-      "ElementID": 63,
-      "Symbol": "Eu"
-  },
-  {
-      "ElementID": 64,
-      "Symbol": "Gd"
-  },
-  {
-      "ElementID": 65,
-      "Symbol": "Tb"
-  },
-  {
-      "ElementID": 66,
-      "Symbol": "Dy"
-  },
-  {
-      "ElementID": 67,
-      "Symbol": "Ho"
-  },
-  {
-      "ElementID": 68,
-      "Symbol": "Er"
-  },
-  {
-      "ElementID": 69,
-      "Symbol": "Tm"
-  },
-  {
-      "ElementID": 70,
-      "Symbol": "Yb"
-  },
-  {
-      "ElementID": 71,
-      "Symbol": "Lu"
-  },
-  {
-      "ElementID": 72,
-      "Symbol": "Hf"
-  },
-  {
-      "ElementID": 73,
-      "Symbol": "Ta"
-  },
-  {
-      "ElementID": 74,
-      "Symbol": "W"
-  },
-  {
-      "ElementID": 75,
-      "Symbol": "Re"
-  },
-  {
-      "ElementID": 76,
-      "Symbol": "Os"
-  },
-  {
-      "ElementID": 77,
-      "Symbol": "Ir"
-  },
-  {
-      "ElementID": 78,
-      "Symbol": "Pt"
-  },
-  {
-      "ElementID": 79,
-      "Symbol": "Au"
-  },
-  {
-      "ElementID": 80,
-      "Symbol": "Hg"
-  },
-  {
-      "ElementID": 81,
-      "Symbol": "Tl"
-  },
-  {
-      "ElementID": 82,
-      "Symbol": "Pb"
-  },
-  {
-      "ElementID": 83,
-      "Symbol": "Bi"
-  },
-  {
-      "ElementID": 84,
-      "Symbol": "Po"
-  },
-  {
-      "ElementID": 85,
-      "Symbol": "At"
-  },
-  {
-      "ElementID": 86,
-      "Symbol": "Rn"
-  },
-  {
-      "ElementID": 87,
-      "Symbol": "Fr"
-  },
-  {
-      "ElementID": 88,
-      "Symbol": "Ra"
-  },
-  {
-      "ElementID": 89,
-      "Symbol": "Ac"
-  },
-  {
-      "ElementID": 90,
-      "Symbol": "Th"
-  },
-  {
-      "ElementID": 91,
-      "Symbol": "Pa"
-  },
-  {
-      "ElementID": 92,
-      "Symbol": "U"
-  },
-  {
-      "ElementID": 93,
-      "Symbol": "Np"
-  },
-  {
-      "ElementID": 94,
-      "Symbol": "Pu"
-  },
-  {
-      "ElementID": 95,
-      "Symbol": "Am"
-  },
-  {
-      "ElementID": 96,
-      "Symbol": "Cm"
-  },
-  {
-      "ElementID": 97,
-      "Symbol": "Bk"
-  },
-  {
-      "ElementID": 98,
-      "Symbol": "Cf"
-  },
-  {
-      "ElementID": 99,
-      "Symbol": "Es"
-  },
-  {
-      "ElementID": 100,
-      "Symbol": "Fm"
-  },
-  {
-      "ElementID": 101,
-      "Symbol": "Md"
-  },
-  {
-      "ElementID": 102,
-      "Symbol": "No"
-  },
-  {
-      "ElementID": 103,
-      "Symbol": "Lr"
-  },
-  {
-      "ElementID": 104,
-      "Symbol": "Rf"
-  },
-  {
-      "ElementID": 105,
-      "Symbol": "Db"
-  },
-  {
-      "ElementID": 106,
-      "Symbol": "Sg"
-  },
-  {
-      "ElementID": 107,
-      "Symbol": "Bh"
-  },
-  {
-      "ElementID": 108,
-      "Symbol": "Hs"
-  },
-  {
-      "ElementID": 109,
-      "Symbol": "Mt"
-  },
-  {
-      "ElementID": 110,
-      "Symbol": "Ds"
-  },
-  {
-      "ElementID": 111,
-      "Symbol": "Rg"
-  },
-  {
-      "ElementID": 112,
-      "Symbol": "Cn"
-  },
-  {
-      "ElementID": 113,
-      "Symbol": "Nh"
-  },
-  {
-      "ElementID": 114,
-      "Symbol": "Fl"
-  },
-  {
-      "ElementID": 115,
-      "Symbol": "Mc"
-  },
-  {
-      "ElementID": 116,
-      "Symbol": "Lv"
-  },
-  {
-      "ElementID": 117,
-      "Symbol": "Ts"
-  },
-  {
-      "ElementID": 118,
-      "Symbol": "Og"
-  }
+  { "ElementID": 1, "Symbol": "H", "Name": "Hydrogen", "Category": "nonmetal", "Mass": 1.008 },
+  { "ElementID": 2, "Symbol": "He", "Name": "Helium", "Category": "noble gas", "Mass": 4.0026 },
+  { "ElementID": 3, "Symbol": "Li", "Name": "Lithium", "Category": "alkali metal", "Mass": 6.94 },
+  { "ElementID": 4, "Symbol": "Be", "Name": "Beryllium", "Category": "alkaline earth", "Mass": 9.0122 },
+  { "ElementID": 5, "Symbol": "B", "Name": "Boron", "Category": "metalloid", "Mass": 10.81 },
+  { "ElementID": 6, "Symbol": "C", "Name": "Carbon", "Category": "nonmetal", "Mass": 12.011 },
+  { "ElementID": 7, "Symbol": "N", "Name": "Nitrogen", "Category": "nonmetal", "Mass": 14.007 },
+  { "ElementID": 8, "Symbol": "O", "Name": "Oxygen", "Category": "nonmetal", "Mass": 15.999 },
+  { "ElementID": 9, "Symbol": "F", "Name": "Fluorine", "Category": "halogen", "Mass": 18.998 },
+  { "ElementID": 10, "Symbol": "Ne", "Name": "Neon", "Category": "noble gas", "Mass": 20.180 },
+  { "ElementID": 11, "Symbol": "Na", "Name": "Sodium", "Category": "alkali metal", "Mass": 22.990 },
+  { "ElementID": 12, "Symbol": "Mg", "Name": "Magnesium", "Category": "alkaline earth", "Mass": 24.305 },
+  { "ElementID": 13, "Symbol": "Al", "Name": "Aluminum", "Category": "post-transition metal", "Mass": 26.982 },
+  { "ElementID": 14, "Symbol": "Si", "Name": "Silicon", "Category": "metalloid", "Mass": 28.085 },
+  { "ElementID": 15, "Symbol": "P", "Name": "Phosphorus", "Category": "nonmetal", "Mass": 30.974 },
+  { "ElementID": 16, "Symbol": "S", "Name": "Sulfur", "Category": "nonmetal", "Mass": 32.06 },
+  { "ElementID": 17, "Symbol": "Cl", "Name": "Chlorine", "Category": "halogen", "Mass": 35.45 },
+  { "ElementID": 18, "Symbol": "Ar", "Name": "Argon", "Category": "noble gas", "Mass": 39.948 },
+  { "ElementID": 19, "Symbol": "K", "Name": "Potassium", "Category": "alkali metal", "Mass": 39.098 },
+  { "ElementID": 20, "Symbol": "Ca", "Name": "Calcium", "Category": "alkaline earth", "Mass": 40.078 },
+  { "ElementID": 21, "Symbol": "Sc", "Name": "Scandium", "Category": "transition metal", "Mass": 44.956 },
+  { "ElementID": 22, "Symbol": "Ti", "Name": "Titanium", "Category": "transition metal", "Mass": 47.867 },
+  { "ElementID": 23, "Symbol": "V", "Name": "Vanadium", "Category": "transition metal", "Mass": 50.942 },
+  { "ElementID": 24, "Symbol": "Cr", "Name": "Chromium", "Category": "transition metal", "Mass": 51.996 },
+  { "ElementID": 25, "Symbol": "Mn", "Name": "Manganese", "Category": "transition metal", "Mass": 54.938 },
+  { "ElementID": 26, "Symbol": "Fe", "Name": "Iron", "Category": "transition metal", "Mass": 55.845 },
+  { "ElementID": 27, "Symbol": "Co", "Name": "Cobalt", "Category": "transition metal", "Mass": 58.933 },
+  { "ElementID": 28, "Symbol": "Ni", "Name": "Nickel", "Category": "transition metal", "Mass": 58.693 },
+  { "ElementID": 29, "Symbol": "Cu", "Name": "Copper", "Category": "transition metal", "Mass": 63.546 },
+  { "ElementID": 30, "Symbol": "Zn", "Name": "Zinc", "Category": "transition metal", "Mass": 65.38 },
+  { "ElementID": 31, "Symbol": "Ga", "Name": "Gallium", "Category": "post-transition metal", "Mass": 69.723 },
+  { "ElementID": 32, "Symbol": "Ge", "Name": "Germanium", "Category": "metalloid", "Mass": 72.630 },
+  { "ElementID": 33, "Symbol": "As", "Name": "Arsenic", "Category": "metalloid", "Mass": 74.922 },
+  { "ElementID": 34, "Symbol": "Se", "Name": "Selenium", "Category": "nonmetal", "Mass": 78.971 },
+  { "ElementID": 35, "Symbol": "Br", "Name": "Bromine", "Category": "halogen", "Mass": 79.904 },
+  { "ElementID": 36, "Symbol": "Kr", "Name": "Krypton", "Category": "noble gas", "Mass": 83.798 },
+  { "ElementID": 37, "Symbol": "Rb", "Name": "Rubidium", "Category": "alkali metal", "Mass": 85.468 },
+  { "ElementID": 38, "Symbol": "Sr", "Name": "Strontium", "Category": "alkaline earth", "Mass": 87.62 },
+  { "ElementID": 39, "Symbol": "Y", "Name": "Yttrium", "Category": "transition metal", "Mass": 88.906 },
+  { "ElementID": 40, "Symbol": "Zr", "Name": "Zirconium", "Category": "transition metal", "Mass": 91.224 },
+  { "ElementID": 41, "Symbol": "Nb", "Name": "Niobium", "Category": "transition metal", "Mass": 92.906 },
+  { "ElementID": 42, "Symbol": "Mo", "Name": "Molybdenum", "Category": "transition metal", "Mass": 95.95 },
+  { "ElementID": 43, "Symbol": "Tc", "Name": "Technetium", "Category": "transition metal", "Mass": 98 },
+  { "ElementID": 44, "Symbol": "Ru", "Name": "Ruthenium", "Category": "transition metal", "Mass": 101.07 },
+  { "ElementID": 45, "Symbol": "Rh", "Name": "Rhodium", "Category": "transition metal", "Mass": 102.91 },
+  { "ElementID": 46, "Symbol": "Pd", "Name": "Palladium", "Category": "transition metal", "Mass": 106.42 },
+  { "ElementID": 47, "Symbol": "Ag", "Name": "Silver", "Category": "transition metal", "Mass": 107.87 },
+  { "ElementID": 48, "Symbol": "Cd", "Name": "Cadmium", "Category": "transition metal", "Mass": 112.41 },
+  { "ElementID": 49, "Symbol": "In", "Name": "Indium", "Category": "post-transition metal", "Mass": 114.82 },
+  { "ElementID": 50, "Symbol": "Sn", "Name": "Tin", "Category": "post-transition metal", "Mass": 118.71 },
+  { "ElementID": 51, "Symbol": "Sb", "Name": "Antimony", "Category": "metalloid", "Mass": 121.76 },
+  { "ElementID": 52, "Symbol": "Te", "Name": "Tellurium", "Category": "metalloid", "Mass": 127.60 },
+  { "ElementID": 53, "Symbol": "I", "Name": "Iodine", "Category": "halogen", "Mass": 126.90 },
+  { "ElementID": 54, "Symbol": "Xe", "Name": "Xenon", "Category": "noble gas", "Mass": 131.29 },
+  { "ElementID": 55, "Symbol": "Cs", "Name": "Cesium", "Category": "alkali metal", "Mass": 132.91 },
+  { "ElementID": 56, "Symbol": "Ba", "Name": "Barium", "Category": "alkaline earth", "Mass": 137.33 },
+  { "ElementID": 57, "Symbol": "La", "Name": "Lanthanum", "Category": "lanthanide", "Mass": 138.91 },
+  { "ElementID": 58, "Symbol": "Ce", "Name": "Cerium", "Category": "lanthanide", "Mass": 140.12 },
+  { "ElementID": 59, "Symbol": "Pr", "Name": "Praseodymium", "Category": "lanthanide", "Mass": 140.91 },
+  { "ElementID": 60, "Symbol": "Nd", "Name": "Neodymium", "Category": "lanthanide", "Mass": 144.24 },
+  { "ElementID": 61, "Symbol": "Pm", "Name": "Promethium", "Category": "lanthanide", "Mass": 145 },
+  { "ElementID": 62, "Symbol": "Sm", "Name": "Samarium", "Category": "lanthanide", "Mass": 150.36 },
+  { "ElementID": 63, "Symbol": "Eu", "Name": "Europium", "Category": "lanthanide", "Mass": 151.96 },
+  { "ElementID": 64, "Symbol": "Gd", "Name": "Gadolinium", "Category": "lanthanide", "Mass": 157.25 },
+  { "ElementID": 65, "Symbol": "Tb", "Name": "Terbium", "Category": "lanthanide", "Mass": 158.93 },
+  { "ElementID": 66, "Symbol": "Dy", "Name": "Dysprosium", "Category": "lanthanide", "Mass": 162.50 },
+  { "ElementID": 67, "Symbol": "Ho", "Name": "Holmium", "Category": "lanthanide", "Mass": 164.93 },
+  { "ElementID": 68, "Symbol": "Er", "Name": "Erbium", "Category": "lanthanide", "Mass": 167.26 },
+  { "ElementID": 69, "Symbol": "Tm", "Name": "Thulium", "Category": "lanthanide", "Mass": 168.93 },
+  { "ElementID": 70, "Symbol": "Yb", "Name": "Ytterbium", "Category": "lanthanide", "Mass": 173.05 },
+  { "ElementID": 71, "Symbol": "Lu", "Name": "Lutetium", "Category": "lanthanide", "Mass": 174.97 },
+  { "ElementID": 72, "Symbol": "Hf", "Name": "Hafnium", "Category": "transition metal", "Mass": 178.49 },
+  { "ElementID": 73, "Symbol": "Ta", "Name": "Tantalum", "Category": "transition metal", "Mass": 180.95 },
+  { "ElementID": 74, "Symbol": "W", "Name": "Tungsten", "Category": "transition metal", "Mass": 183.84 },
+  { "ElementID": 75, "Symbol": "Re", "Name": "Rhenium", "Category": "transition metal", "Mass": 186.21 },
+  { "ElementID": 76, "Symbol": "Os", "Name": "Osmium", "Category": "transition metal", "Mass": 190.23 },
+  { "ElementID": 77, "Symbol": "Ir", "Name": "Iridium", "Category": "transition metal", "Mass": 192.22 },
+  { "ElementID": 78, "Symbol": "Pt", "Name": "Platinum", "Category": "transition metal", "Mass": 195.08 },
+  { "ElementID": 79, "Symbol": "Au", "Name": "Gold", "Category": "transition metal", "Mass": 196.97 },
+  { "ElementID": 80, "Symbol": "Hg", "Name": "Mercury", "Category": "transition metal", "Mass": 200.59 },
+  { "ElementID": 81, "Symbol": "Tl", "Name": "Thallium", "Category": "post-transition metal", "Mass": 204.38 },
+  { "ElementID": 82, "Symbol": "Pb", "Name": "Lead", "Category": "post-transition metal", "Mass": 207.2 },
+  { "ElementID": 83, "Symbol": "Bi", "Name": "Bismuth", "Category": "post-transition metal", "Mass": 208.98 },
+  { "ElementID": 84, "Symbol": "Po", "Name": "Polonium", "Category": "post-transition metal", "Mass": 209 },
+  { "ElementID": 85, "Symbol": "At", "Name": "Astatine", "Category": "halogen", "Mass": 210 },
+  { "ElementID": 86, "Symbol": "Rn", "Name": "Radon", "Category": "noble gas", "Mass": 222 },
+  { "ElementID": 87, "Symbol": "Fr", "Name": "Francium", "Category": "alkali metal", "Mass": 223 },
+  { "ElementID": 88, "Symbol": "Ra", "Name": "Radium", "Category": "alkaline earth", "Mass": 226 },
+  { "ElementID": 89, "Symbol": "Ac", "Name": "Actinium", "Category": "actinide", "Mass": 227 },
+  { "ElementID": 90, "Symbol": "Th", "Name": "Thorium", "Category": "actinide", "Mass": 232.04 },
+  { "ElementID": 91, "Symbol": "Pa", "Name": "Protactinium", "Category": "actinide", "Mass": 231.04 },
+  { "ElementID": 92, "Symbol": "U", "Name": "Uranium", "Category": "actinide", "Mass": 238.03 },
+  { "ElementID": 93, "Symbol": "Np", "Name": "Neptunium", "Category": "actinide", "Mass": 237 },
+  { "ElementID": 94, "Symbol": "Pu", "Name": "Plutonium", "Category": "actinide", "Mass": 244 },
+  { "ElementID": 95, "Symbol": "Am", "Name": "Americium", "Category": "actinide", "Mass": 243 },
+  { "ElementID": 96, "Symbol": "Cm", "Name": "Curium", "Category": "actinide", "Mass": 247 },
+  { "ElementID": 97, "Symbol": "Bk", "Name": "Berkelium", "Category": "actinide", "Mass": 247 },
+  { "ElementID": 98, "Symbol": "Cf", "Name": "Californium", "Category": "actinide", "Mass": 251 },
+  { "ElementID": 99, "Symbol": "Es", "Name": "Einsteinium", "Category": "actinide", "Mass": 252 },
+  { "ElementID": 100, "Symbol": "Fm", "Name": "Fermium", "Category": "actinide", "Mass": 257 },
+  { "ElementID": 101, "Symbol": "Md", "Name": "Mendelevium", "Category": "actinide", "Mass": 258 },
+  { "ElementID": 102, "Symbol": "No", "Name": "Nobelium", "Category": "actinide", "Mass": 259 },
+  { "ElementID": 103, "Symbol": "Lr", "Name": "Lawrencium", "Category": "actinide", "Mass": 262 },
+  { "ElementID": 104, "Symbol": "Rf", "Name": "Rutherfordium", "Category": "transition metal", "Mass": 267 },
+  { "ElementID": 105, "Symbol": "Db", "Name": "Dubnium", "Category": "transition metal", "Mass": 270 },
+  { "ElementID": 106, "Symbol": "Sg", "Name": "Seaborgium", "Category": "transition metal", "Mass": 271 },
+  { "ElementID": 107, "Symbol": "Bh", "Name": "Bohrium", "Category": "transition metal", "Mass": 270 },
+  { "ElementID": 108, "Symbol": "Hs", "Name": "Hassium", "Category": "transition metal", "Mass": 277 },
+  { "ElementID": 109, "Symbol": "Mt", "Name": "Meitnerium", "Category": "unknown", "Mass": 278 },
+  { "ElementID": 110, "Symbol": "Ds", "Name": "Darmstadtium", "Category": "unknown", "Mass": 281 },
+  { "ElementID": 111, "Symbol": "Rg", "Name": "Roentgenium", "Category": "unknown", "Mass": 282 },
+  { "ElementID": 112, "Symbol": "Cn", "Name": "Copernicium", "Category": "transition metal", "Mass": 285 },
+  { "ElementID": 113, "Symbol": "Nh", "Name": "Nihonium", "Category": "unknown", "Mass": 286 },
+  { "ElementID": 114, "Symbol": "Fl", "Name": "Flerovium", "Category": "unknown", "Mass": 289 },
+  { "ElementID": 115, "Symbol": "Mc", "Name": "Moscovium", "Category": "unknown", "Mass": 290 },
+  { "ElementID": 116, "Symbol": "Lv", "Name": "Livermorium", "Category": "unknown", "Mass": 293 },
+  { "ElementID": 117, "Symbol": "Ts", "Name": "Tennessine", "Category": "unknown", "Mass": 294 },
+  { "ElementID": 118, "Symbol": "Og", "Name": "Oganesson", "Category": "noble gas", "Mass": 294 }
 ]

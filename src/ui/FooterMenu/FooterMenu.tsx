@@ -1,12 +1,17 @@
-import type { Dispatch, SetStateAction, ReactElement } from 'react';
+import type {  ReactElement } from 'react';
 import { LayoutStyle } from '@/domain/models/typings';
+import { useViewMode } from '@/application/hooks/useViewMode';
 import style from './FooterMenu.module.css';
 
-interface FooterMenuProps {
-  setLayoutStyle: Dispatch<SetStateAction<LayoutStyle>>;
-}
+/**
+ * 底部菜单组件
+ * 展示版权信息并提供五种布局样式的切换按钮（网格、球体、表格、螺旋、随机）
+ * @returns {ReactElement} React 元素
+ */
+export default function FooterMenu (): ReactElement {
 
-export default function FooterMenu ({ setLayoutStyle }: FooterMenuProps): ReactElement {
+  // 从自定义钩子中获取 setLayoutStyle 方法，用于更新全局的布局样式状态
+  const { setLayoutStyle } = useViewMode();
 
   return (
     <div className={ style.footerMenu }>

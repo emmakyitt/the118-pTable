@@ -1,5 +1,4 @@
 import type { LayoutStyle, IViewModelCtor } from '@/domain/models/typings';
-// import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
 
 /**
  * 类装饰器：将目标类自动注册到 ViewModelFactory.registry 中
