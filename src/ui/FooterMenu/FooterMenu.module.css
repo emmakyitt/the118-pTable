@@ -1,0 +1,69 @@
+.footerMenu {
+  width: 100vw;
+  height: 6rem;
+  display: grid;
+  place-items: center; /* 水平 + 垂直居中 */
+  background-color: rgba(233, 241, 246, 0.5);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.copyright {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.copyrightSource {
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 1.2rem;
+  display: inline-block;
+  vertical-align: baseline;
+  text-decoration: none;
+  background-image: url(/src/assets/icons/github.svg);
+  background-position: .5rem 0rem;
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  padding-left: 3rem;
+  margin: 3rem 0;
+  color: #758a99;
+}
+.copyrightSource:active {
+  transform: scale(0.98);
+}
+.menuIcons {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: inline-block;
+  transition: 0.2s ease-out;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 2rem;
+  margin: 0 1.5rem;
+  cursor: pointer;
+}
+
+.menuIcons:hover {
+  transform: rotateX(35deg) scale(1.25);
+  box-shadow: .1rem .1rem .2rem black;
+}
+
+.menuIcons:active {
+  transform: rotateX(0deg) scale(1);
+}
+
+.griIcon {
+  background-image: url(/src/assets/icons/navMenu/gri-icon.svg);
+}
+.sphIcon {
+  background-image: url(/src/assets/icons/navMenu/sph-icon.svg);
+}
+.tabIcon {
+  background-image: url(/src/assets/icons/navMenu/tab-icon.svg);
+}
+.helIcon {
+  background-image: url(/src/assets/icons/navMenu/hel-icon.svg);
+}
+.ranIcon {
+  background-image: url(/src/assets/icons/navMenu/ran-icon.svg);
+}
