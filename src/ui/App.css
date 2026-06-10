@@ -1,3 +1,7 @@
+:root {
+  --animation-duration: 1.5s cubic-bezier(0.55, 0.1, 0.25, 1);
+}
+
 html,
 body {
   font-size: 62.5% !important;
@@ -11,8 +15,9 @@ body {
   width: 100vw;
   height: 100vh;
   display: flex;
-  background-color: #f9fafb;
   justify-content: center;
   align-items: center;
+  transition: var(--animation-duration);
+  background-color: var(--page-bg);
   perspective: 30rem;
 }

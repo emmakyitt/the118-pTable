@@ -12,7 +12,7 @@ import type { ViewModeContextType } from '@/application/contexts/ViewModeContext
  *   - layoutStyle: 当前布局样式（例如 'LayoutStyle.TAB' 或 'LayoutStyle.SPH'）
  *   - setLayoutStyle: 切换布局样式的状态更新函数
  *   - elementsData: 与视图模型关联的元素数据
- *   - transformMatrices: 用于布局变换的矩阵数组
+ *   - matrix3dGroup: 用于布局变换的矩阵数组
  *
  * @example
  * const { layoutStyle, setLayoutStyle } = useViewMode();

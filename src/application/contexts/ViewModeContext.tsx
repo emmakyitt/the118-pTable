@@ -22,8 +22,8 @@ export interface ViewModeContextType {
  * 视图模式上下文，提供布局模式、元素数据和变换矩阵数组数据
  */
 export const ViewModeContext = createContext<ViewModeContextType>({
-  layoutStyle: LayoutStyle.TAB,
+  layoutStyle: LayoutStyle.RAN,
   setLayoutStyle: () => {},
   elementsData: null,
-  matrix3dGroup: null,
+  matrix3dGroup: null
 })
