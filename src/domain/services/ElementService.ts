@@ -20,7 +20,7 @@ export interface ElementBasic {
   /** 元素中文/英文名称 */
   Name: string;
 
-  /** 元素分类，如 碱金属、稀有气体 */
+  /** 元素分类，如 "碱金属 金属"（可能包含多个分类，以空格分隔） */
   Category: string;
 
   /** 相对原子质量 */
@@ -36,31 +36,42 @@ export interface ElementBasic {
 export class ElementService {
 
   /**
-   * 内部存储的全部元素数据
+   * 内部存储的全部元素数据，从静态 JSON 文件直接导入
    */
-  private static elements: ElementBasic[] = elementsData;
+  private static readonly elements: ElementBasic[] = elementsData;
 
   /**
    * 获取所有元素
-   * @returns {ElementBasic[]} 包含全部元素的数组，按原始顺序排列
+   * @returns {ElementBasic[] | null} 包含全部元素的数组；若数据未加载则返回 null
    */
-  static getAll(): ElementBasic[] | null{
+  static getAll(): ElementBasic[] | null {
     return this.elements ?? null;
   }
 
   /**
    * 按原子序数获取单个元素
    * @param {number} id - 元素的原子序数 (ElementID)
-   * @returns {ElementBasic | undefined} 匹配的元素对象；若未找到则返回 undefined
+   * @returns {ElementBasic | null} 匹配的元素对象；若未找到则返回 null
    */
   static getById(id: number): ElementBasic | null {
     return this.elements.find(el => el.ElementID === id) ?? null;
   }
 
   /**
-   * 按分类获取元素列表
+   * 根据原子序数获取元素的分类列表
+   * 注意：该方法假定传入的 id 一定存在，内部使用了非空断言（!）。
+   * 若 id 无效且 getById 返回 null，则会抛出运行时错误。
+   * @param {number} id - 元素的原子序数
+   * @returns {string[]} 该元素的所有分类（按空格拆分后的数组）
+   */
+  static getCategoryById(id: number): string[] {
+    return this.getById(id)!.Category.split(' ');
+  }
+
+  /**
+   * 按分类获取元素列表（精确匹配 Category 字段）
    * @param {string} category - 元素分类名称，如 'nonmetal'
-   * @returns {ElementBasic[]} 属于该分类的所有元素数组；若无匹配则返回空数组
+   * @returns {ElementBasic[] | null} 属于该分类的所有元素数组；若无匹配或数据为空则返回 null
    */
   static getByCategory(category: string): ElementBasic[] | null {
     return this.elements.filter(el => el.Category === category) ?? null;

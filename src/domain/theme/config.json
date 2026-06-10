@@ -1,0 +1,217 @@
+{
+  "light": {
+    "pageBg": "#f9fafb",
+    "cardBg": "rgba(233, 241, 246, 0.8)",
+    "cardIdText": "#475569",
+    "cardBorder": "#64748B",
+    "cardShadow": "none",
+    "cardSymbolText": "#334155",
+    "footerMenuBg": "rgba(233, 241, 246, 0.5)",
+    "footerMenuIconsBorder": "rgba(19,72,87, 0)",
+    "footerMenuIconsFill": "#222",
+    "footerMenuIconsHoverColor": "#222",
+    "copyrightSourceText": "#758a99",
+    "themeSwitchBg": "#758A99",
+    "themeSwitchText": "#000",
+    "themeSwitchBoder": "#000",
+    "elementCategory": {
+      "alkali": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "alkaline": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "transition": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "postTransition": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "metalloid": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "nonmetal": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "halogen": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "noble": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "lanthanide": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "actinide": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "metals": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "earth": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "gases": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "unknown": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      }
+    }
+  },
+  "dark": {
+    "pageBg": "#161823",
+    "pageBg": "#010d1c",
+    "pageBg": "#131824",
+    "cardBg": "rgba(0,75,122, 0.5)",
+    "cardBg": "rgba(19,72,87, 0.5)",
+    "cardBg": "rgba(20,54,104, 0.5)",
+    "cardBg": "rgba(50,100,118, 0.5)",
+    "cardBg": "rgba(60,120,150, 0.5)",
+    "cardBg": "rgba(63,107,129, 0.5)",
+    "cardBg": "rgba(62,157,198, 0.5)",
+    "cardBg": "rgba(51,84,95, 0.5)",
+    "cardBg": "rgba(33,80,125, 0.5)",
+    "cardBg": "rgba(34,121,145, 0.5)",
+    "cardIdText": "#a2d6e8",
+    "cardBorder": "#508292",
+    "cardShadow": "#1491a8",
+    "cardSymbolText": "#F8F9FC",
+    "footerMenuBg": "rgba(35,52,70, 0.5)",
+    "footerMenuIconsBorder": "rgba(19,72,87, 0)",
+    "footerMenuIconsFill": "#ccc",
+    "footerMenuIconsHoverColor": "rgba(60,120,150, 1)",
+    "copyrightSourceText": "#78abbc",
+    "themeSwitchBg": "#758A99",
+    "themeSwitchText": "#fff",
+    "themeSwitchBoder": "#fff",
+    "elementCategory": {
+      "alkali": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "alkaline": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "transition": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "postTransition": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "metalloid": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "nonmetal": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "halogen": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "noble": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "lanthanide": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "actinide": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "metals": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "earth": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "gases": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      },
+      "unknown": {
+        "cardBg": "rgba(233, 241, 246, 0.8)",
+        "cardIdText": "#475569",
+        "cardBorder": "#64748B",
+        "cardSymbolText": "#334155"
+      }
+    }
+  }
+}

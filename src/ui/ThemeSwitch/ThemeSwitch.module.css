@@ -1,0 +1,21 @@
+.themeSwitch {
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3.2rem;
+  fill: var(--theme-switch-text);
+  transition: .2s ease-out;
+  position: fixed;
+  opacity: 0.5;
+  right: 1.5rem;
+  top: 1.5rem;
+}
+.themeSwitch:hover {
+  opacity: 0.8;
+  box-shadow: 0 0.1rem 0 0.1rem var(--theme-switch-boder);
+}
+.themeSwitch:active {
+  transform: rotate(20deg) scale(0.9);
+}

@@ -12,5 +12,5 @@ import { LayoutStyle } from '@/domain/models/typings';
 export function useLayoutStyle (): [LayoutStyle, Dispatch<SetStateAction<LayoutStyle>>] {
 
   // 当前页面中所展示的布局模型，默认值为 LayoutStyle.TAB (表格视图)
-  return useState<LayoutStyle>(LayoutStyle.TAB);
+  return useState<LayoutStyle>(LayoutStyle.RAN);
 }
