@@ -1,9 +1,9 @@
-import type { Matrix, Matrix3D } from '@/domain/models/typings';
+import type { Matrix, Matrix3d } from '@/infrastructure/typings/matrixTools';
 import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
 import registerTo from '@/domain/viewModels/register';
-import { LayoutStyle } from '@/domain/models/typings';
 import MatrixTools from '@/infrastructure/utils/MatrixTools';
 import MathTools from '@/infrastructure/utils/MathTools';
+import { LayoutStyle } from '@/domain/typings/viewModels';
 
 /**
  * 布局模型（SphViewModel）：生成化学元素周期表（球体形态）的点阵布局。
@@ -37,7 +37,7 @@ export default class SphViewModel extends ViewModelFactory {
    * 变换矩阵缓存。
    * 首次计算后存储，后续调用直接复用，避免重复生成矩阵。
    */
-  private static cachedMatrices: Matrix3D[] | null = null;
+  private static cachedMatrices: Matrix3d[] | null = null;
 
   /**
    * 球面分布数据缓存。
@@ -99,7 +99,7 @@ export default class SphViewModel extends ViewModelFactory {
   // ==================== 公共接口 ====================
 
   /**
-   * 获取当前模型下所有元素的 3D 变换矩阵（球体布局）
+   * 计算当前模型下所有卡片元素的变换矩阵（缩放 + 旋转 + 平移 + 缩放）
    *
    * 算法：
    * 1. 从缓存读取或计算球面分布数据。
@@ -110,9 +110,10 @@ export default class SphViewModel extends ViewModelFactory {
    * 重要：请勿修改返回的数组或其内部的矩阵对象，否则会污染缓存，
    * 影响后续调用。若需修改，请自行进行深拷贝。
    *
-   * @returns 变换矩阵数组，每个矩阵对应一个可视元素
+   * @returns Matrix3d[] 卡片元素的变换矩阵数组
+   * 每个矩阵描述了对应卡片元素的局部变换，其中平移部分决定其位置
    */
-  public getMatrix3d(): Matrix3D[] {
+  public calcCardsMatrix3d(): Matrix3d[] {
 
     // 命中缓存则直接返回引用，不再生成额外数组副本
     if (SphViewModel.cachedMatrices) {
@@ -120,7 +121,7 @@ export default class SphViewModel extends ViewModelFactory {
     }
 
     // 预分配数组长度，避免在循环中使用 push 导致多次扩容
-    const matrices: Matrix3D[] = new Array<Matrix3D>(SphViewModel.ELEMENT_COUNT);
+    const matrices: Matrix3d[] = new Array<Matrix3d>(SphViewModel.ELEMENT_COUNT);
 
     // 复用临时数组，避免在循环内重复创建新数组对象
     const rotateArray: Matrix = [0, 0, 0, 1];

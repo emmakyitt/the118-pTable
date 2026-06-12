@@ -1,9 +1,9 @@
-import type { Matrix, Matrix3D } from '@/domain/models/typings';
+import type { Matrix, Matrix3d } from '@/infrastructure/typings/matrixTools';
 import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
 import registerTo from '@/domain/viewModels/register';
-import { LayoutStyle } from '@/domain/models/typings';
 import MatrixTools from '@/infrastructure/utils/MatrixTools';
 import charTemplate from '@/assets/data/charTemplate';
+import { LayoutStyle } from '@/domain/typings/viewModels';
 
 /**
  * 布局模型（SphViewModel）：生成化学元素周期表（表格形态）的点阵布局。
@@ -63,7 +63,7 @@ export default class SphViewModel extends ViewModelFactory {
   // ==================== 缓存区域 ====================
   
   /** 变换矩阵缓存，首次计算后存储，避免重复生成 */
-  private static cachedMatrices: Matrix3D[] | null = null;
+  private static cachedMatrices: Matrix3d[] | null = null;
 
 
   // ==================== 静态计算方法 ====================
@@ -117,7 +117,7 @@ export default class SphViewModel extends ViewModelFactory {
   // ==================== 公共接口 ====================
   
   /**
-   * 获取当前模型下所有元素的 3D 变换矩阵（平移）。
+   * 计算当前模型下所有卡片元素的变换矩阵（平移 + 缩放）
    *
    * 算法：
    * 1. 将周期表视为 18 列 × 9 行 的网格，步长 = 元素尺寸 + 间隙。
@@ -129,9 +129,10 @@ export default class SphViewModel extends ViewModelFactory {
    * 缓存策略：首次调用后结果保存在 `cachedMatrices` 静态属性中，
    * 后续调用直接返回缓存，避免重复遍历与矩阵运算。
    *
-   * @returns 变换矩阵数组，每个矩阵对应一个可视元素
+   * @returns Matrix3d[] 卡片元素的变换矩阵数组
+   * 每个矩阵描述了对应卡片元素的局部变换，其中平移部分决定其位置
    */
-  public getMatrix3d(): Matrix3D[] {
+  public calcCardsMatrix3d(): Matrix3d[] {
 
     // 命中缓存直接返回
     if (SphViewModel.cachedMatrices) {
@@ -139,7 +140,7 @@ export default class SphViewModel extends ViewModelFactory {
     }
 
     // 预分配数组长度，避免在循环中使用 push 导致多次扩容
-    const matrices: Matrix3D[] = new Array<Matrix3D>(SphViewModel.ELEMENT_COUNT);
+    const matrices: Matrix3d[] = new Array<Matrix3d>(SphViewModel.ELEMENT_COUNT);
 
     // 第一个元素位置
     const firstElementX: number = SphViewModel.FIRST_ELEMENT_POSITION.x;
@@ -189,7 +190,7 @@ export default class SphViewModel extends ViewModelFactory {
 
           // 第一个元素左上角坐标 + (当前循环数 * 每步跨度) + 特殊偏移量(dx / dy)
           offsetMatrix[0] = firstElementX  + j * step + dx; // 元素 X轴坐标
-          offsetMatrix[1] = offsetY + dy, // 元素 Y轴坐标;
+          offsetMatrix[1] = offsetY + dy; // 元素 Y轴坐标;
 
           // 通过矩阵工具函数生成变换矩阵
           matrices[idx++] = MatrixTools.transform(matrixsArgs)

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { ViewModeContext } from '@/application/contexts/ViewModeContext';
-import type { ViewModeContextType } from '@/application/contexts/ViewModeContext';
+import type { ViewModeContextType } from '@/application/typings/ViewModeContext';
 
 /**
  * 获取当前视图模型的上下文值

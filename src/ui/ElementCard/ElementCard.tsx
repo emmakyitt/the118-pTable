@@ -1,6 +1,6 @@
-import type { Matrix3D } from '@/domain/models/typings';
 import type { ReactElement } from 'react';
-import type { ElementBasic } from '@/domain/services/ElementService';
+import type { Matrix3D } from '@/infrastructure/typings/matrixTools';
+import type { IElementBasic } from '@/assets/data/typings/elements';
 import { useElementDetail } from '@/application/hooks/useElementDetail';
 import styles from './ElementCard.module.css';
 
@@ -23,7 +23,7 @@ interface ElementCardProps {
 export default function ElementCard ({ matrix3d, elementId }: ElementCardProps): ReactElement {
 
   // 调用自定义 Hook 获取元素详情，可能返回 null（例如 ID 无效或数据未加载）
-  const oElement: ElementBasic | null = useElementDetail(elementId);
+  const oElement: IElementBasic | null = useElementDetail(elementId);
 
   return (
     <div className={ styles.elementCard } style={{ transform: `matrix3d(${ matrix3d })` }}> {/** 外层容器：应用 matrix3d 变换实现三维定位，并绑定样式 */}

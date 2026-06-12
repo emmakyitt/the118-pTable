@@ -1,8 +1,8 @@
-import type { Matrix, Matrix3D } from '@/domain/models/typings';
+import type { Matrix, Matrix3d } from '@/infrastructure/typings/matrixTools';
 import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
 import registerTo from '@/domain/viewModels/register';
-import { LayoutStyle } from '@/domain/models/typings';
 import MatrixTools from '@/infrastructure/utils/MatrixTools';
+import { LayoutStyle } from '@/domain/typings/viewModels';
 
 /**
  * 布局模型（RanViewModel）：生成化学元素周期表（随机形态）的点阵布局。
@@ -57,19 +57,20 @@ export default class RanViewModel extends ViewModelFactory {
   // ==================== 公共接口 ====================
 
   /**
-   * 生成所有元素的 3D 变换矩阵数组。
+   * 计算当前模型下所有卡片元素的变换矩阵（平移 + 缩放）
    *
    * 为 118 个元素分别生成随机位置：
    * - X 坐标：在 `[-viewportW/3 , +viewportW/3]` 范围内均匀随机
    * - Y 坐标：在 `[-viewportH/3 , +viewportH/3]` 范围内均匀随机
    * - Z 坐标：在 `[-200 , 200]` 范围内均匀随机
    *
-   * @returns 变换矩阵数组，每个矩阵对应一个可视元素
+   * @returns Matrix3d[] 卡片元素的变换矩阵数组
+   * 每个矩阵描述了对应卡片元素的局部变换，其中平移部分决定其位置
    */
-  public getMatrix3d(): Matrix3D[] {
+  public calcCardsMatrix3d(): Matrix3d[] {
 
     // 预分配数组长度，避免在循环中使用 push 导致多次扩容
-    const matrices: Matrix3D[] = new Array<Matrix3D>(RanViewModel.ELEMENT_COUNT);
+    const matrices: Matrix3d[] = new Array<Matrix3d>(RanViewModel.ELEMENT_COUNT);
 
     // 浏览器窗口宽 / 高度
     const viewportW: number = RanViewModel.getViewportSize().w;

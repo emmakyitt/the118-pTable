@@ -1,5 +1,5 @@
 import MathTools from '@/infrastructure/utils/MathTools';
-import type { Matrix, Matrix3D } from '@/domain/models/typings';
+import type { Matrix, Matrix3d } from '@/infrastructure/typings/matrixTools';
 
 /**
  * 矩阵工具类（纯静态方法，禁止实例化）。
@@ -56,10 +56,10 @@ export default class MatrixTools {
    * @param transforms 变换配置数组
    * @returns 组合后的 4x4 变换矩阵
    */
-  static transform(transforms: Matrix[]): Matrix3D{
+  static transform(transforms: Matrix[]): Matrix3d{
     try {
       return transforms.map((t) => MatrixTools.MATRIX_HANDLERS[t[3]](t)).reduce(
-        (a:Matrix3D, b:Matrix3D) => MatrixTools.multiply(a, b)
+        (a:Matrix3d, b:Matrix3d) => MatrixTools.multiply(a, b)
       );
     } catch (e: any) {
       console.error('MatrixTools.transform requires an array of the type matrix[][]', e);
@@ -89,7 +89,7 @@ export default class MatrixTools {
    * @param b 右矩阵（4x4）
    * @returns 乘积矩阵
    */
-  static multiply(a: Matrix3D, b: Matrix3D): Matrix3D {
+  static multiply(a: Matrix3d, b: Matrix3d): Matrix3d {
 
     // 提取 A 的全部元素
     const a00 = a[0][0], a01 = a[0][1], a02 = a[0][2], a03 = a[0][3];
@@ -147,7 +147,7 @@ export default class MatrixTools {
    * @param n 变换配置 `[tx, ty, tz, 0]`
    * @returns 复合平移矩阵
    */
-  static offset(n: Matrix): Matrix3D {
+  static offset(n: Matrix): Matrix3d {
     return [
       [1, 0, 0, 0],
       [0, 1, 0, 0],
@@ -166,7 +166,7 @@ export default class MatrixTools {
    * @param m 变换配置 `[rx, ry, rz, 1]`
    * @returns 复合旋转矩阵
    */
-  static rotate(m: Matrix): Matrix3D {
+  static rotate(m: Matrix): Matrix3d {
     return MatrixTools.multiply(
       MatrixTools.multiply(
         MatrixTools.rotateX(m[0]), 
@@ -183,7 +183,7 @@ export default class MatrixTools {
    * @param m 变换配置 `[sx, sy, sz, 2]`
    * @returns 复合缩放矩阵
    */
-  static scale(m: Matrix): Matrix3D {
+  static scale(m: Matrix): Matrix3d {
     const [sx, sy, sz] = m;
     return [
       [sx, 0, 0, 0],
@@ -198,7 +198,7 @@ export default class MatrixTools {
     * 
     * 优化点：直接返回包含平移系数的矩阵，无需先创建单位矩阵再修改
     * */ 
-  static offsetX(n: number): Matrix3D {
+  static offsetX(n: number): Matrix3d {
     return [
       [1, 0, 0, 0],
       [0, 1, 0, 0],
@@ -208,7 +208,7 @@ export default class MatrixTools {
   }
 
   /** 沿 Y 轴平移 n */
-  static offsetY(n: number): Matrix3D {
+  static offsetY(n: number): Matrix3d {
     return [
       [1, 0, 0, 0],
       [0, 1, 0, 0],
@@ -218,7 +218,7 @@ export default class MatrixTools {
   }
 
   /** 沿 Z 轴平移 n */
-  static offsetZ(n: number): Matrix3D {
+  static offsetZ(n: number): Matrix3d {
     return [
       [1, 0, 0, 0],
       [0, 1, 0, 0],
@@ -237,7 +237,7 @@ export default class MatrixTools {
    *   | 0   0    0   1 |
    * 
    */
-  static rotateX(n: number): Matrix3D {
+  static rotateX(n: number): Matrix3d {
     const [c, s] = MatrixTools.sinCos(n);
     return [
       [1, 0, 0, 0],
@@ -258,7 +258,7 @@ export default class MatrixTools {
    * 注意：当前实现中 sin 项的符号与公式定义相反，
    * 这是为了与原有渲染管线保持一致
    */
-  static rotateY(n: number): Matrix3D {
+  static rotateY(n: number): Matrix3d {
     const [c, s] = MatrixTools.sinCos(n);
     return [
       [c, 0, -s, 0],
@@ -277,7 +277,7 @@ export default class MatrixTools {
    *   |  0    0   0  1 |
    * 
    */
-  static rotateZ(n: number): Matrix3D {
+  static rotateZ(n: number): Matrix3d {
     const [c, s] = MatrixTools.sinCos(n);
     return [
       [c,-s, 0, 0],

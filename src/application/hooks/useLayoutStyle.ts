@@ -1,5 +1,5 @@
 import { useState, type Dispatch, type SetStateAction } from 'react';
-import { LayoutStyle } from '@/domain/models/typings';
+import { LayoutStyle } from '@/domain/typings/viewModels';
 
 /**
  * 管理视图模型布局的展示状态

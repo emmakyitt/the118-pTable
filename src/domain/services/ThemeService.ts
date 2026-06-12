@@ -1,4 +1,4 @@
-import type { ElementCategoryThemeVars, ThemeVars } from '@/domain/models/themeTypings';
+import type { ElementCategoryThemeVars, ThemeVars } from '@/domain/typings/theme';
 import themeVars from '@/domain/theme/config.json';
 
 /**

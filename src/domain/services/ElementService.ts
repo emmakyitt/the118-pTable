@@ -3,29 +3,7 @@
  * @description 提供周期表元素的统一数据访问，数据源于静态 JSON 文件。
  */
 import elementsData from '@/assets/data/elements.json'
-
-/**
- * 元素基本数据接口
- * @interface ElementBasic
- * @description 描述周期表中单个元素的核心信息
- */
-export interface ElementBasic {
-
-  /** 原子序数（元素唯一标识） */
-  ElementID: number;
-
-  /** 元素符号，如 H, He */
-  Symbol: string;
-
-  /** 元素中文/英文名称 */
-  Name: string;
-
-  /** 元素分类，如 "碱金属 金属"（可能包含多个分类，以空格分隔） */
-  Category: string;
-
-  /** 相对原子质量 */
-  Mass: number;
-}
+import type { IElementBasic } from '@/assets/data/typings/elements';
 
 /**
  * 元素数据服务
@@ -38,22 +16,22 @@ export class ElementService {
   /**
    * 内部存储的全部元素数据，从静态 JSON 文件直接导入
    */
-  private static readonly elements: ElementBasic[] = elementsData;
+  private static readonly elements: IElementBasic[] = elementsData;
 
   /**
    * 获取所有元素
-   * @returns {ElementBasic[] | null} 包含全部元素的数组；若数据未加载则返回 null
+   * @returns {IElementBasic[] | null} 包含全部元素的数组；若数据未加载则返回 null
    */
-  static getAll(): ElementBasic[] | null {
+  static getAll(): IElementBasic[] | null {
     return this.elements ?? null;
   }
 
   /**
    * 按原子序数获取单个元素
    * @param {number} id - 元素的原子序数 (ElementID)
-   * @returns {ElementBasic | null} 匹配的元素对象；若未找到则返回 null
+   * @returns {IElementBasic | null} 匹配的元素对象；若未找到则返回 null
    */
-  static getById(id: number): ElementBasic | null {
+  static getById(id: number): IElementBasic | null {
     return this.elements.find(el => el.ElementID === id) ?? null;
   }
 
@@ -71,9 +49,9 @@ export class ElementService {
   /**
    * 按分类获取元素列表（精确匹配 Category 字段）
    * @param {string} category - 元素分类名称，如 'nonmetal'
-   * @returns {ElementBasic[] | null} 属于该分类的所有元素数组；若无匹配或数据为空则返回 null
+   * @returns {IElementBasic[] | null} 属于该分类的所有元素数组；若无匹配或数据为空则返回 null
    */
-  static getByCategory(category: string): ElementBasic[] | null {
+  static getByCategory(category: string): IElementBasic[] | null {
     return this.elements.filter(el => el.Category === category) ?? null;
   }
 }

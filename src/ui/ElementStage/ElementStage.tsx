@@ -11,7 +11,7 @@ import styles from './ElementStage.module.css';
 export default function ElementStage (): ReactElement {
 
   // 从自定义钩子中获取元素数据数组和变换矩阵数组对象
-  const { elementsData, matrix3dGroup } = useViewMode()
+  const { elementsData, cardsMatrix3d } = useViewMode()
   
   return (
     <div className={styles.pTable}>
@@ -20,7 +20,7 @@ export default function ElementStage (): ReactElement {
         elementsData && elementsData.map(({ ElementID }: { ElementID: number }) => 
           <ElementCard 
             key={ ElementID }                          // React 列表渲染所需的唯一 key
-            matrix3d={ matrix3dGroup![ElementID - 1] } // 根据元素 ID 获取元素对应的 3D 变换矩阵（ID 从 1 开始，数组索引从 0 开始）
+            matrix3d={ cardsMatrix3d![ElementID - 1] } // 根据元素 ID 获取元素对应的 3D 变换矩阵（ID 从 1 开始，数组索引从 0 开始）
             elementId={ ElementID }                    // 传递元素 ID 给卡片组件, 用于后续功能开发，如绑定元素鼠标事件等
           />
         )
