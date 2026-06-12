@@ -1,4 +1,4 @@
-import type { LayoutStyle, IViewModelCtor } from '@/domain/models/typings';
+import type { LayoutStyle, IViewModelCtor } from '@/domain/typings/viewModels';
 
 /**
  * 类装饰器：将目标类自动注册到 ViewModelFactory.registry 中
@@ -21,4 +21,4 @@ export default function registerTo(
     // 将子类构造函数存入父类静态注册表中 
     baseClass.registry[key] = target as IViewModelCtor;
   }
-};
+}

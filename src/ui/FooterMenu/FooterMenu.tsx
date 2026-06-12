@@ -1,6 +1,6 @@
 import { useEffect, type ReactElement } from 'react';
-import { LayoutStyle } from '@/domain/models/typings';
 import { useViewMode } from '@/application/hooks/useViewMode';
+import { LayoutStyle } from '@/domain/typings/viewModels';
 import styles from './FooterMenu.module.css';
 
 /**
@@ -22,7 +22,7 @@ export default function FooterMenu (): ReactElement {
       {/* 版权信息区域 */} 
       <div className={ styles.copyright }>
         <a className={ styles.copyrightSource} href='https://github.com/emmakyitt/the118-pTable' target="_self" rel="copyright">
-          © 2026 Emmakyitt. ALL RIGHTS RESERVED.
+          © 2026 Emmakyitt. FOR EDUCATIONAL AND NON-COMMERCIAL USE ONLY.
         </a>
       </div>
 

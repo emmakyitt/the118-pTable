@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import { ThemeContext, type ThemeContextType } from '@/application/contexts/ThemeContext';
+import { ThemeContext } from '@/application/contexts/ThemeContext';
+import type { ThemeContextType } from '@/application/typings/ThemeContext';
 
 /**
  * 自定义 Hook，用于在组件中访问主题上下文。

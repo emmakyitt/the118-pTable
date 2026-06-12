@@ -1,8 +1,5 @@
-import type { 
-  LayoutStyle,
-  Matrix3D,
-  IViewModelFactory,
-  IViewModelCtor } from '@/domain/models/typings';
+import type { Matrix3d } from '@/infrastructure/typings/matrixTools';
+import type { IViewModelCtor, IViewModelFactory, LayoutStyle } from '@/domain/typings/viewModels';
 
 /**
  * 视图模型抽象基类
@@ -30,11 +27,11 @@ export default class ViewModelFactory implements IViewModelFactory {
   }
 
   /**
-   * 获取当前模型的 4x4 矩阵（抽象方法）
+   * 计算当前模型的 4x4 变换矩阵（抽象方法）
    * 子类必须覆盖此方法以提供具体矩阵逻辑
    * @throws 当基类未被子类实现时调用
    */
-  public getMatrix3d(): Matrix3D[] {
-    throw new Error('子类必须实现 getMatrix3d 方法');
+  public calcCardsMatrix3d(): Matrix3d[] {
+    throw new Error('子类必须实现 calcCardsCoords 方法');
   }
-};
+}

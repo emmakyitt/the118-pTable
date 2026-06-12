@@ -60,19 +60,3 @@
   transition: var(--animation-duration);
   fill: var(--footer-menu-icons-fill);
 }
-
-.griIcon {
-  /*background-image: url(/src/assets/icons/navMenu/gri-icon.svg);*/
-}
-.sphIcon {
-  /*background-image: url(/src/assets/icons/navMenu/sph-icon.svg);*/
-}
-.tabIcon {
-  /*background-image: url(/src/assets/icons/navMenu/tab-icon.svg);*/
-}
-.helIcon {
-  /*background-image: url(/src/assets/icons/navMenu/hel-icon.svg);*/
-}
-.ranIcon {
-  /*background-image: url(/src/assets/icons/navMenu/ran-icon.svg);*/
-}

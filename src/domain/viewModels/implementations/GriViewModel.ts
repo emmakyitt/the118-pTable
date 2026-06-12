@@ -1,8 +1,8 @@
-import type { Matrix, Matrix3D } from '@/domain/models/typings';
+import type { Matrix, Matrix3d } from '@/infrastructure/typings/matrixTools';
 import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
 import registerTo from '@/domain/viewModels/register';
-import { LayoutStyle } from '@/domain/models/typings';
 import MatrixTools from '@/infrastructure/utils/MatrixTools';
+import { LayoutStyle } from '@/domain/typings/viewModels';
 
 /**
  * 布局模型（GriViewModel）：生成化学元素周期表（网格形态）的点阵布局。
@@ -61,13 +61,13 @@ export default class GriViewModel extends ViewModelFactory {
    * 变换矩阵缓存。
    * 首次计算后存储，后续调用直接复用，避免重复生成矩阵。
    */
-  private static cachedMatrices: Matrix3D[] | null = null;
+  private static cachedMatrices: Matrix3d[] | null = null;
 
 
   // ==================== 公共接口 ====================
 
    /**
-   * 获取当前模型下所有元素的 3D 变换矩阵（网格布局）
+   * 计算当前模型下所有卡片元素的变换矩阵（旋转 + 平移 + 缩放）
    *
    * 算法：
    * 1. 将 118 个元素按顺序分配到多个面板，每个面板为 ROW_MAX × COL_MAX 网格。
@@ -75,9 +75,10 @@ export default class GriViewModel extends ViewModelFactory {
    * 3. 不同面板沿 Z 轴方向平移，形成层叠效果。
    * 4. 每个元素额外应用一次旋转（rotateY=-25°），使卡片产生透视立体感。
    *
-   * @returns 变换矩阵数组，每个矩阵对应一个可视元素
+   * @returns Matrix3d[] 卡片元素的变换矩阵数组
+   * 每个矩阵描述了对应卡片元素的局部变换，其中平移部分决定其位置
    */
-  public getMatrix3d(): Matrix3D[] {
+  public calcCardsMatrix3d(): Matrix3d[] {
 
     // 命中缓存则直接返回，避免重复计算
     if (GriViewModel.cachedMatrices) {
@@ -85,7 +86,7 @@ export default class GriViewModel extends ViewModelFactory {
     }
 
     // 预分配数组长度，避免在循环中使用 push 导致多次扩容
-    const matrices: Matrix3D[] = new Array<Matrix3D>(GriViewModel.ELEMENT_COUNT);
+    const matrices: Matrix3d[] = new Array<Matrix3d>(GriViewModel.ELEMENT_COUNT);
 
     // 元素间的间隔
     const gutter: number = GriViewModel.GUTTER;
