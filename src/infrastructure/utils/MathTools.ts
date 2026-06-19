@@ -19,6 +19,17 @@ export default class MathTools {
   }
 
   /**
+   * 生成一个 [min, max] 区间内的随机整数（包含两端）。
+   *
+   * @param min - 最小值（整数）
+   * @param max - 最大值（整数）
+   * @returns 随机整数
+   */
+  static randomInt(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  /**
    * 根据圆的周长计算半径。
    * @param circumference - 圆的周长（必须为非负数）
    * @returns 圆的半径

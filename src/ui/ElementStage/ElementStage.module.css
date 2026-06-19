@@ -1,3 +1,4 @@
 .pTable {
   transform-style: preserve-3d;
+  transition: var(--animation-duration);
 }

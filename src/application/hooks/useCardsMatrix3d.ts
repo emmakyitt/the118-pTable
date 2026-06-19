@@ -1,18 +1,20 @@
-import { useMemo } from 'react'
+import { useState, type Dispatch, type SetStateAction } from 'react'
 import { LayoutStyle } from '@/domain/typings/viewModels';
 import { ViewModelService } from '@/domain/services/ViewModelService';
 import type { Matrix3d } from '@/infrastructure/typings/matrixTools';
 
 /**
- * 根据给定的需要展示的视图布局模式，生成对应卡片元素的Matrix3d变换矩阵数组。
- * 如果若视图模型无效则返回 null，否则通过 ViewModelFactory 获取模型变换矩阵数据。
- *
- * @param layoutStyle - 布局样式枚举值
- * @returns Matrix3d[] 卡片元素变换矩阵，若视图模型不存在或获取失败则返回 null
+ * 该 Hook 根据传入的布局样式，通过 ViewModelService 生成初始的 3D 矩阵数据，
+ * 并返回一个状态元组，包含当前矩阵数组和更新该状态的函数。
+ * 
+ * @param layoutStyle - 布局样式，用于决定如何生成卡片矩阵
+ * @returns 一个元组：
+ *          - 第一个元素是 Matrix3d 数组，表示当前卡片矩阵状态
+ *          - 第二个元素是状态更新函数，用于替换整个矩阵数组
+ * 
+ * 注意：这里使用了 useState 的惰性初始化，确保矩阵数据仅在首次渲染时计算一次，
+ * 避免每次渲染都重新调用 ViewModelService.getCardsMatrix3d 造成性能开销。
  */
-
-  /** 获取卡片元素变换矩阵数据 */
-export function useCardsMatrix3d(layoutStyle: LayoutStyle): Matrix3d[] | null {
-  // 使用 useMemo 缓存结果，仅在 layoutStyle 变化时重新计算
-  return useMemo(() => ViewModelService.getCardsMatrix3d(layoutStyle), [layoutStyle]);
+export function useCardsMatrix3d(layoutStyle: LayoutStyle): [Matrix3d[], Dispatch<SetStateAction<Matrix3d[]>>] {
+  return useState(() => ViewModelService.getCardsMatrix3d(layoutStyle));
 }

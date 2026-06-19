@@ -4,8 +4,18 @@ import registerTo from '@/domain/viewModels/register';
 import MatrixTools from '@/infrastructure/utils/MatrixTools';
 import { LayoutStyle } from '@/domain/typings/viewModels';
 
+const ELEMENT_COUNT: number = 118;      // 元素总个数（化学元素周期表全部已知元素）
+const ELEMENT_PER_TURN: number = 20;    // 每圈元素个数
+const ELEMENT_OFFSET_Z: number = 200;   // 螺旋半径（元素 Z轴距离)
+
+const STEP_Y: number = 5;                                                // Y轴的间距
+const HELIX_BOX_SIZE_H: number = ELEMENT_COUNT * STEP_Y;                 // 整个螺旋的总高度
+const SCALE_MATRIX: Matrix = Object.freeze([.5, .5, 1, 2]) as Matrix;    // 元素XY轴缩放量
+const FIRST_CARD_Y: number = -HELIX_BOX_SIZE_H / 2 - STEP_Y;             // 第一个元素 Y 轴基准坐标。以螺旋中心为原点，使整体在 Y 轴方向上居中
+const ANGLE_STEP:   number = 360 / ELEMENT_PER_TURN;                     // 相邻元素绕 Y 轴的角度增量（度)
+
 /**
- * 布局模型（HelViewModel）：生成化学元素周期表（螺旋形态）的点阵布局。
+ * 布局模型（HelViewModel）：生成化学元素周期表（螺旋形态）的点阵布局
  * 
  * 该模型生成螺旋布局，使所有元素沿 Y 轴螺旋上升排列：
  * - 在 Y 轴方向等间距分布
@@ -17,112 +27,57 @@ import { LayoutStyle } from '@/domain/typings/viewModels';
 @registerTo(ViewModelFactory)
 export default class HelViewModel extends ViewModelFactory {
 
-  /** 明确声明的注册标识，与 LAYOUT_STYLE 枚举保持一致 */
+  /**
+   * 明确声明的注册标识，与 LayoutStyle 枚举保持一致
+   */
   static readonly LAYOUT_STYLE = LayoutStyle.HEL;
 
-  /** 元素总个数 */
-  private static readonly ELEMENT_COUNT: number = 118;
-
-  /** 每圈元素个数 */
-  private static readonly ELEMENT_PER_TURN: number = 20;
-
-  /** 螺旋半径（元素到 Y 轴的距离）*/
-  private static readonly ELEMENT_OFFSET_Z: number = 200;
-
-  /** 相邻元素在 Y 轴方向上的间距 */
-  private static readonly EL_STRIDE_LENGTH: number = 5;
-
-  /** 相邻元素绕 Y 轴的角度增量（度） */
-  private static readonly ANGLE_STEP = 360 / HelViewModel.ELEMENT_PER_TURN;
-
-  /** 整个螺旋的总高度 */
-  private static readonly HELIX_SIZE_H: number = HelViewModel.ELEMENT_COUNT * HelViewModel.EL_STRIDE_LENGTH;
-
-  /**
-   * 第一个元素 Y 轴基准坐标。
-   * 以螺旋中心为原点，使整体在 Y 轴方向上居中。
-   */
-  private static readonly FIRST_ELEMENT_POSITION_Y: number = -HelViewModel.HELIX_SIZE_H / 2 - HelViewModel.EL_STRIDE_LENGTH;
-
-  /** 元素XY轴缩放量 */
-  private static readonly XY_AXIS_SCALE: Matrix = Object.freeze([.8, .8, 1, 2]) as Matrix;
-
-
   // ==================== 缓存区域 ====================
-
   /**
    * 变换矩阵缓存。
-   * 首次计算后存储，后续调用直接复用，避免重复生成矩阵。
+   * 首次计算后存储，后续调用直接复用，避免重复生成矩阵
    */
-  private static cachedMatrices: Matrix3d[] | null = null;
+  private static cachedMatrices: Matrix3d[];
 
 
   // ==================== 公共接口 ====================
 
    /**
-   * 计算当前模型下所有卡片元素的变换矩阵（缩放 + 旋转 + 平移 + 缩放）
-   *
-   * 为了提高性能，该方法返回内部缓存数组的引用。
-   * 
-   * 重要：请勿修改返回的数组或其内部的矩阵对象，否则会污染缓存，
-   * 影响后续调用。若需修改，请自行进行深拷贝。
+   * 计算当前模型下所有卡片元素的变换矩阵（旋转 + 平移 + 缩放）
    *
    * @returns Matrix3d[] 卡片元素的变换矩阵数组
    * 每个矩阵描述了对应卡片元素的局部变换，其中平移部分决定其位置
    */
-  public calcCardsMatrix3d(): Matrix3d[] {
+  public calcCardsMatrix3d (): Matrix3d[] {
 
     // 命中缓存则直接返回引用，不再生成额外数组副本
     if (HelViewModel.cachedMatrices) {
       return HelViewModel.cachedMatrices;
     }
 
-    // 预分配数组长度，避免在循环中使用 push 导致多次扩容
-    const matrices: Matrix3d[] = new Array<Matrix3d>(HelViewModel.ELEMENT_COUNT);
+    const rotateArray: Matrix = [0, 0, 0, 1];                                 // 复用临时数组，避免在循环内重复创建新数组对象
+    const yAxisOffset: Matrix = [0, 0, ELEMENT_OFFSET_Z, 0];                  // 缓存静态属性到局部变量，减少属性访问开销
+    const matrixsArgs: Matrix[] = [SCALE_MATRIX, yAxisOffset, rotateArray];   // 矩阵变换参数 [缩放，平移，旋转]
+    const matrices: Matrix3d[] = new Array<Matrix3d>(ELEMENT_COUNT);          // 预分配数组长度，避免在循环中使用 push 导致多次扩容
 
-    // 每步跨度（单位 / 像素）
-    const stepY: number = HelViewModel.EL_STRIDE_LENGTH;
+    for (let i = 0; i<ELEMENT_COUNT; i++) {
 
-    // 螺旋中心到 Y 轴的距离
-    const offsetZ: number = HelViewModel.ELEMENT_OFFSET_Z;
+      yAxisOffset[1] = FIRST_CARD_Y + i * STEP_Y;                             // 当前元素的 Y 轴位置 + (索引 * 垂直步长)
+      rotateArray[1] = i % ELEMENT_PER_TURN * ANGLE_STEP;                     // 当前元素绕 Y 轴的旋转角度（每圈 ELEMENT_PER_TURN 个元素均匀分布）
 
-    // 每圈元素个数
-    const perTurn: number = HelViewModel.ELEMENT_PER_TURN;
-
-    // 相邻元素绕 Y 轴的角度增量
-    const angleStep: number = HelViewModel.ANGLE_STEP;
-
-    // 第一个元素位置
-    const firstElementY: number = HelViewModel.FIRST_ELEMENT_POSITION_Y;
-
-    /** 元素总个数 */
-    const elementCount: number = HelViewModel.ELEMENT_COUNT;
-
-    // 复用临时数组，避免在循环内重复创建新数组对象
-    const rotateArray: Matrix = [0, 0, 0, 1];
-
-    // 缓存静态属性到局部变量，减少属性访问开销
-    const yAxisOffset: Matrix = [0, 0, offsetZ, 0];
-    const xyAxisScale: Matrix = HelViewModel.XY_AXIS_SCALE;
-    const scalesMatrix: Matrix = [.5, .5, 1, 2];
-
-    // 矩阵变换参数 [缩放, 平移，旋转，缩放]
-    const matrixsArgs: Matrix[] = [scalesMatrix, yAxisOffset, rotateArray, xyAxisScale];
-
-    for (let i = 0; i<elementCount; i++) {
-
-      yAxisOffset[1] = firstElementY + i * stepY; // 当前元素的 Y 轴位置 + (索引 * 垂直步长)
-      rotateArray[1] = i % perTurn * angleStep;   // 当前元素绕 Y 轴的旋转角度（每圈 perTurn 个元素均匀分布）
-
-      // 通过工具函数生成变换矩阵（平移，旋转，缩放）--> 执行顺序 先缩放, 后旋转, 再平移 (注意: 变换从右向左应用)
+      // 通过工具函数生成变换矩阵[缩放，平移，旋转] --> 执行顺序 先旋转, 后平移, 再缩放 (注意: 变换从右向左应用)
       matrices[i] = MatrixTools.transform(matrixsArgs);
     }
 
     /**
      * 注意：返回数组的内部引用
-     * 请勿修改数组内矩阵对象的内容，否则会污染缓存。
+     * 请勿修改数组内矩阵对象的内容，否则会污染缓存
      */
     HelViewModel.cachedMatrices = matrices;
     return matrices;
+  }
+
+  public calcCardsWrapMatrix3d (): Matrix3d {
+    return MatrixTools.scale([.8, .8, 1, 2]);
   }
 }

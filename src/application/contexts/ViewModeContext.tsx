@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 import { LayoutStyle } from '@/domain/typings/viewModels';
+import MatrixTools from '@/infrastructure/utils/MatrixTools';
 import type { ViewModeContextType } from '@/application/typings/ViewModeContext';
 
 /**
@@ -7,7 +8,9 @@ import type { ViewModeContextType } from '@/application/typings/ViewModeContext'
  */
 export const ViewModeContext = createContext<ViewModeContextType>({
   layoutStyle: LayoutStyle.RAN,
-  setLayoutStyle: () => {},
+  updateLayout: () => {},
   elementsData: null,
-  cardsMatrix3d: null
+  cardsMatrix3d: null,
+  cardsWrapMatrix3d: null,
+  setCardsWrapMatrix3d: () => MatrixTools.identityMatrix()
 })

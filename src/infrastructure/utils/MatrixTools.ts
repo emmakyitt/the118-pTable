@@ -11,6 +11,16 @@ import type { Matrix, Matrix3d } from '@/infrastructure/typings/matrixTools';
  */
 export default class MatrixTools {
 
+  /** 单位矩阵 */
+  static identityMatrix (): Matrix3d {
+    return [
+      [1, 0, 0, 0],
+      [0, 1, 0, 0],
+      [0, 0, 1, 0],
+      [0, 0, 0, 1],
+    ];
+  }
+
   /**
    * 私有构造器，防止外部实例化。
    * @throws {Error} 如果尝试实例化该类
@@ -56,19 +66,14 @@ export default class MatrixTools {
    * @param transforms 变换配置数组
    * @returns 组合后的 4x4 变换矩阵
    */
-  static transform(transforms: Matrix[]): Matrix3d{
+  static transform(transforms: Matrix[]): Matrix3d {
     try {
       return transforms.map((t) => MatrixTools.MATRIX_HANDLERS[t[3]](t)).reduce(
         (a:Matrix3d, b:Matrix3d) => MatrixTools.multiply(a, b)
       );
     } catch (e: any) {
       console.error('MatrixTools.transform requires an array of the type matrix[][]', e);
-      return [
-        [1, 0, 0, 0],
-        [0, 1, 0, 0],
-        [0, 0, 1, 0],
-        [0, 0, 0, 1],
-      ];
+      return MatrixTools.identityMatrix();
     }
   }
 

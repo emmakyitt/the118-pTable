@@ -8,6 +8,8 @@ import type { IViewModelCtor, IViewModelFactory, LayoutStyle } from '@/domain/ty
  * 动态路由到对应子类, 并返回子类实例。
  */ 
 export default class ViewModelFactory implements IViewModelFactory {
+  
+  [x: string]: any;
 
   /** 静态注册表：存储所有子类构造函数的映射 (key 为模型标识) */
   static registry: Record<string, IViewModelCtor> = {};
