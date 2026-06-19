@@ -1,11 +1,11 @@
 import type { ReactElement } from 'react';
-import type { Matrix3D } from '@/infrastructure/typings/matrixTools';
+import type { Matrix3d } from '@/infrastructure/typings/matrixTools';
 import type { IElementBasic } from '@/assets/data/typings/elements';
 import { useElementDetail } from '@/application/hooks/useElementDetail';
 import styles from './ElementCard.module.css';
 
 interface ElementCardProps {
-  matrix3d: Matrix3D; // CSS matrix3d 变换矩阵的 16 个参数
+  matrix3d: Matrix3d; // CSS matrix3d 变换矩阵的 16 个参数
   elementId: number;  // 需要展示详情的化学元素唯一标识 ID
 }
 

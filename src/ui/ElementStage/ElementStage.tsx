@@ -11,10 +11,10 @@ import styles from './ElementStage.module.css';
 export default function ElementStage (): ReactElement {
 
   // 从自定义钩子中获取元素数据数组和变换矩阵数组对象
-  const { elementsData, cardsMatrix3d } = useViewMode()
-  
+  const { elementsData, cardsMatrix3d, cardsWrapMatrix3d } = useViewMode()
+
   return (
-    <div className={styles.pTable}>
+    <div className={styles.pTable} style={{ transform: `matrix3d(${ cardsWrapMatrix3d })` }}>
       {
         // 遍历所有元素数据，生成对应的 ElementCard 组件
         elementsData && elementsData.map(({ ElementID }: { ElementID: number }) => 
