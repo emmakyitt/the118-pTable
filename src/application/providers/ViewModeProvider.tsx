@@ -1,4 +1,4 @@
-import { useEffect, type ReactElement, type ReactNode } from 'react';
+import { useEffect, type ReactElement, type ReactNode, useState } from 'react';
 import { ElementService } from '@/domain/services/ElementService';
 import { useLayoutStyle } from '@/application/hooks/useLayoutStyle';
 import { ViewModeContext } from '@/application/contexts/ViewModeContext';
@@ -27,9 +27,10 @@ export function ViewModeProvider ({ children }: { children: ReactNode }): ReactE
   // 得到所有元素周期表元素数据 
   const elementsData = ElementService.getAll();
 
-  const [layoutStyle, setLayoutStyle] = useLayoutStyle();                               // 使用自定义 Hook 管理布局样式状态：当前样式和更新函数
-  const [cardsMatrix3d, setCardsMatrix3d] = useCardsMatrix3d(layoutStyle);              // 使用自定义 Hook 管理卡片 3D 矩阵数组状态（每个卡片一个矩阵）
-  const [cardsWrapMatrix3d, setCardsWrapMatrix3d] = useCardsWrapMatrix3d(layoutStyle);  // 使用自定义 Hook 管理卡片容器 3D 矩阵状态（整个容器的变换矩阵）
+  const [ layoutStyle, setLayoutStyle ] = useLayoutStyle();                               // 使用自定义 Hook 管理布局样式状态：当前样式和更新函数
+  const [ sectedElement, setSectedElement ] = useState<number>(0);                        // 管理卡片元素被选中的状态
+  const [ cardsMatrix3d, setCardsMatrix3d ] = useCardsMatrix3d(layoutStyle);              // 使用自定义 Hook 管理卡片 3D 矩阵数组状态（每个卡片一个矩阵）
+  const [ cardsWrapMatrix3d, setCardsWrapMatrix3d ] = useCardsWrapMatrix3d(layoutStyle);  // 使用自定义 Hook 管理卡片容器 3D 矩阵状态（整个容器的变换矩阵）
 
   /**
    * 更新布局样式及其对应的矩阵状态
@@ -44,7 +45,7 @@ export function ViewModeProvider ({ children }: { children: ReactNode }): ReactE
   function updateLayout (currentLayoutStyle: LayoutStyle) {
     setLayoutStyle(currentLayoutStyle);
     setCardsMatrix3d(ViewModelService.getCardsMatrix3d(currentLayoutStyle));
-    setCardsWrapMatrix3d(ViewModelService.getCardsWrapMatrix3d(currentLayoutStyle));
+    setCardsWrapMatrix3d(ViewModelService.getCardsWrapMatrix3d(currentLayoutStyle, 0));
   }
 
   // 组件挂载时执行一次：将布局样式初始化为表格视图（LayoutStyle.TAB）
@@ -53,10 +54,13 @@ export function ViewModeProvider ({ children }: { children: ReactNode }): ReactE
   return (
     <ViewModeContext.Provider value={{ 
       layoutStyle, 
-      updateLayout,
       elementsData,
+      sectedElement,
       cardsMatrix3d,
       cardsWrapMatrix3d,
+      updateLayout,
+      setSectedElement,
+      setCardsMatrix3d,
       setCardsWrapMatrix3d
     }}>
       {children}
