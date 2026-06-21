@@ -20,38 +20,36 @@ export class ElementService {
 
   /**
    * 获取所有元素
-   * @returns {IElementBasic[] | null} 包含全部元素的数组；若数据未加载则返回 null
+   * @returns {IElementBasic[]} 包含全部元素的数组；
    */
-  static getAll(): IElementBasic[] | null {
-    return this.elements ?? null;
+  static getAll(): IElementBasic[] {
+    return this.elements;
   }
 
   /**
    * 按原子序数获取单个元素
    * @param {number} id - 元素的原子序数 (ElementID)
-   * @returns {IElementBasic | null} 匹配的元素对象；若未找到则返回 null
+   * @returns {IElementBasic} 匹配的元素对象；
    */
-  static getById(id: number): IElementBasic | null {
-    return this.elements.find(el => el.ElementID === id) ?? null;
+  static getById(id: number): IElementBasic {
+    return this.elements.find(el => el.ElementID === id)!;
   }
 
   /**
    * 根据原子序数获取元素的分类列表
-   * 注意：该方法假定传入的 id 一定存在，内部使用了非空断言（!）。
-   * 若 id 无效且 getById 返回 null，则会抛出运行时错误。
    * @param {number} id - 元素的原子序数
    * @returns {string[]} 该元素的所有分类（按空格拆分后的数组）
    */
   static getCategoryById(id: number): string[] {
-    return this.getById(id)!.Category.split(' ');
+    return this.getById(id).Category.split(' ');
   }
 
   /**
    * 按分类获取元素列表（精确匹配 Category 字段）
    * @param {string} category - 元素分类名称，如 'nonmetal'
-   * @returns {IElementBasic[] | null} 属于该分类的所有元素数组；若无匹配或数据为空则返回 null
+   * @returns {IElementBasic[]} 属于该分类的所有元素数组；
    */
-  static getByCategory(category: string): IElementBasic[] | null {
-    return this.elements.filter(el => el.Category === category) ?? null;
+  static getByCategory(category: string): IElementBasic[] {
+    return this.elements.filter(el => el.Category === category);
   }
 }

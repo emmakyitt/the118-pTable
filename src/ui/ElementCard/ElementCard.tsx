@@ -2,6 +2,7 @@ import type { ReactElement } from 'react';
 import type { Matrix3d } from '@/infrastructure/typings/matrixTools';
 import type { IElementBasic } from '@/assets/data/typings/elements';
 import { useElementDetail } from '@/application/hooks/useElementDetail';
+import { useInteraction } from '@/application/hooks/useInteraction';
 import styles from './ElementCard.module.css';
 
 interface ElementCardProps {
@@ -22,13 +23,24 @@ interface ElementCardProps {
  */
 export default function ElementCard ({ matrix3d, elementId }: ElementCardProps): ReactElement {
 
-  // 调用自定义 Hook 获取元素详情，可能返回 null（例如 ID 无效或数据未加载）
-  const oElement: IElementBasic | null = useElementDetail(elementId);
+  // 调用自定义 Hook 获取元素详情
+  const oElement: IElementBasic = useElementDetail(elementId);
+  const { isHover, isHoverHandle, sectedElement, cardOnClickEventHandle } = useInteraction();
 
   return (
-    <div className={ styles.elementCard } style={{ transform: `matrix3d(${ matrix3d })` }}> {/** 外层容器：应用 matrix3d 变换实现三维定位，并绑定样式 */}
-      <span className={ styles.elementId }>{ oElement!.ElementID }</span> {/* 展示元素编号，使用非空断言，假定数据加载后必定存在 */}
-      <span className={ styles.symbol}>{ oElement!.Symbol }</span> {/* 展示元素化学符号 */}
+    <div 
+      className={ 
+        `${ styles.elementCard } 
+         ${ sectedElement === elementId && styles.cardSelected }
+         ${ isHover === elementId && styles.cardSelected }
+        `
+      } 
+      onClick={ e =>  cardOnClickEventHandle(e, elementId) }
+      onMouseEnter={ e => isHoverHandle(e, elementId) }
+      onMouseLeave={ e => isHoverHandle(e, 0) }
+      style={{ transform: `matrix3d(${ matrix3d })` }}> {/** 外层容器：应用 matrix3d 变换实现三维定位，并绑定样式 */}
+      <span className={ styles.elementId }>{ oElement.ElementID }</span> {/* 展示元素编号 */}
+      <span className={ styles.symbol}>{ oElement.Symbol }</span> {/* 展示元素化学符号 */}
     </div>
   );
 }

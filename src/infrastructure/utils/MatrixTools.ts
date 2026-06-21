@@ -77,6 +77,32 @@ export default class MatrixTools {
     }
   }
 
+  // ---------- 批量矩阵相乘（新增方法） ----------
+  /**
+   * 将多个 4x4 矩阵依次相乘，返回最终的组合矩阵
+   * 乘法顺序：从左到右依次相乘，即 matrices[0] * matrices[1] * ... * matrices[n-1]
+   * 由于采用列向量右乘（v' = M * v），变换的实际应用顺序为从右向左：
+   * 例如传入 [T1, T2, R]，则组合矩阵为 T1 * T2 * R，应用时先旋转 R，再平移 T2，最后平移 T1
+   *
+   * 调用方式示例：
+   * ```ts
+   * MatrixTools.multiplyMatrices([
+   *   MatrixTools.offsetX(10),
+   *   MatrixTools.offsetY(20),
+   *   MatrixTools.rotateX(30)
+   * ]);
+   * ```
+   *
+   * @param matrices 要相乘的矩阵数组（顺序为从左到右乘）
+   * @returns 组合后的 4x4 矩阵；若数组为空，返回单位矩阵
+   */
+  static multiplyMatrices(matrices: Matrix3d[]): Matrix3d {
+    if (!matrices || matrices.length === 0) {
+      return MatrixTools.identityMatrix();
+    }
+    return matrices.reduce((acc, cur) => MatrixTools.multiply(acc, cur));
+  }
+
   // ---------- 矩阵乘法（展开循环，消除索引计算与循环开销） ----------
   /**
    * 4x4 矩阵乘法 C = A * B

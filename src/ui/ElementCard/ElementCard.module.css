@@ -1,6 +1,7 @@
 .elementCard {
   width: 10rem;
   height: 10rem; 
+  cursor: pointer;
   display: grid;
   place-items: center; /* 水平 + 垂直居中 */
   border: .1rem solid var(--card-border);
@@ -24,4 +25,10 @@
   font-size: 3.2rem;
   color: var(--card-symbol-text);
   transition: var(--animation-duration);
+}
+
+.cardSelected {
+  border: .1rem solid var(--card-selected-border);
+  box-shadow: 0 0 .5rem var(--card-selected-shadow);
+  background-color: var(--card-selected-bg);
 }
