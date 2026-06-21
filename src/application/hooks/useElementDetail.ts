@@ -8,6 +8,6 @@ import type { IElementBasic } from '@/assets/data/typings/elements';
  * @param id - 元素的原子序数
  * @returns 对应元素的基础信息对象；
  */
-export function useElementDetail(id: number): IElementBasic | null {
+export function useElementDetail(id: number): IElementBasic {
   return useMemo(() => ElementService.getById(id), [id]);
 }

@@ -23,8 +23,8 @@ interface ElementCardProps {
  */
 export default function ElementCard ({ matrix3d, elementId }: ElementCardProps): ReactElement {
 
-  // 调用自定义 Hook 获取元素详情，可能返回 null（例如 ID 无效或数据未加载）
-  const oElement: IElementBasic | null = useElementDetail(elementId);
+  // 调用自定义 Hook 获取元素详情
+  const oElement: IElementBasic = useElementDetail(elementId);
   const { isHover, isHoverHandle, sectedElement, cardOnClickEventHandle } = useInteraction();
 
   return (
@@ -39,8 +39,8 @@ export default function ElementCard ({ matrix3d, elementId }: ElementCardProps):
       onMouseEnter={ e => isHoverHandle(e, elementId) }
       onMouseLeave={ e => isHoverHandle(e, 0) }
       style={{ transform: `matrix3d(${ matrix3d })` }}> {/** 外层容器：应用 matrix3d 变换实现三维定位，并绑定样式 */}
-      <span className={ styles.elementId }>{ oElement!.ElementID }</span> {/* 展示元素编号，使用非空断言，假定数据加载后必定存在 */}
-      <span className={ styles.symbol}>{ oElement!.Symbol }</span> {/* 展示元素化学符号 */}
+      <span className={ styles.elementId }>{ oElement.ElementID }</span> {/* 展示元素编号 */}
+      <span className={ styles.symbol}>{ oElement.Symbol }</span> {/* 展示元素化学符号 */}
     </div>
   );
 }
