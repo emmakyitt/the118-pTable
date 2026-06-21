@@ -131,12 +131,10 @@ export default class HelViewModel extends ViewModelFactory {
      * 2. 沿 Y 轴反向平移，抵消卡片 Y 方向偏移 → 使其在 Y 方向归零
      * 3. 沿 Z 轴正向平移 50 像素，使卡片浮在视野前方
      */
-    return MatrixTools.multiply(
-      MatrixTools.multiply(
-        MatrixTools.rotateY(-cardTransform[2][1]),
-        MatrixTools.offsetY(-cardTransform[1][1])
-      ),
+    return MatrixTools.multiplyMatrices([
+      MatrixTools.rotateY(-cardTransform[2][1]),
+      MatrixTools.offsetY(-cardTransform[1][1]),
       MatrixTools.offsetZ(50)
-    )
+    ])
   }
 }

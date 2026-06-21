@@ -153,12 +153,12 @@ export default class GriViewModel extends ViewModelFactory {
      * 2. 平移到原点（将卡片中心移动到视觉原点）
      * 3. 沿 Z 轴正向平移 250 像素，使卡片浮在视野前方
      */
-    return MatrixTools.multiply(
-      MatrixTools.multiply(
-        MatrixTools.rotateY(-cardTransform[2][1]), // 反向旋转 Y 轴（cardTransform[2] 为旋转矩阵，[1] 为角度）
-        MatrixTools.offset([-cardTransform[1][0], -cardTransform[1][1], -cardTransform[1][2], 0])
-      ),
+    return MatrixTools.multiplyMatrices([
+      MatrixTools.rotateY(-cardTransform[2][1]), // 反向旋转 Y 轴（cardTransform[2] 为旋转矩阵，[1] 为角度）
+      MatrixTools.offsetX(-cardTransform[1][0]), 
+      MatrixTools.offsetY(-cardTransform[1][1]), 
+      MatrixTools.offsetZ(-cardTransform[1][2]), 
       MatrixTools.offsetZ(250)
-    )
+    ])
   }
 }
