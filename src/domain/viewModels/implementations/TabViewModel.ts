@@ -4,6 +4,7 @@ import registerTo from '@/domain/viewModels/register';
 import MatrixTools from '@/infrastructure/utils/MatrixTools';
 import charTemplate from '@/assets/data/charTemplate';
 import { LayoutStyle } from '@/domain/typings/viewModels';
+import { cardsWrapDfltMatix3d } from '@/domain/viewModels';
 
 
 // ==================== 表格布局常量 ====================
@@ -172,8 +173,9 @@ export default class TabViewModel extends ViewModelFactory {
    * @returns {Matrix3d} 容器整体的 3D 变换矩阵
    */
   public calcCardsWrapMatrix3d (elementId: number): Matrix3d {
-    // 取消选中时，返回单位矩阵，容器恢复初始状态
-    if(!elementId) return MatrixTools.identityMatrix();
+
+    // 取消选中时，容器恢复初始状态
+    if(!elementId) return cardsWrapDfltMatix3d[TabViewModel.LAYOUT_STYLE];
 
     // 从缓存中获取目标卡片的完整变换矩阵（直接引用，不修改）
     const cardTransform: Matrix3d = TabViewModel.cachedMatrices[elementId-1];

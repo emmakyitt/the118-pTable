@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react';
-import type { Matrix } from '@/infrastructure/typings/matrixTools';
 import { useViewMode } from '@/application/hooks/useViewMode';
 import { useInteraction } from '@/application/hooks/useInteraction';
-import { LayoutStyle } from '@/domain/typings/viewModels';
+import { cardsWrapDfltMatix3d } from '@/domain/viewModels';
 import { useDrag3d } from '@/application/hooks/useDrag3d';
 import MatrixTools from '@/infrastructure/utils/MatrixTools';
 
@@ -50,21 +49,6 @@ export default function Drag3DAnim({
   const { sectedElement } = useInteraction(); 
 
   /**
-   * 根据布局样式类型计算缩放矩阵参数
-   * 返回 [scaleX, scaleY, scaleZ, 缩放标记] 元组
-   */
-  const scaleArgs: Matrix = useMemo(() => {
-    switch (layoutStyle) {
-      case LayoutStyle.SPH:
-        return [0.6, 0.6, 1, 2];
-      case LayoutStyle.HEL:
-        return [0.8, 0.8, 1, 2];
-      default:
-        return [1, 1, 1, 2];
-    }
-  }, [layoutStyle]);
-
-  /**
    * 生成 Matrix3d 类型值的函数
    * 按顺序叠加旋转变换（绕 X 轴、绕 Y 轴）与缩放变换，
    * 通过矩阵相乘得到最终的 3D 变换矩阵
@@ -75,9 +59,9 @@ export default function Drag3DAnim({
       MatrixTools.multiplyMatrices([
         MatrixTools.rotateX(rotateX),
         MatrixTools.rotateY(rotateY),
-        MatrixTools.scale(scaleArgs),
+        cardsWrapDfltMatix3d[layoutStyle] // 应用目标 DOM 元素原始 Matrix3d 值
       ]),
-    [scaleArgs]
+    [layoutStyle]
   );
 
   // 绑定拖拽旋转逻辑：当没有元素被选中时启用拖拽
