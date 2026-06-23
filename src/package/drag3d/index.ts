@@ -200,6 +200,10 @@ export default function Drag3d({
    * 记录坐标，并在 document 上注册移动和抬起的事件监听
    */
   function onMouseDown(e: MouseEvent): void {
+
+    // 忽略右键/中键 (仅为鼠标左键绑定拖拽事件)
+    if (e.button !== 0) return;
+
     e.preventDefault();
     clearDecayAnim();
     updateCoords(e);
