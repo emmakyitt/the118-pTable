@@ -5,28 +5,34 @@
  * 支持可配置的拖拽阈值、旋转灵敏度、惯性衰减参数
  * 松手后自动启动基于物理模型的惯性衰减动画
  * 提供 destroy 方法彻底清理所有监听和动画
+ * 
+ * 
+ * =================== 性能优化说明 ===================
+ * 
+ * 优化点：
+ * 1. will-change 动态管理
+ *    - 在拖拽和惯性动画开始时设置 will-change: transform，提前将元素提升为合成层（GPU 加速）
+ *    - 动画停止后立即恢复原始 will-change 值，避免长期占用 GPU 内存
  *
- * =================== 主要 Bug 修复说明 ===================
+ * 2. 拖拽帧节流（requestAnimationFrame 合并更新）
+ *    - 使用 rAF 将高频 mousemove 触发的 transform 更新合并到每帧一次
+ *    - 通过 needsUpdate 标记防止同一帧内重复请求，消除无效样式计算与布局抖动
+ *    - 保证渲染与屏幕刷新率严格同步，维持 60fps 流畅体验
  *
- * Bug 现象:
- *   松手后快速移动鼠标导致惯性动画卡顿、掉帧
+ * 3. 阈值平方比较
+ *    - 拖拽触发阈值与惯性停止阈值均预先计算平方值 (threshold²)
+ *    - 比较时直接使用位移/速度的平方和，省去 Math.hypot 的开方运算，减少 CPU 微开销
  *
- * Bug 成因:
- *   1. 原实现用 setInterval 驱动动画，回调受主线程任务影响
- *      鼠标移动时浏览器内部事件（命中测试、:hover 计算等）占用主线程
- *      导致定时器延迟，帧间隔不均匀
- *   2. 未禁用 pointer-events，移动鼠标触发额外样式计算与重绘
- *   3. 固定帧衰减因子未考虑帧间隔差异，不同刷新率下动画速度不一致
+ * 4. 样式直接赋值替代字符串转换
+ *    - 对 transition / pointer-events / will-change 直接操作 style 对象属性
+ *    - 避免 formatCssName / setProperty 的字符串拼接与查找，代码更简洁
  *
- * 修复措施:
- *   1. 动画循环改用 requestAnimationFrame，与屏幕刷新同步
- *   2. 动画期间将元素 pointer-events 设为 'none'，阻止鼠标事件开销
- *      动画停止或被打断时恢复原始值
- *   3. 基于时间差 (dt) 指数衰减: Math.pow(friction, dt)
- *      实现完全帧率无关的惯性表现
- *   4. onMouseUp 中立即调用 removeEvents()，杜绝松手后 mousemove 回调
- *   5. 增加 mouseleave / window.blur 监听，强制结束拖拽防止状态残留
- *   6. 速度单位从“像素/帧”改为“像素/秒”，调整停止阈值实现精准物理
+ * 其他优化：
+ *    - 动画循环使用 requestAnimationFrame 替代 setInterval，与屏幕刷新率对齐
+ *    - 基于时间差 (dt) 实现指数衰减：Math.pow(friction, dt)，确保不同刷新率下惯性表现一致
+ *    - 动画期间设置 pointer-events: none 阻止鼠标事件额外开销
+ *    - 松手时立即移除事件监听，杜绝残留回调干扰
+ *    - 增加 mouseleave / window.blur 监听，强制结束拖拽防止状态残留
  */
 
 import type { Matrix3d } from '@/infrastructure/typings/matrixTools'
@@ -108,6 +114,10 @@ export default function Drag3d({
     velocityThreshold,
   } = { ...DEFAULT_CONFIG, ...config }
 
+  // 预计算阈值的平方，用于快速比较
+  const dragThresholdSq = dragThreshold * dragThreshold
+  const velocityThresholdSq = velocityThreshold * velocityThreshold
+
   // -------------------- 内部状态 --------------------
 
   interface DragState {
@@ -116,11 +126,13 @@ export default function Drag3d({
     rotateX: number
     rotateY: number
     velocityX: number
-    velocityY: number
-    animFrameId: number
+    velocityY: number 
+    dragRafId: number            // 拖拽节流 rAF ID
+    animFrameId: number          // 惯性动画 rAF ID
     lastClientX: number
     lastClientY: number
     lastMoveTime: number
+    needsUpdate: boolean         // 拖拽帧更新标记
     isDragging: boolean
     originalStyles: Record<string, string>
   }
@@ -132,10 +144,12 @@ export default function Drag3d({
     rotateY: 0,
     velocityX: 0,
     velocityY: 0,
+    dragRafId: 0,
     animFrameId: 0,
     lastClientX: 0,
     lastClientY: 0,
     lastMoveTime: 0,
+    needsUpdate: false,
     isDragging: false,
     originalStyles: {},
   }
@@ -167,68 +181,62 @@ export default function Drag3d({
 
   /**
    * 基于位移增量直接更新旋转角度（拖拽时使用）
-   * 副作用：累加 state.rotateX / state.rotateY
+   * - 副作用：累加 state.rotateX / state.rotateY
+   * - 注意：X 轴旋转对应鼠标垂直移动 (deltaY)，Y 轴旋转对应水平移动 (deltaX)
    */
-  function applyRotationFromDelta(): number[] {
+  function applyRotationFromDelta(): void {
     state.rotateX += state.deltaY * rotationSensitivity
     state.rotateY += state.deltaX * rotationSensitivity
-    return [state.rotateX, state.rotateY]
   }
 
   /**
    * 基于速度和时间差更新旋转角度（惯性动画专用）
-   * 副作用：累加 state.rotateX / state.rotateY
+   * - 副作用：累加 state.rotateX / state.rotateY
+   * - 保证帧率无关：速度乘以 dt 得到本帧位移量
    */
-  function applyRotationFromVelocity(dt: number): number[] {
+  function applyRotationFromVelocity(dt: number): void {
     state.rotateX += state.velocityY * rotationSensitivity * dt
     state.rotateY += state.velocityX * rotationSensitivity * dt
-    return [state.rotateX, state.rotateY]
-  }
-
-  /** 将角度通过外部回调转化为 matrix3d 并应用到元素上 */
-  function updateTransform(angles: number[]): void {
-    if (!oElement) return
-    oElement.style.transform = `matrix3d(${setMatrix3d(angles[0], angles[1])})`
-  }
-
-  // -------------------- 样式处理器 --------------------
-
-  /** 驼峰式 CSS 属性名转连字符格式 */
-  function formatCssName(key: string): string {
-    return key.replace(/([A-Z])/g, '-$1').toLowerCase()
   }
 
   /**
-   * 禁用 transition 和 pointer-events
-   * 拖拽及惯性动画期间使用，消除 CSS 过渡干扰与鼠标事件开销
+   * 将当前角度通过外部回调转化为 matrix3d 并应用到元素上
+   * 注意：此处直接操作 style.transform，无过渡影响（transition 已被设为 none）
    */
-  function disableOriginalStyles(): void {
-    Object.keys(state.originalStyles).forEach((key) => {
-      oElement.style.setProperty(formatCssName(key), 'none')
-    })
+  function updateTransform(): void {
+    if (!oElement) return
+    oElement.style.transform = `matrix3d(${setMatrix3d(state.rotateX, state.rotateY)})`
+  }
+  // -------------------- 样式处理器 --------------------
+
+  /**
+   * 应用拖拽/动画期间的专用样式
+   * - 禁用 transition：避免矩阵更新被过渡动画干扰
+   * - 禁用 pointer-events：阻止动画期间鼠标移动触发额外计算
+   * - 开启 will-change: transform：提前提升合成层，实现 GPU 加速
+   */  
+  function applyDragStyles(): void {
+    oElement.style.transition = 'none'
+    oElement.style.pointerEvents = 'none'
+    oElement.style.willChange = 'transform'
   }
 
-  /** 恢复元素的原始 transition 和 pointer-events */
-  function enableOriginalStyles(): void {
-    Object.keys(state.originalStyles).forEach((key) => {
-      oElement.style.setProperty(formatCssName(key), state.originalStyles[key])
-    })
+  /** 恢复元素样式的原始值 */
+  function restoreOriginalStyles(): void {
+    oElement.style.transition = state.originalStyles.transition
+    oElement.style.pointerEvents = state.originalStyles.pointerEvents
+    oElement.style.willChange = state.originalStyles.willChange
   }
 
-  /** 读取元素 CSS 属性当前值（优先内联样式） */
-  function getOriginalStyle(str: string): string {
-    const cssName = formatCssName(str)
-    return (
-      oElement.style.getPropertyValue(cssName) ||
-      window.getComputedStyle(oElement).getPropertyValue(cssName)
-    )
-  }
-
-  /** 保存 transition 和 pointer-events 当前值到状态 */
+  /**
+   * 保存目录元素样式值到状态中, 用于后期恢复
+   * 注意: 优先读取内联样式
+   */
   function saveOriginalStylesToState(): void {
     state.originalStyles = {
-      transition: getOriginalStyle('transition'),
-      pointerEvents: getOriginalStyle('pointerEvents'),
+      pointerEvents: oElement.style.pointerEvents || window.getComputedStyle(oElement).pointerEvents,
+      transition: oElement.style.transition || window.getComputedStyle(oElement).transition,
+      willChange: oElement.style.willChange || window.getComputedStyle(oElement).willChange,
     }
   }
 
@@ -242,17 +250,19 @@ export default function Drag3d({
     }
   }
 
+  
   /**
-   * 启动惯性衰减动画
-   * 使用 requestAnimationFrame 基于时间差实现帧率无关衰减
-   * 动画期间强制禁用 pointer-events 防止干扰
+   * 启动惯性衰减动画（基于指数衰减模型）
+   * - 使用 requestAnimationFrame 驱动，与屏幕刷新同步
+   * - 衰减公式：v = v₀ · friction^dt，实现帧率无关
+   * - 合速度低于阈值时自动停止并恢复样式
    */
   function startDecayAnim(): void {
     if (!oElement) return
     clearDecayAnim()
 
     // 防御性禁用，确保动画环境干净
-    disableOriginalStyles()
+    applyDragStyles()
 
     let lastTime = performance.now()
 
@@ -261,21 +271,52 @@ export default function Drag3d({
       const dt = Math.min(now - lastTime, 100) / 1000
       lastTime = now
 
-      const factor = Math.pow(friction, dt)
+      const factor = friction ** dt
       state.velocityX *= factor
       state.velocityY *= factor
 
-      if (Math.hypot(state.velocityX, state.velocityY) < velocityThreshold) {
+      if (state.velocityX ** 2 + 
+          state.velocityY ** 2 < velocityThresholdSq)
+      {
         clearDecayAnim()
-        enableOriginalStyles()
+        restoreOriginalStyles()
         return
       }
 
-      updateTransform(applyRotationFromVelocity(dt))
+      applyRotationFromVelocity(dt)
+      updateTransform()
       state.animFrameId = requestAnimationFrame(tick)
     }
 
     state.animFrameId = requestAnimationFrame(tick)
+  }
+
+  // -------------------- 拖拽帧节流 --------------------
+
+  /**
+   * 请求下一帧更新 transform（拖拽期间使用）
+   * - 利用 needsUpdate 标记确保同一帧内只发起一次 rAF
+   * - 回调中重置标记，允许下一帧再次请求
+   */
+  function scheduleDragUpdate(): void {
+    if (!state.needsUpdate) {
+      state.needsUpdate = true
+      state.dragRafId = requestAnimationFrame(() => {
+        state.needsUpdate = false
+        state.dragRafId = 0
+        if (!oElement) return
+        updateTransform()
+      })
+    }
+  }
+
+  /** 清除拖拽节流的 rAF */
+  function cancelDragUpdate(): void {
+    if (state.dragRafId) {
+      cancelAnimationFrame(state.dragRafId)
+      state.needsUpdate = false
+      state.dragRafId = 0
+    }
   }
 
   // -------------------- 事件处理器 --------------------
@@ -298,15 +339,21 @@ export default function Drag3d({
 
   /**
    * 处理鼠标按下（仅左键）
-   * 停止进行中的动画，记录时间与坐标，绑定后续事件
+   * - 停止任何进行中的惯性动画
+   * - 清除待处理的拖拽帧
+   * - 记录起始坐标与时间，绑定全局事件
    */
   function onMouseDown(e: MouseEvent): void {
     if (e.button !== 0) return
 
+    // 停止惯性动画并恢复样式
     if (state.animFrameId) {
       clearDecayAnim()
-      enableOriginalStyles()
+      restoreOriginalStyles()
     }
+
+    // 清除可能残留的拖拽帧请求
+    cancelDragUpdate()
 
     e.preventDefault()
     updateLastMoveTime()
@@ -316,44 +363,51 @@ export default function Drag3d({
 
   /**
    * 处理鼠标移动
-   * 计算位移，超过阈值进入拖拽；拖拽中实时计算速度并更新旋转
+   * - 未拖拽时：若移动距离超过阈值，进入拖拽状态
+   * - 拖拽中：更新速度、累加角度，并调度帧节流更新
    */
   function onMouseMove(e: MouseEvent): void {
     state.deltaX = e.clientX - state.lastClientX
     state.deltaY = e.clientY - state.lastClientY
 
-    if (
-      !state.isDragging &&
-      Math.hypot(state.deltaX, state.deltaY) < dragThreshold
-    ) {
+    // 使用平方和与阈值平方比较，避免开方运算
+    if (!state.isDragging &&
+        state.deltaX ** 2 + 
+        state.deltaY ** 2 < dragThresholdSq)
+    {
       return
     }
 
-    // 首次超过阈值：进入拖拽状态
+    // 首次超过阈值: 进入拖拽状态
     if (!state.isDragging) {
-      disableOriginalStyles()
+      applyDragStyles()     // 应用拖拽样式（禁用 transition 等）
       updateLastMoveTime()
       updateCoords(e)
       state.velocityX = 0
       state.velocityY = 0
       state.isDragging = true
+      scheduleDragUpdate()  // 立即请求一帧渲染，确保样式变更生效
       return
     }
 
-    // 拖拽中：更新坐标、速度并应用旋转
+    // 拖拽中：更新坐标、计算速度、累加角度并调度帧更新
     updateCoords(e)
     updateVelocityXY()
     updateLastMoveTime()
-    updateTransform(applyRotationFromDelta())
+    applyRotationFromDelta()          // 累加旋转角度
+    scheduleDragUpdate()              // 请求下一帧渲染（已内置节流）
   }
 
   /**
    * 处理鼠标抬起（或 mouseleave / blur）
-   * 立即移除事件监听，若处于拖拽状态则启动惯性动画
+   * - 立即移除全局事件，杜绝松手后的意外移动干扰
+   * - 取消待处理的拖拽帧
+   * - 若处于拖拽状态，启动惯性动画
    */
   function onMouseUp(): void {
-    // 先移除监听，杜绝松手后移动干扰
-    removeEvents()
+
+    removeEvents()        // 先移除监听，杜绝松手后移动干扰
+    cancelDragUpdate()    // 清除待处理的拖拽帧
 
     if (state.isDragging) {
       startDecayAnim()
@@ -363,7 +417,7 @@ export default function Drag3d({
 
   // -------------------- 初始化与销毁 --------------------
 
-  /** 初始化：验证元素、保存样式、绑定 mousedown */
+  /** 初始化：验证元素有效性，保存原始样式，绑定 mousedown 事件 */
   function init(): void {
     if (!oElement || !(oElement instanceof HTMLElement)) {
       console.warn('[Drag3d] Invalid oElement')
@@ -376,12 +430,17 @@ export default function Drag3d({
     }
   }
 
-  /** 销毁实例：结束拖拽、取消动画、恢复样式、移除监听 */
+  /**
+   * 销毁实例，彻底清理所有资源
+   * - 强制结束当前拖拽
+   * - 取消所有动画帧并恢复样式
+   * - 移除事件监听
+   */
   function destroy(): void {
     if (state.isDragging) onMouseUp()
     if (state.animFrameId) {
       clearDecayAnim()
-      enableOriginalStyles()
+      restoreOriginalStyles()
     }
     document.removeEventListener('mousedown', onMouseDown)
   }
