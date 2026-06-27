@@ -3,6 +3,7 @@ import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
 import registerTo from '@/domain/viewModels/register';
 import MatrixTools from '@/infrastructure/utils/MatrixTools';
 import { LayoutStyle } from '@/domain/typings/viewModels';
+import { cardsWrapDfltMatix3d } from '@/domain/viewModels';
 
 
 // ==================== 网格布局常量 ====================
@@ -141,8 +142,8 @@ export default class GriViewModel extends ViewModelFactory {
    */
   public calcCardsWrapMatrix3d (elementId: number): Matrix3d {
 
-    // 取消选中时，返回单位矩阵，容器恢复初始状态
-    if(!elementId) return MatrixTools.identityMatrix();
+    // 取消选中时，容器恢复初始状态
+    if(!elementId) return cardsWrapDfltMatix3d[GriViewModel.LAYOUT_STYLE];
 
     // 获取目标卡片的变换参数 [缩放, 平移, 旋转]（索引从 0 开始，而 elementId 从 1 开始, 因此执行 elementId-1）
     const cardTransform: Matrix[] = GriViewModel.cardsTransform[elementId-1];

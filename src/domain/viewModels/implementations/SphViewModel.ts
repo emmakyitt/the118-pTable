@@ -4,6 +4,7 @@ import registerTo from '@/domain/viewModels/register';
 import MatrixTools from '@/infrastructure/utils/MatrixTools';
 import MathTools from '@/infrastructure/utils/MathTools';
 import { LayoutStyle } from '@/domain/typings/viewModels';
+import { cardsWrapDfltMatix3d } from '@/domain/viewModels';
 
 
 // ==================== 球形布局常量 ====================
@@ -169,8 +170,8 @@ export default class SphViewModel extends ViewModelFactory {
    */
   public calcCardsWrapMatrix3d (elementId: number): Matrix3d {
 
-    // 取消选中时，整体缩放 0.6 倍，表示球体退离焦点
-    if(!elementId) return MatrixTools.scale([.6, .6, 1, 2]);
+    // 取消选中时，容器恢复初始状态
+    if(!elementId) return cardsWrapDfltMatix3d[SphViewModel.LAYOUT_STYLE];
 
     // 获取目标卡片的变换参数 [缩放, 平移, 旋转]
     const cardTransform: Matrix[] = SphViewModel.cardsTransform[elementId-1];

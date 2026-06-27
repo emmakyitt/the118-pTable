@@ -5,6 +5,7 @@ import MatrixTools from '@/infrastructure/utils/MatrixTools';
 import MathTools from '@/infrastructure/utils/MathTools';
 import { LayoutStyle } from '@/domain/typings/viewModels';
 import { ViewModelService } from '@/domain/services/ViewModelService';
+import { cardsWrapDfltMatix3d } from '@/domain/viewModels';
 
 
 // ==================== 随机布局常量 ====================
@@ -103,8 +104,8 @@ export default class RanViewModel extends ViewModelFactory {
    */
   public calcCardsWrapMatrix3d (elementId: number): Matrix3d {
 
-    // 取消选中时，容器恢复初始状态（无变换）
-    if(!elementId) return MatrixTools.identityMatrix();
+    // 取消选中时，容器恢复初始状态
+    if(!elementId) return cardsWrapDfltMatix3d[RanViewModel.LAYOUT_STYLE];
 
     // 从ViewModel服务缓存中获取目标卡片的完整变换矩阵
     const cardTransform: Matrix3d = ViewModelService.lastCardsMatrix3d[elementId-1];

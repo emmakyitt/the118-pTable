@@ -3,6 +3,7 @@ import ViewModelFactory from '@/domain/viewModels/ViewModelFactory';
 import registerTo from '@/domain/viewModels/register';
 import MatrixTools from '@/infrastructure/utils/MatrixTools';
 import { LayoutStyle } from '@/domain/typings/viewModels';
+import { cardsWrapDfltMatix3d } from '@/domain/viewModels';
 
 
 // ==================== 螺旋布局常量 ====================
@@ -119,8 +120,8 @@ export default class HelViewModel extends ViewModelFactory {
    */
   public calcCardsWrapMatrix3d (elementId: number): Matrix3d {
 
-    // 取消选中时，返回整体缩放矩阵（0.8 倍），使所有卡片略微缩小
-    if(!elementId) return MatrixTools.scale([.8, .8, 1, 2]);
+    // 取消选中时，容器恢复初始状态
+    if(!elementId) return cardsWrapDfltMatix3d[HelViewModel.LAYOUT_STYLE];
 
     // 获取目标卡片的变换参数 [缩放, 平移, 旋转]
     const cardTransform: Matrix[] = HelViewModel.cardsTransform[elementId-1];
